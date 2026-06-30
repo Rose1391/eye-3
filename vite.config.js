@@ -7,20 +7,20 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg'],
+      includeAssets: ['favicon-64.png', 'favicon-256.png'],
       manifest: {
         name: 'Tour in Eye 3',
         short_name: 'Tour in Eye 3',
         description: 'Umrah & Malaysia family journey planner',
-        theme_color: '#0F2A1F',
-        background_color: '#0F2A1F',
+        theme_color: '#021737',
+        background_color: '#021737',
         display: 'standalone',
         orientation: 'portrait',
         start_url: '/',
         icons: [
           { src: 'icon-192.png', sizes: '192x192', type: 'image/png' },
           { src: 'icon-512.png', sizes: '512x512', type: 'image/png' },
-          { src: 'icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+          { src: 'icon-512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
         ]
       },
       workbox: {
