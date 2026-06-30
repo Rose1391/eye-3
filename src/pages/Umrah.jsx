@@ -61,10 +61,9 @@ export default function Umrah() {
 function DaysTab() {
   return (
     <div style={{ padding: "8px 20px 12px" }}>
-      <div className="spine" style={{ paddingTop: 12 }}>
+      <div style={{ paddingTop: 8 }}>
         {umrahDays.map((d, i) => (
-          <div key={i} style={{ position: "relative", paddingBottom: i < umrahDays.length - 1 ? 22 : 4 }}>
-            <span className={`spine-node ${d.transit ? "transit" : ""}`} style={{ top: 4 }} />
+          <div key={i} style={{ marginBottom: i < umrahDays.length - 1 ? 22 : 4 }}>
             <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 2 }}>
               <span style={{ fontSize: 11, fontWeight: 700, color: "var(--u-gold)", letterSpacing: "0.04em" }}>
                 DAY {d.day} · {d.date}

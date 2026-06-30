@@ -101,20 +101,17 @@ export default function Home() {
         <span className="line" />
       </div>
       <div style={{ padding: "0 20px 12px" }}>
-        <div className="spine" style={{ paddingTop: 4 }}>
-          {[
-            { d: "22–29 Aug", t: "Umrah pilgrimage", s: "Meccah & Madina · all 5 travelers", transit: false },
-            { d: "29–31 Aug", t: "Short break in Dhaka", s: "Rest and repack between journeys", transit: true },
-            { d: "31 Aug – 8 Sep", t: "Malaysia holiday", s: "Rose, Farzana & Affaan", transit: false },
-          ].map((e, i) => (
-            <div key={i} style={{ position: "relative", paddingBottom: i < 2 ? 22 : 4 }}>
-              <span className={`spine-node ${e.transit ? "transit" : ""}`} style={{ top: 2 }} />
-              <div style={{ fontSize: 11, fontWeight: 600, color: "var(--u-gold)", letterSpacing: "0.04em" }}>{e.d}</div>
-              <div style={{ fontWeight: 600, fontSize: 15, marginTop: 1 }}>{e.t}</div>
-              <div style={{ fontSize: 12.5, color: "var(--mist)" }}>{e.s}</div>
-            </div>
-          ))}
-        </div>
+        {[
+          { d: "22–29 Aug", t: "Umrah pilgrimage", s: "Meccah & Madina · all 5 travelers" },
+          { d: "29–31 Aug", t: "Short break in Dhaka", s: "Rest and repack between journeys" },
+          { d: "31 Aug – 8 Sep", t: "Malaysia holiday", s: "Rose, Farzana & Affaan" },
+        ].map((e, i) => (
+          <div key={i} className="card pad" style={{ marginBottom: 8, borderLeft: "3px solid var(--u-gold)" }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--u-gold)", letterSpacing: "0.04em" }}>{e.d}</div>
+            <div style={{ fontWeight: 600, fontSize: 15, marginTop: 2 }}>{e.t}</div>
+            <div style={{ fontSize: 12.5, color: "var(--mist)", marginTop: 1 }}>{e.s}</div>
+          </div>
+        ))}
       </div>
 
       <p className="center muted" style={{ fontSize: 11, padding: "16px 30px 24px", lineHeight: 1.6 }}>

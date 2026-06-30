@@ -168,30 +168,21 @@ a { color: inherit; text-decoration: none; }
   color: var(--slate);
 }
 
-/* ── Journey spine (signature element) ─────────────────── */
-.spine { position: relative; padding-left: 44px; }
-.spine::before {
-  content: '';
-  position: absolute;
-  left: 15px; top: 8px; bottom: 8px;
-  width: 2px;
-  background: linear-gradient(to bottom, var(--u-gold-soft), var(--u-gold) 50%, var(--u-gold-soft));
+/* ── Journey timeline — clean list, no connecting line ─── */
+.spine { position: relative; padding-left: 4px; }
+.spine-row {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
 }
-.spine.malaysia::before {
-  background: linear-gradient(to bottom, var(--m-sun), var(--m-sea) 50%, var(--m-leaf));
+.spine-row:last-child { border-bottom: none; }
+.spine-row.nap {
+  background: var(--u-light);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  border-bottom: none;
+  margin: 4px 0;
 }
-.spine-node {
-  position: absolute;
-  left: 8px;
-  width: 16px; height: 16px;
-  border-radius: 50%;
-  background: var(--white);
-  border: 2.5px solid var(--u-gold);
-  z-index: 1;
-}
-.spine.malaysia .spine-node { border-color: var(--m-sea); }
-.spine-node.transit { background: var(--u-gold); }
-.spine.malaysia .spine-node.transit { background: var(--m-sun); border-color: var(--m-sun); }
+.spine.malaysia .spine-row.nap { background: #F1E7F7; }
 
 /* ── Toddler tip callout ───────────────────────────────── */
 .tip {

@@ -159,13 +159,15 @@ function ScheduleTab() {
       </div>
 
       <div style={{ padding: "12px 20px" }}>
-        <div className="spine malaysia" style={{ paddingTop: 6 }}>
+        <div className="card" style={{ overflow: "hidden" }}>
           {toddlerSchedule.map((s, i) => (
-            <div key={i} style={{ position: "relative", paddingBottom: i < toddlerSchedule.length - 1 ? 16 : 0 }}>
-              <span className={`spine-node ${s.nap ? "transit" : ""}`}
-                style={{ top: 2, borderColor: s.nap ? "#B06AC9" : "var(--m-sea)", background: s.nap ? "#B06AC9" : "#fff" }} />
-              <div style={{ fontSize: 11, fontWeight: 700, color: s.nap ? "#A05BB8" : "var(--m-sea)", letterSpacing: "0.03em" }}>{s.time}</div>
-              <div style={{ fontSize: 13.5, fontWeight: s.nap ? 600 : 500, color: s.nap ? "#A05BB8" : "var(--ink)", lineHeight: 1.4, marginTop: 1 }}>
+            <div key={i} style={{
+              padding: "12px 16px",
+              borderBottom: i < toddlerSchedule.length - 1 ? "1px solid var(--line)" : "none",
+              background: s.nap ? "#F1E7F7" : (i % 2 === 0 ? "#fff" : "#FAFAF8"),
+            }}>
+              <div style={{ fontSize: 11.5, fontWeight: 700, color: s.nap ? "#A05BB8" : "var(--m-sea)", letterSpacing: "0.03em", marginBottom: 2 }}>{s.time}</div>
+              <div style={{ fontSize: 13.5, fontWeight: s.nap ? 600 : 500, color: s.nap ? "#A05BB8" : "var(--ink)", lineHeight: 1.4 }}>
                 {s.activity}
               </div>
             </div>
@@ -328,11 +330,9 @@ function FlightsTab() {
     <div>
       <SectionHead num="01" title="Full route" />
       <div style={{ padding: "0 20px 8px" }}>
-        <div className="spine malaysia" style={{ paddingTop: 6 }}>
+        <div>
           {malaysiaFlights.map((f, i) => (
-            <div key={i} style={{ position: "relative", paddingBottom: i < malaysiaFlights.length - 1 ? 18 : 4 }}>
-              <span className="spine-node" style={{ top: 4 }} />
-              <div className="card pad">
+            <div key={i} className="card pad" style={{ marginBottom: i < malaysiaFlights.length - 1 ? 10 : 4, borderLeft: "3px solid var(--m-sea)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 4 }}>
                   <span style={{ fontWeight: 700, fontSize: 14 }}>{f.leg}</span>
                   <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--m-sea)", fontWeight: 500 }}>{f.time}</span>
@@ -340,7 +340,6 @@ function FlightsTab() {
                 <div style={{ fontSize: 12.5, color: "var(--m-sea-deep)", fontWeight: 600, marginBottom: 2 }}>{f.op}</div>
                 <div style={{ fontSize: 12.5, color: "var(--slate)" }}>{f.route}</div>
                 <div style={{ fontSize: 12, color: "var(--mist)", marginTop: 4, fontStyle: "italic" }}>{f.note}</div>
-              </div>
             </div>
           ))}
         </div>
