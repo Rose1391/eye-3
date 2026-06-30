@@ -131,6 +131,21 @@ export const klHotel = {
   note: "Connected to NU Sentral mall · Baby crib on request · 23rd-floor pool with children's section · Direct KLIA Ekspres link for departure day.",
 };
 
+export const malaysiaCosts = [
+  { item: "Flights — Dhaka ⇄ KL (US-Bangla, 3 travelers)", low: "৳90,000", high: "৳1,05,000", note: "Round trip, Rose + Farzana + Affaan" },
+  { item: "Domestic flights — KL⇄Langkawi⇄Penang⇄KL", low: "৳35,000", high: "৳45,000", note: "4 short legs, 3 travelers, AirAsia/Firefly" },
+  { item: "Langkawi hotel — Pelangi Beach Resort (3 nights)", low: "৳44,000", high: "৳74,000", note: "$120–200/night at ~123 BDT/$1" },
+  { item: "Penang hotel — The Prestige (2 nights)", low: "৳37,000", high: "৳49,000", note: "$150–200/night" },
+  { item: "Kuala Lumpur — Hilton KL (2 nights, confirmed)", low: "৳39,000", high: "৳49,000", note: "$160–200/night" },
+  { item: "Penang → KL transfer (private car)", low: "৳8,000", high: "৳12,000", note: "4-hour private car with 1 rest stop" },
+  { item: "Food — 9 days, 3 travelers", low: "৳45,000", high: "৳65,000", note: "Mix of hawker stalls and sit-down halal restaurants" },
+  { item: "Activities & tours", low: "৳25,000", high: "৳38,000", note: "Mangrove tour, SkyCab, sunset cruise, Aquaria, island hop" },
+  { item: "Shopping & duty-free", low: "৳20,000", high: "৳35,000", note: "Langkawi duty-free, gifts, souvenirs" },
+];
+
+export const malaysiaCostRange = { low: "৳3,43,000", high: "৳4,72,000", lowUsd: "~$2,790", highUsd: "~$3,840" };
+
+
 export const malaysiaFlights = [
   { leg: "Dhaka → KL", op: "US-Bangla BS315", route: "DAC → KUL direct", time: "~3.5 hrs", note: "31 Aug. No visa. Walk straight through." },
   { leg: "KL → Langkawi", op: "AirAsia / Firefly", route: "KUL → LGK domestic", time: "~45 min", note: "1 Sep. Request pre-boarding." },

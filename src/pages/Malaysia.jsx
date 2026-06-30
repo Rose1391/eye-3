@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import {
   malaysiaMeta, malaysiaDays, langkawiHotels, penangHotels, klHotel,
   malaysiaFlights, malaysiaRestaurants, toddlerSchedule, malaysiaChecklist,
+  malaysiaCosts, malaysiaCostRange,
 } from "../data/malaysia";
 import { SectionHead, RatingDot } from "../components/ui";
 import Checklist from "../components/Checklist";
 
-const TABS = ["Days", "Affaan", "Hotels", "Food", "Flights", "Packing"];
+const TABS = ["Days", "Affaan", "Hotels", "Food", "Flights", "Costs", "Packing"];
 
 const DEST_COLOR = {
   travel: "#4B5563", langkawi: "#0E7C9B", penang: "#C0392B", kl: "#1A8055",
@@ -58,6 +59,7 @@ export default function Malaysia() {
       {tab === "Hotels" && <HotelsTab />}
       {tab === "Food" && <FoodTab />}
       {tab === "Flights" && <FlightsTab />}
+      {tab === "Costs" && <CostsTab />}
       {tab === "Packing" && (
         <div style={{ paddingTop: 16 }}>
           <Checklist data={malaysiaChecklist} storageKey="tie3-malaysia-checklist" accent="var(--m-sea)" />
@@ -267,6 +269,55 @@ function FoodTab() {
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+function CostsTab() {
+  return (
+    <div>
+      <SectionHead num="01" title="Estimated cost — 3 travelers" />
+      <div style={{ padding: "0 20px" }}>
+        <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 14 }}>
+          Estimates for Rose, Farzana & Affaan across the full 9-day trip. Hotel costs use the comparison ranges — actual total depends on which Langkawi and Penang hotel you confirm.
+        </p>
+        {malaysiaCosts.map((c, i) => (
+          <div key={i} className="card pad" style={{ marginBottom: 10 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontWeight: 600, fontSize: 13.5, marginBottom: 2 }}>{c.item}</div>
+                <div style={{ fontSize: 11.5, color: "var(--mist)" }}>{c.note}</div>
+              </div>
+              <div style={{ textAlign: "right", flexShrink: 0 }}>
+                <div style={{ fontFamily: "var(--font-mono)", fontSize: 13, fontWeight: 500, color: "var(--m-sea-deep)" }}>{c.low}</div>
+                <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--mist)" }}>– {c.high}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        <div style={{
+          borderRadius: "var(--r-md)", padding: "18px 20px", marginTop: 6,
+          background: "linear-gradient(135deg, #0E7C9B, #1A8055 95%)", color: "#fff",
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+        }}>
+          <div>
+            <div className="eyebrow" style={{ color: "#FCE9C8" }}>ESTIMATED TOTAL RANGE</div>
+            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.65)", marginTop: 2 }}>Flights + hotels + food + activities</div>
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 19, fontWeight: 500, color: "#FCE9C8" }}>{malaysiaCostRange.low}</div>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 19, fontWeight: 500, color: "#FCE9C8" }}>– {malaysiaCostRange.high}</div>
+            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.7)", marginTop: 2 }}>{malaysiaCostRange.lowUsd} – {malaysiaCostRange.highUsd}</div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ padding: "16px 20px 8px" }}>
+        <div className="tip" style={{ background: "var(--amber-bg)", borderColor: "var(--amber-line)", color: "var(--amber-text)" }}>
+          <strong>This is a planning estimate, not a quote.</strong> Confirm exact flight fares and your chosen hotel rate before booking — prices shift closer to September.
+        </div>
       </div>
     </div>
   );
