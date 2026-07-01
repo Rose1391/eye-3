@@ -1,0 +1,231 @@
+:root {
+  /* Umrah — devotional emerald & gold */
+  --u-deep: #0F2A1F;
+  --u-mid: #1A6B45;
+  --u-gold: #C9A14A;
+  --u-gold-soft: #E8D9A8;
+  --u-light: #E8F5EE;
+  --u-paper: #FBFAF5;
+
+  /* Malaysia — tropical warmth */
+  --m-sea: #0E7C9B;
+  --m-sea-deep: #0A5870;
+  --m-coral: #D85A3A;
+  --m-sun: #E8A02C;
+  --m-leaf: #1A8055;
+  --m-sand: #FDF6EC;
+
+  /* Neutrals */
+  --ink: #16201C;
+  --slate: #4B5563;
+  --mist: #8A94A0;
+  --line: #E6E3DB;
+  --cloud: #F4F2EC;
+  --white: #FFFFFF;
+
+  --amber-bg: #FEF3DC;
+  --amber-line: rgba(216,160,44,0.35);
+  --amber-text: #8A5A12;
+  --warn-bg: #FCEEEC;
+  --warn-line: rgba(216,90,58,0.3);
+  --warn-text: #9B3418;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-mono: 'Spline Sans Mono', monospace;
+
+  --shadow-sm: 0 1px 3px rgba(15,42,31,0.06), 0 1px 2px rgba(15,42,31,0.04);
+  --shadow-md: 0 4px 16px rgba(15,42,31,0.08);
+  --shadow-lg: 0 12px 40px rgba(15,42,31,0.14);
+
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--u-paper);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+#root { min-height: 100vh; }
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+a { color: inherit; text-decoration: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ── App shell ─────────────────────────────────────────── */
+.app-shell {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+  background: var(--u-paper);
+  padding-bottom: 88px;
+}
+
+/* ── Bottom navigation ─────────────────────────────────── */
+.nav {
+  position: fixed;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border-top: 1px solid var(--line);
+  padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+  z-index: 100;
+}
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 2px;
+  color: var(--mist);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.nav-item.active { color: var(--u-mid); }
+.nav-item.active.malaysia { color: var(--m-sea); }
+.nav-icon { width: 22px; height: 22px; stroke-width: 1.8; }
+
+/* ── Page transitions ──────────────────────────────────── */
+.page { animation: fade-up 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Eyebrow / labels ──────────────────────────────────── */
+.eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mist);
+}
+
+/* ── Section heading ───────────────────────────────────── */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 28px 20px 14px;
+}
+.section-head .num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--u-gold);
+  font-weight: 500;
+}
+.section-head h2 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.section-head .line { flex: 1; height: 1px; background: var(--line); align-self: center; }
+
+/* ── Cards ─────────────────────────────────────────────── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.pad { padding: 16px 18px; }
+
+/* ── Pills ─────────────────────────────────────────────── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 11px;
+  border-radius: 99px;
+  background: var(--cloud);
+  color: var(--slate);
+}
+
+/* ── Journey timeline — clean list, no connecting line ─── */
+.spine { position: relative; padding-left: 4px; }
+.spine-row {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.spine-row:last-child { border-bottom: none; }
+.spine-row.nap {
+  background: var(--u-light);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  border-bottom: none;
+  margin: 4px 0;
+}
+.spine.malaysia .spine-row.nap { background: #F1E7F7; }
+
+/* ── Toddler tip callout ───────────────────────────────── */
+.tip {
+  margin-top: 8px;
+  background: var(--u-light);
+  border: 1px solid rgba(26,107,69,0.18);
+  border-radius: var(--r-sm);
+  padding: 8px 11px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #166349;
+}
+.tip.malaysia { background: #E5F4F0; border-color: rgba(26,128,85,0.18); color: #14624a; }
+.tip strong { font-weight: 600; }
+
+.tip.warn {
+  background: var(--warn-bg);
+  border-color: var(--warn-line);
+  color: var(--warn-text);
+}
+
+/* ── Rating dots ───────────────────────────────────────── */
+.dot {
+  display: inline-block;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dot.ok { background: #2E9E6B; }
+.dot.prep { background: var(--m-sun); }
+.dot.nap { background: #B06AC9; }
+
+/* ── Utility ───────────────────────────────────────────── */
+.scroll-x {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 4px 20px 8px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-x::-webkit-scrollbar { display: none; }
+.scroll-x > * { scroll-snap-align: start; flex-shrink: 0; }
+
+.muted { color: var(--mist); }
+.center { text-align: center; }
