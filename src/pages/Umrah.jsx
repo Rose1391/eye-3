@@ -131,6 +131,17 @@ function GuideTab() {
             <div style={{ padding: "12px 16px" }}>
               <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>{g.intro}</p>
 
+              {g.diagram && (
+                <div style={{ marginBottom: 14 }}>
+                  <div style={{ background: "#fff", border: "1px solid var(--line)", borderRadius: "var(--r-sm)", padding: "14px 12px", textAlign: "center" }}>
+                    <img src={g.diagram} alt={`${g.title} diagram`} style={{ width: "100%", maxWidth: 340, height: "auto", display: "inline-block" }} />
+                  </div>
+                  {g.diagramCaption && (
+                    <div style={{ fontSize: 11.5, color: "var(--mist)", fontStyle: "italic", marginTop: 6, lineHeight: 1.5, textAlign: "center", padding: "0 8px" }}>{g.diagramCaption}</div>
+                  )}
+                </div>
+              )}
+
               <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--u-gold)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 8 }}>What to do</div>
               <div style={{ marginBottom: 16 }}>
                 {g.prep.map((p, j) => (

@@ -245,6 +245,8 @@ export const umrahGuide = [
     title: "Tawaaf",
     subtitle: "Circling the Ka'bah 7 times",
     icon: "tawaf",
+    diagram: "/diagram-tawaf.png",
+    diagramCaption: "The circuit begins and ends at the Black Stone (Hajar Aswad), passing the Yemeni Corner and Maqam Ibrahim.",
     intro: "Circle the Ka'bah seven times, starting and ending at the Black Stone (al-Hajar al-Aswad).",
     prep: [
       "Begin at the Black Stone; men uncover the right shoulder (Idhtiba)",
@@ -273,6 +275,8 @@ export const umrahGuide = [
     title: "Sa'ee",
     subtitle: "Between Safa & Marwah, 7 times",
     icon: "saee",
+    diagram: "/diagram-saee.png",
+    diagramCaption: "Start at Mount Safa and finish at Mount Marwah. Men run between the two green lights; women walk normally.",
     intro: "Walk seven times between the hills of Safa and Marwah, beginning at Safa and finishing at Marwah.",
     prep: [
       "Start at Safa, walk to Marwah (1st circuit), Marwah to Safa (2nd), and so on",
