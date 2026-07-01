@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import {
   umrahMeta, umrahTravelers, umrahFlights, umrahHotels, umrahDays,
   umrahCosts, umrahGrandTotal, umrahLogistics, umrahChecklist,
+  umrahGuide, madinaNote,
 } from "../data/umrah";
-import { SectionHead } from "../components/ui";
+import { SectionHead, RiteArt } from "../components/ui";
 import Accordion from "../components/Accordion";
 import Checklist from "../components/Checklist";
 
-const TABS = ["Days", "Travelers", "Flights", "Hotels", "Costs", "Logistics", "Packing"];
+const TABS = ["Days", "Guide", "Travelers", "Flights", "Hotels", "Costs", "Logistics", "Packing"];
 const RED = "var(--u-mid)";
 const GOLD = "var(--u-gold)";
 
@@ -45,6 +46,7 @@ export default function Umrah() {
       </div>
 
       {tab === "Days" && <DaysTab />}
+      {tab === "Guide" && <GuideTab />}
       {tab === "Travelers" && <TravelersTab />}
       {tab === "Flights" && <FlightsTab />}
       {tab === "Hotels" && <HotelsTab />}
@@ -85,6 +87,78 @@ function DaysTab() {
           ))}
         </Accordion>
       ))}
+    </div>
+  );
+}
+
+function DuaCard({ dua }) {
+  return (
+    <div style={{ background: "var(--u-light)", border: "1px solid rgba(139,30,45,0.14)", borderRadius: "var(--r-sm)", padding: "12px 14px", marginBottom: 8 }}>
+      <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--u-mid)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 8 }}>{dua.label}</div>
+      <div dir="rtl" style={{ fontFamily: "'Amiri', 'Traditional Arabic', serif", fontSize: 21, lineHeight: 1.9, color: "var(--u-deep)", marginBottom: 8, textAlign: "right" }}>{dua.arabic}</div>
+      <div style={{ fontSize: 12.5, fontStyle: "italic", color: "var(--u-mid)", marginBottom: 5, lineHeight: 1.5 }}>{dua.translit}</div>
+      <div style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.55 }}>{dua.english}</div>
+    </div>
+  );
+}
+
+function GuideTab() {
+  return (
+    <div style={{ padding: "16px 20px 12px" }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 500, marginBottom: 4 }}>Umrah, step by step</div>
+        <p style={{ fontSize: 13, color: "var(--slate)", lineHeight: 1.6 }}>
+          The four rites of Umrah with their du'as in Arabic, transliteration, and English. Tap any step to open it.
+        </p>
+      </div>
+
+      {umrahGuide.map((g, i) => {
+        const Art = RiteArt[g.icon];
+        return (
+          <Accordion
+            key={i}
+            defaultOpen={i === 0}
+            accent="var(--u-mid)"
+            badge={`Step ${g.step}`}
+            leftNode={
+              <div style={{ width: 44, height: 44, borderRadius: 11, flexShrink: 0, background: "linear-gradient(135deg, var(--u-deep), var(--u-mid))", color: "var(--u-gold-lt)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                {Art ? <Art width="26" height="26" /> : <span style={{ fontWeight: 700 }}>{g.step}</span>}
+              </div>
+            }
+            title={g.title}
+            subtitle={g.subtitle}
+          >
+            <div style={{ padding: "12px 16px" }}>
+              <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>{g.intro}</p>
+
+              <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--u-gold)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 8 }}>What to do</div>
+              <div style={{ marginBottom: 16 }}>
+                {g.prep.map((p, j) => (
+                  <div key={j} style={{ display: "flex", gap: 10, marginBottom: 7, alignItems: "flex-start" }}>
+                    <span style={{ width: 6, height: 6, borderRadius: 99, background: "var(--u-gold)", flexShrink: 0, marginTop: 6 }} />
+                    <span style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.5 }}>{p}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--u-gold)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 8 }}>Du'as</div>
+              {g.duas.map((d, k) => <DuaCard key={k} dua={d} />)}
+            </div>
+          </Accordion>
+        );
+      })}
+
+      {/* Madina note */}
+      <div className="card" style={{ overflow: "hidden", marginTop: 6, border: "1px solid rgba(201,161,74,0.4)" }}>
+        <div style={{ background: "linear-gradient(135deg, var(--u-gold), #B8912F)", color: "#fff", padding: "12px 16px" }}>
+          <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 500 }}>{madinaNote.title}</div>
+        </div>
+        <div className="pad" style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.65 }}>{madinaNote.body}</div>
+      </div>
+
+      <div className="tip umrah" style={{ marginTop: 14 }}>
+        <strong>Note:</strong> This guide is a concise reference. Follow your group's scholar or guide (Mr. Fahim) for the authoritative sequence and any questions during the rites.
+      </div>
     </div>
   );
 }

@@ -73,3 +73,36 @@ export function RatingDot({ rating }) {
     </span>
   );
 }
+
+// Umrah ritual step illustrations (line art)
+export const RiteArt = {
+  ihram: (p) => (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.6" {...p}>
+      <path d="M24 8a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z" />
+      <path d="M18 40V26l-4 4M30 40V26l4 4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M18 26c0-4 2-8 6-8s6 4 6 8" strokeLinecap="round" />
+      <path d="M18 32h12" strokeLinecap="round" />
+    </svg>
+  ),
+  tawaf: (p) => (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.6" {...p}>
+      <rect x="18" y="18" width="12" height="12" rx="1" fill="currentColor" fillOpacity="0.12" />
+      <path d="M38 24a14 14 0 1 1-6-11.5" strokeLinecap="round" />
+      <path d="M33 8v6h-6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  saee: (p) => (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.6" {...p}>
+      <path d="M10 34c3-2 4-6 4-10M38 34c-3-2-4-6-4-10" strokeLinecap="round" />
+      <path d="M12 34h24" strokeLinecap="round" strokeDasharray="2 3" />
+      <circle cx="14" cy="20" r="2.5" /><circle cx="34" cy="20" r="2.5" />
+      <path d="M20 30l4-8 4 8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  hair: (p) => (
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.6" {...p}>
+      <circle cx="16" cy="18" r="4" /><circle cx="16" cy="30" r="4" />
+      <path d="M19 21l16 10M19 27l16-10" strokeLinecap="round" />
+    </svg>
+  ),
+};

@@ -205,3 +205,119 @@ export const umrahChecklist = [
     ],
   },
 ];
+
+export const umrahGuide = [
+  {
+    step: 1,
+    title: "Ihram",
+    subtitle: "Before reaching Meeqat",
+    icon: "ihram",
+    intro: "Enter the sacred state before crossing the Meeqat boundary.",
+    prep: [
+      "Remove unwanted hair, trim nails",
+      "Make ghusl (full bath) and wudhu — or at least wudhu",
+      "Men: wear two white un-sewn cloths. Women: regular modest clothes",
+      "Women must not cover the face; men must not cover the head during Ihram",
+    ],
+    duas: [
+      {
+        label: "Intention (Niyyah)",
+        arabic: "لَبَّيْكَ اللّٰهُمَّ بِعُمْرَة",
+        translit: "Labbayk Allahumma bi-'Umrah",
+        english: "Here I am O Allah, in response to Your call, making Umrah.",
+      },
+      {
+        label: "Talbiyah — recite often (men aloud, women quietly)",
+        arabic: "لَبَّيْكَ اللّٰهُمَّ لَبَّيْك، لَبَّيْكَ لَا شَرِيكَ لَكَ لَبَّيْك، إِنَّ الْحَمْدَ وَالنِّعْمَةَ لَكَ وَالْمُلْك، لَا شَرِيكَ لَك",
+        translit: "Labbayk Allahumma Labbayk, Labbayk laa shareeka laka Labbayk, Innal hamda wanni'mata laka wal-mulk, laa shareeka lak",
+        english: "Here I am O Allah, here I am. You have no partner, here I am. Indeed all Praise, Grace and Sovereignty belong to You. You have no partner.",
+      },
+      {
+        label: "Entering Masjid al-Haram (right foot first)",
+        arabic: "اللّٰهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِك",
+        translit: "Allahumma aftah lee abwaaba rahmatika",
+        english: "O Allah, open the doors of Your Mercy for me.",
+      },
+    ],
+  },
+  {
+    step: 2,
+    title: "Tawaaf",
+    subtitle: "Circling the Ka'bah 7 times",
+    icon: "tawaf",
+    intro: "Circle the Ka'bah seven times, starting and ending at the Black Stone (al-Hajar al-Aswad).",
+    prep: [
+      "Begin at the Black Stone; men uncover the right shoulder (Idhtiba)",
+      "Face the Black Stone, gesture toward it with the right hand",
+      "Men walk briskly (Raml) for the first 3 circuits, normal pace for the last 4",
+      "No specific du'a is required — recite Qur'an or any du'a you wish",
+      "After 7 circuits: cover the shoulder, pray 2 rakaats behind Maqam Ibrahim, drink Zamzam",
+    ],
+    duas: [
+      {
+        label: "At the start of each circuit",
+        arabic: "اللّٰهُ أَكْبَر",
+        translit: "Allahu Akbar",
+        english: "Allah is the Greatest.",
+      },
+      {
+        label: "Between the Yemeni Corner and Black Stone (Sunnah)",
+        arabic: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّار",
+        translit: "Rabbanaa aatinaa fid-dunyaa hasanatan wa fil-aakhirati hasanatan wa qinaa 'adhaaban-naar",
+        english: "Our Lord! Give us good in this world and good in the Hereafter, and save us from the torment of the Fire.",
+      },
+    ],
+  },
+  {
+    step: 3,
+    title: "Sa'ee",
+    subtitle: "Between Safa & Marwah, 7 times",
+    icon: "saee",
+    intro: "Walk seven times between the hills of Safa and Marwah, beginning at Safa and finishing at Marwah.",
+    prep: [
+      "Start at Safa, walk to Marwah (1st circuit), Marwah to Safa (2nd), and so on",
+      "Finish the 7th circuit at Marwah",
+      "Men run between the green lights; women walk normally",
+    ],
+    duas: [
+      {
+        label: "At the foot of Safa (start)",
+        arabic: "إِنَّ الصَّفَا وَالْمَرْوَةَ مِنْ شَعَائِرِ اللّٰهِ",
+        translit: "Innas-safaa wal-marwata min sha'aa'irillaah",
+        english: "Verily, Safa and Marwah are among the symbols of Allah.",
+      },
+      {
+        label: "Upon completing each round",
+        arabic: "اللّٰهُ أَكْبَر، اللّٰهُ أَكْبَر، اللّٰهُ أَكْبَر، لَا إِلٰهَ إِلَّا اللّٰهُ وَحْدَهُ لَا شَرِيكَ لَه",
+        translit: "Allahu Akbar (×3), laa ilaaha illallahu wahdahu laa shareeka lah…",
+        english: "Allah is the Greatest (×3). There is none worthy of worship except Allah alone, without partner…",
+      },
+    ],
+  },
+  {
+    step: 4,
+    title: "Halq / Taqseer",
+    subtitle: "Shaving or trimming the hair",
+    icon: "hair",
+    intro: "Complete the Umrah by cutting the hair — after this, all Ihram restrictions are lifted.",
+    prep: [
+      "Men: shave the entire head (preferable) or trim evenly all over",
+      "Women: trim one fingertip-length of hair",
+      "Leave the mosque with the left foot",
+      "Remove Ihram — Umrah is now complete",
+    ],
+    duas: [
+      {
+        label: "Leaving the mosque (left foot first)",
+        arabic: "اللّٰهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِك",
+        translit: "Allahumma innee as'aluka min fadhlika",
+        english: "O Allah, verily I ask You from Your Favour.",
+      },
+    ],
+  },
+];
+
+export const madinaNote = {
+  title: "Visiting Madina",
+  body: "Visiting Madina is not obligatory for Umrah, but there is great reward in visiting Masjid an-Nabawi (the Prophet's Mosque). The Prophet ﷺ said one prayer there is better than 1,000 prayers elsewhere, except Masjid al-Haram. Whoever makes wudhu at home and prays at Masjid Quba earns a reward like that of an Umrah.",
+};
