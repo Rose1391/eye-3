@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 150" font-family="Outfit, sans-serif">
+  <defs>
+    <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8B1E2D"/>
+      <stop offset="1" stop-color="#5A1420"/>
+    </linearGradient>
+    <linearGradient id="path" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#E4CB86"/>
+      <stop offset="0.5" stop-color="#C9A14A"/>
+      <stop offset="1" stop-color="#E4CB86"/>
+    </linearGradient>
+  </defs>
+
+  <!-- walkway path -->
+  <rect x="40" y="86" width="320" height="16" rx="8" fill="url(#path)"/>
+
+  <!-- Safa hill (left) -->
+  <path d="M18 92 Q30 52 52 92 Z" fill="url(#hill)"/>
+  <path d="M30 92 Q40 66 58 92 Z" fill="url(#hill)" opacity="0.7"/>
+  <!-- Marwah hill (right) -->
+  <path d="M348 92 Q362 50 384 92 Z" fill="url(#hill)"/>
+  <path d="M340 92 Q352 68 368 92 Z" fill="url(#hill)" opacity="0.7"/>
+
+  <!-- green lights -->
+  <g>
+    <line x1="168" y1="52" x2="168" y2="86" stroke="#1B8A5A" stroke-width="3"/>
+    <circle cx="168" cy="48" r="7" fill="#1FB574"/>
+    <circle cx="168" cy="48" r="11" fill="#1FB574" opacity="0.25"/>
+    <line x1="212" y1="52" x2="212" y2="86" stroke="#1B8A5A" stroke-width="3"/>
+    <circle cx="212" cy="48" r="7" fill="#1FB574"/>
+    <circle cx="212" cy="48" r="11" fill="#1FB574" opacity="0.25"/>
+  </g>
+
+  <!-- running figure between lights -->
+  <g fill="#5A1420" transform="translate(184,62)">
+    <circle cx="6" cy="2" r="3.2"/>
+    <path d="M6 6 L4 15 M6 9 L12 12 M6 9 L1 13 M4 15 L0 21 M4 15 L9 20" stroke="#5A1420" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- labels -->
+  <text x="35" y="118" font-size="13" font-weight="600" fill="#5A1420">Safa</text>
+  <text x="35" y="132" font-size="9" fill="#8C857F">Start</text>
+  <text x="365" y="118" font-size="13" font-weight="600" fill="#5A1420" text-anchor="end">Marwah</text>
+  <text x="365" y="132" font-size="9" fill="#8C857F" text-anchor="end">Finish</text>
+  <text x="190" y="30" font-size="10" font-weight="600" fill="#1B8A5A" text-anchor="middle">Green lights</text>
+</svg>
