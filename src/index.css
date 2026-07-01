@@ -79,30 +79,43 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   max-width: 480px;
   display: flex;
-  background: rgba(255,255,255,0.94);
+  background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(251,246,242,0.97));
   backdrop-filter: blur(18px) saturate(1.5);
   -webkit-backdrop-filter: blur(18px) saturate(1.5);
-  border-top: 1px solid var(--line);
+  border-top: 2px solid transparent;
+  border-image: linear-gradient(90deg, var(--u-gold), #E4CB86, var(--u-gold)) 1;
   padding: 9px 8px calc(9px + env(safe-area-inset-bottom));
   z-index: 100;
+  box-shadow: 0 -4px 20px rgba(40,20,20,0.06);
 }
 .nav-item {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
-  padding: 6px 2px;
+  gap: 4px;
+  padding: 7px 2px 5px;
   color: var(--mist);
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  transition: color 0.2s;
+  transition: all 0.22s;
+  border-radius: 12px;
+  position: relative;
 }
+.nav-item .nav-icon-wrap {
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 30px; border-radius: 99px;
+  transition: all 0.22s;
+}
+.nav-item.active .nav-icon-wrap { transform: translateY(-1px); }
 .nav-item.active.umrah { color: var(--u-mid); }
+.nav-item.active.umrah .nav-icon-wrap { background: rgba(139,30,45,0.1); }
 .nav-item.active.malaysia { color: var(--m-blue); }
-.nav-item.active.home { color: var(--u-gold); }
-.nav-icon { width: 23px; height: 23px; stroke-width: 1.8; }
+.nav-item.active.malaysia .nav-icon-wrap { background: rgba(27,58,143,0.1); }
+.nav-item.active.home { color: #B8912F; }
+.nav-item.active.home .nav-icon-wrap { background: rgba(201,161,74,0.14); }
+.nav-icon { width: 22px; height: 22px; stroke-width: 1.8; }
 
 .page { animation: fade-up 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
 @keyframes fade-up {

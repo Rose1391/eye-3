@@ -30,7 +30,7 @@ export default function App() {
           return (
             <button key={n.to} onClick={() => nav(n.to)}
               className={`nav-item ${n.match ? "active" : ""} ${n.cls}`}>
-              <I />
+              <span className="nav-icon-wrap"><I /></span>
               <span>{n.label}</span>
             </button>
           );
