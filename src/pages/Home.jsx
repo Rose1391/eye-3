@@ -5,116 +5,94 @@ import { malaysiaMeta } from "../data/malaysia";
 export default function Home() {
   return (
     <div className="page">
-      {/* Hero */}
-      <div style={{
-        background: "linear-gradient(165deg, #0F2A1F 0%, #15402C 55%, #0A5870 130%)",
-        padding: "56px 24px 40px", color: "#fff", position: "relative", overflow: "hidden",
-      }}>
+      {/* Photo hero */}
+      <div style={{ position: "relative", height: 260, overflow: "hidden" }}>
         <div style={{
-          position: "absolute", top: -40, right: -40, width: 200, height: 200,
-          borderRadius: "50%", background: "radial-gradient(circle, rgba(201,161,74,0.25), transparent 70%)",
+          position: "absolute", inset: 0,
+          backgroundImage: "url(/hero-full.jpg)",
+          backgroundSize: "cover", backgroundPosition: "center",
         }} />
-        <div className="eyebrow" style={{ color: "rgba(255,255,255,0.55)", marginBottom: 16 }}>
-          A FAMILY JOURNEY · 2026
-        </div>
-        <h1 style={{
-          fontFamily: "var(--font-display)", fontSize: 46, fontWeight: 400,
-          lineHeight: 1.0, letterSpacing: "-0.02em", marginBottom: 6,
-        }}>
-          Tour in<br />
-          <span style={{ fontStyle: "italic", color: "var(--u-gold-soft)" }}>Eye 3</span>
-        </h1>
-        <p style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", maxWidth: 300, marginTop: 14 }}>
-          Two journeys, one family. A pilgrimage to the holy cities, then a tropical holiday with Affaan.
-        </p>
-        <div style={{ display: "flex", gap: 8, marginTop: 22, flexWrap: "wrap" }}>
-          {["August – September 2026", "5 travelers", "1 unforgettable trip"].map((t) => (
-            <span key={t} style={{
-              fontSize: 11, fontWeight: 500, padding: "5px 12px", borderRadius: 99,
-              background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.18)",
-            }}>{t}</span>
-          ))}
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "linear-gradient(180deg, rgba(90,20,32,0.15) 0%, rgba(90,20,32,0.35) 45%, rgba(28,20,18,0.92) 100%)",
+        }} />
+        <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "0 24px 22px", color: "#fff" }}>
+          <div className="eyebrow" style={{ color: "rgba(255,255,255,0.75)", marginBottom: 8 }}>A FAMILY JOURNEY · 2026</div>
+          <h1 style={{ fontFamily: "var(--font-display)", fontSize: 40, fontWeight: 400, lineHeight: 0.98, letterSpacing: "-0.02em" }}>
+            Tour in <span style={{ fontStyle: "italic", color: "var(--u-gold-lt)" }}>Eye 3</span>
+          </h1>
         </div>
       </div>
 
+      {/* Story */}
+      <div style={{ padding: "20px 22px 8px" }}>
+        <p style={{ fontSize: 14.5, color: "var(--slate)", lineHeight: 1.7 }}>
+          Two journeys woven into one family story. First, five of us travel to the holy cities for <strong style={{ color: "var(--u-mid)" }}>Umrah</strong> — a pilgrimage of devotion and togetherness. Then, after a short breath in Dhaka, three of us fly on to <strong style={{ color: "var(--m-blue)" }}>Malaysia</strong> — islands, city lights, and little Affaan's first great adventure.
+        </p>
+      </div>
+
       {/* Two journey gateways */}
-      <div style={{ padding: "24px 20px 8px" }}>
-        <div className="eyebrow" style={{ marginBottom: 14 }}>CHOOSE YOUR JOURNEY</div>
+      <div style={{ padding: "14px 20px 8px" }}>
+        <div className="eyebrow" style={{ marginBottom: 12 }}>CHOOSE YOUR JOURNEY</div>
 
         <Link to="/umrah" style={{ display: "block", marginBottom: 14 }}>
-          <div style={{
-            borderRadius: "var(--r-lg)", overflow: "hidden", position: "relative",
-            background: "linear-gradient(135deg, #0F2A1F, #1A6B45)", color: "#fff",
-            padding: "22px 22px", boxShadow: "var(--shadow-md)",
-          }}>
-            <div style={{
-              position: "absolute", right: -10, top: -10, fontSize: 92, opacity: 0.1,
-              fontFamily: "var(--font-display)",
-            }}>۱</div>
-            <div className="eyebrow" style={{ color: "var(--u-gold-soft)", marginBottom: 8 }}>JOURNEY ONE</div>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: 26, fontWeight: 500, marginBottom: 4 }}>
-              {umrahMeta.title}
-            </div>
-            <div style={{ fontSize: 13, color: "rgba(255,255,255,0.75)", marginBottom: 14 }}>
-              {umrahMeta.dates} · {umrahMeta.route}
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: "var(--u-gold-soft)" }}>
-              Open journey
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+          <div style={{ borderRadius: "var(--r-lg)", overflow: "hidden", boxShadow: "var(--shadow-md)", position: "relative", height: 148 }}>
+            <div style={{ position: "absolute", inset: 0, backgroundImage: "url(/hero-umrah.jpg)", backgroundSize: "cover", backgroundPosition: "center" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(110deg, rgba(90,20,32,0.92) 0%, rgba(139,30,45,0.78) 45%, rgba(139,30,45,0.25) 100%)" }} />
+            <div style={{ position: "relative", padding: "18px 20px", color: "#fff", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div>
+                <div className="eyebrow" style={{ color: "var(--u-gold-lt)", marginBottom: 6 }}>JOURNEY ONE</div>
+                <div style={{ fontFamily: "var(--font-display)", fontSize: 25, fontWeight: 500, lineHeight: 1 }}>{umrahMeta.title}</div>
+                <div style={{ fontSize: 12.5, color: "rgba(255,255,255,0.82)", marginTop: 5 }}>{umrahMeta.dates}</div>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: "var(--u-gold-lt)" }}>
+                Open journey
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </div>
             </div>
           </div>
         </Link>
 
         <Link to="/malaysia" style={{ display: "block" }}>
-          <div style={{
-            borderRadius: "var(--r-lg)", overflow: "hidden", position: "relative",
-            background: "linear-gradient(135deg, #0E7C9B, #1A8055 90%)", color: "#fff",
-            padding: "22px 22px", boxShadow: "var(--shadow-md)",
-          }}>
-            <div style={{
-              position: "absolute", right: 4, top: -14, fontSize: 92, opacity: 0.12,
-              fontFamily: "var(--font-display)",
-            }}>2</div>
-            <div className="eyebrow" style={{ color: "#FCE9C8", marginBottom: 8 }}>JOURNEY TWO</div>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: 26, fontWeight: 500, marginBottom: 4 }}>
-              {malaysiaMeta.title}
-            </div>
-            <div style={{ fontSize: 13, color: "rgba(255,255,255,0.8)", marginBottom: 14 }}>
-              {malaysiaMeta.dates} · {malaysiaMeta.route}
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: "#FCE9C8" }}>
-              Open journey
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+          <div style={{ borderRadius: "var(--r-lg)", overflow: "hidden", boxShadow: "var(--shadow-md)", position: "relative", height: 148 }}>
+            <div style={{ position: "absolute", inset: 0, backgroundImage: "url(/hero-malaysia.jpg)", backgroundSize: "cover", backgroundPosition: "center" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(110deg, rgba(18,42,107,0.92) 0%, rgba(27,58,143,0.72) 45%, rgba(27,138,90,0.35) 100%)" }} />
+            <div style={{ position: "relative", padding: "18px 20px", color: "#fff", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div>
+                <div className="eyebrow" style={{ color: "#EBD98C", marginBottom: 6 }}>JOURNEY TWO</div>
+                <div style={{ fontFamily: "var(--font-display)", fontSize: 25, fontWeight: 500, lineHeight: 1 }}>{malaysiaMeta.title}</div>
+                <div style={{ fontSize: 12.5, color: "rgba(255,255,255,0.85)", marginTop: 5 }}>{malaysiaMeta.dates}</div>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: "#EBD98C" }}>
+                Open journey
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </div>
             </div>
           </div>
         </Link>
       </div>
 
-      {/* The full timeline */}
+      {/* Full timeline */}
       <div className="section-head">
-        <span className="num">↓</span>
+        <span className="num">◆</span>
         <h2>The full journey</h2>
         <span className="line" />
       </div>
       <div style={{ padding: "0 20px 12px" }}>
         {[
-          { d: "22–29 Aug", t: "Umrah pilgrimage", s: "Meccah & Madina · all 5 travelers" },
-          { d: "29–31 Aug", t: "Short break in Dhaka", s: "Rest and repack between journeys" },
-          { d: "31 Aug – 8 Sep", t: "Malaysia holiday", s: "Rose, Farzana & Affaan" },
+          { d: "22–29 Aug", t: "Umrah pilgrimage", s: "Meccah & Madina · all 5 travelers", c: "var(--u-mid)" },
+          { d: "29–31 Aug", t: "Short break in Dhaka", s: "Rest and repack between journeys", c: "var(--u-gold)" },
+          { d: "31 Aug – 8 Sep", t: "Malaysia holiday", s: "Rose, Farzana & Affaan", c: "var(--m-blue)" },
         ].map((e, i) => (
-          <div key={i} className="card pad" style={{ marginBottom: 8, borderLeft: "3px solid var(--u-gold)" }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--u-gold)", letterSpacing: "0.04em" }}>{e.d}</div>
+          <div key={i} className="card pad" style={{ marginBottom: 8, borderLeft: `4px solid ${e.c}` }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: e.c, letterSpacing: "0.04em" }}>{e.d}</div>
             <div style={{ fontWeight: 600, fontSize: 15, marginTop: 2 }}>{e.t}</div>
             <div style={{ fontSize: 12.5, color: "var(--mist)", marginTop: 1 }}>{e.s}</div>
           </div>
         ))}
       </div>
 
-      <p className="center muted" style={{ fontSize: 11, padding: "16px 30px 24px", lineHeight: 1.6 }}>
+      <p className="center muted" style={{ fontSize: 11, padding: "14px 30px 24px", lineHeight: 1.6 }}>
         Everything here is finalized except a few items awaiting your travel agent. Add to your home screen for offline access during the trip.
       </p>
     </div>

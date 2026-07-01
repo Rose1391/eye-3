@@ -10,9 +10,9 @@ export default function App() {
   const path = loc.pathname;
 
   const navItems = [
-    { to: "/", label: "Home", icon: Icon.Home, match: path === "/" },
-    { to: "/umrah", label: "Umrah", icon: Icon.Mosque, match: path === "/umrah" },
-    { to: "/malaysia", label: "Malaysia", icon: Icon.Palm, match: path === "/malaysia", malaysia: true },
+    { to: "/", label: "Home", icon: Icon.Home, match: path === "/", cls: "home" },
+    { to: "/umrah", label: "Umrah", icon: Icon.Mosque, match: path === "/umrah", cls: "umrah" },
+    { to: "/malaysia", label: "Malaysia", icon: Icon.Palm, match: path === "/malaysia", cls: "malaysia" },
   ];
 
   return (
@@ -29,7 +29,7 @@ export default function App() {
           const I = n.icon;
           return (
             <button key={n.to} onClick={() => nav(n.to)}
-              className={`nav-item ${n.match ? "active" : ""} ${n.malaysia ? "malaysia" : ""}`}>
+              className={`nav-item ${n.match ? "active" : ""} ${n.cls}`}>
               <I />
               <span>{n.label}</span>
             </button>

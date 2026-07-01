@@ -12,8 +12,8 @@ export default defineConfig({
         name: 'Tour in Eye 3',
         short_name: 'Tour in Eye 3',
         description: 'Umrah & Malaysia family journey planner',
-        theme_color: '#F5F3EE',
-        background_color: '#F5F3EE',
+        theme_color: '#5A1420',
+        background_color: '#FBF6F2',
         display: 'standalone',
         orientation: 'portrait',
         start_url: '/',
@@ -24,7 +24,7 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
+        globPatterns: ['**/*.{js,css,html,svg,png,jpg,ico,woff2}'],
         runtimeCaching: [
           {
             urlPattern: ({ request }) => request.destination === 'document',
