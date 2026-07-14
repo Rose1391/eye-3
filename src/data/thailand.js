@@ -205,6 +205,206 @@ export const bangkokHotels = [
 
 export const hotelRecommendation = "Riverside wins for this trip: the river breeze, boat shuttles, and the ICONSIAM/Wat Arun evenings all radiate from it. Chatrium Riverside is the sweet spot of space + price; Capella if you want one unforgettable splurge night. If shopping is the priority instead, Centara Grand puts the malls at your lift door.";
 
+// ─── YOUR TOP-PICK SAMUI RESORTS ─────────────────────────────────────────────
+export const samuiTopPicks = [
+  {
+    name: "TUI BLUE The Passage Samui Pool Villas with Private Beach",
+    area: "Hanuman Bay (near Big Buddha / Bangrak)",
+    price: "$150–200",
+    pool: "Private pool villas",
+    beachfront: true, spa: true,
+    swim: "Own semi-private beach cove — calm, shallow entry, quiet",
+    note: "The strongest all-rounder of your five: genuine private-beach villas, full spa, hillside-to-sea layout. Book a lower pool villa category to stay near the sand. Adults-lean design but families are welcome.",
+    star: true,
+  },
+  {
+    name: "Nora Beach Resort & Spa",
+    area: "Chaweng Noi headland (private bay)",
+    price: "$150–200",
+    pool: "Pool-access & private-pool villa categories",
+    beachfront: true, spa: true,
+    swim: "Own secluded Chaweng-Noi cove — calmer than main Chaweng, but a stepped hillside down to the beach",
+    note: "Lush terraced resort with an award-winning spa and a private beach. The catch for a toddler: lots of steps between villa, pools and sand — buggy service helps, but factor the climb.",
+  },
+  {
+    name: "Saree Samui — Nature's Finest Resort",
+    area: "Bophut / Big Buddha beach stretch",
+    price: "$120–170",
+    pool: "Private plunge-pool villas",
+    beachfront: true, spa: true,
+    swim: "Direct flat beach access on the north shore — gentle, shallow, Phangan views; water can be shallow-silty at low tide",
+    note: "Intimate, design-led, natural-materials villas literally on the sand. Small spa. North-shore beach is flat and calm — check tide times, as low tide pulls the water out.",
+  },
+  {
+    name: "Tolani Resort Koh Samui",
+    area: "Choeng Mon",
+    price: "$110–160",
+    pool: "Pool-access rooms & pool suites",
+    beachfront: true, spa: true,
+    swim: "On Choeng Mon bay — the island's calmest, shallowest, clearest water for a toddler",
+    note: "Modern, bright, excellent value right on the best toddler bay. More pool-access hotel than standalone villa at entry price, but the location on Choeng Mon is exactly what you want.",
+  },
+  {
+    name: "Sea Valley Resort",
+    area: "Bophut / Big Buddha beachfront",
+    price: "$100–150",
+    pool: "Private pool villas & pool-access",
+    beachfront: true, spa: true,
+    swim: "North-shore Bophut sand — calm bay, gentle entry, sunset side",
+    note: "Great-value pool villas a short stroll to Fisherman's Village. Spa on site. North-shore tide is the only watch-point; mornings and high tide are best for swimming.",
+  },
+];
+
+export const samuiTopPickNote = "You named these five, and the good news is all five are beachfront with spa facilities. Ranked here by how well the beach suits Affaan: TUI BLUE and Tolani give the calmest, most swim-ready water (Tolani sits on Choeng Mon, the island's best toddler bay); Saree and Sea Valley are lovely north-shore sand but tide-dependent; Nora Beach is beautiful with a private cove but has a stepped hillside down to it.";
+
+// ─── 5 CHOENG MON BEACHFRONT POOL VILLAS WITH SPA, UNDER $200 ─────────────────
+export const choengMonVillas = [
+  { name: "Tolani Resort Koh Samui", price: "$110–160", spa: "On-site spa", note: "Directly on Choeng Mon bay; bright modern pool suites, superb value on the best toddler beach", star: true },
+  { name: "Deva Beach Resort & Spa", price: "$130–180", spa: "Deva Spa", note: "Private pool villas steps from the calm bay; kids stay free" },
+  { name: "The Tongsai Bay", price: "$180–200+", spa: "Prana Spa (award-winning)", note: "Legendary Choeng Mon cove resort; cottage-suites with outdoor baths, huge private beach, some entry categories dip under $200 off-peak" },
+  { name: "Sala Samui Choengmon Beach Resort", price: "$170–200", spa: "Sala Spa", note: "Chic white-on-blue pool villas right on Choeng Mon sand; the pool-villa entry tier can land under $200 in low season" },
+  { name: "Melia Koh Samui", price: "$150–195", spa: "YHI Spa", note: "Newer beachfront resort on Choeng Mon; swim-up and private-pool rooms, strong family facilities" },
+];
+
+export const choengMonVillaNote = "All five sit on Choeng Mon beach — the calmest, shallowest, clearest water on Samui — and all have spa facilities and pool villas or pool-access rooms. Tolani is the value star; Tongsai Bay and Sala are the affordable-luxury picks if a category dips under $200 in your early-September low-season window. Always confirm the specific villa tier and live rate, as top categories exceed $200.";
+
+// ─── CAR RENTAL — KOH SAMUI ──────────────────────────────────────────────────
+export const carRentalIntro = "Koh Samui is a single ring road (Route 4169, ~51 km around) — easy, but with a toddler a private car + driver is far less stress than self-driving. Here's everything you need for a sedan on the island.";
+
+export const carRentalOptions = [
+  {
+    mode: "Private car + driver (recommended)",
+    best: true,
+    price: "৳3,500–6,000 / day (~$28–48)",
+    detail: "A sedan (Toyota Camry/Altis class) with an English-speaking driver for a half or full day. Zero parking/insurance worry, driver waits at each stop, and you can fit the travel car-seat. Book through your resort concierge or a Samui operator; hourly (min 3–4 hrs) also available for temple mornings.",
+  },
+  {
+    mode: "Airport / point transfers",
+    best: false,
+    price: "৳900–1,800 / trip (~$7–14)",
+    detail: "Fixed-price sedan transfers (USM airport ↔ Choeng Mon is ~10–15 min). Pre-book so a car with space for luggage + stroller is waiting; ask explicitly for a child seat.",
+  },
+  {
+    mode: "Self-drive sedan rental",
+    best: false,
+    price: "৳1,300–2,200 / day (~$11–18)",
+    detail: "Toyota Yaris/Vios-class from Avis, Budget, or reputable local desks at USM airport. Requires an International Driving Permit (carry it + your Bangladeshi licence). Cheaper, but you handle Samui's fast ring-road traffic, monsoon showers, and parking — more load with Affaan.",
+  },
+  {
+    mode: "Grab (ride-hailing)",
+    best: false,
+    price: "Metered, ~৳250–700 / ride",
+    detail: "Works on Samui but cars are fewer than Bangkok and waits can be long in quieter areas like Choeng Mon. Fine for the odd hop; not reliable as your only plan for timed activities.",
+  },
+];
+
+export const carRentalTips = [
+  "Bring your travel car-seat harness — Thai rentals and taxis rarely provide one, and it's not enforced locally.",
+  "For self-drive you must carry an International Driving Permit (IDP) plus your home licence — police checkpoints do ask.",
+  "Choose a driver-for-the-day on the three touring days (temples, elephant sanctuary, island-charter pier) and skip a car entirely on pure pool/beach days.",
+  "Samui drives on the LEFT. The ring road is fast and rain-slick in September showers — another reason a local driver earns his fee.",
+  "Confirm the fare is all-in (fuel + driver waiting time) before you set off; agree pickup points for each stop.",
+  "A sedan seats your family of three plus luggage comfortably; you don't need an SUV unless you add the in-laws.",
+];
+
+// ─── BANGKOK RIVERSIDE — DEEP COMPARISON ─────────────────────────────────────
+export const bangkokRiverside = [
+  {
+    name: "Shangri-La Bangkok",
+    tier: "Luxury",
+    price: "$200–270",
+    location: "Beside Saphan Taksin BTS + Sathorn (Central) Pier — the single best-connected riverside spot",
+    rooms: "Large; ask for the Shangri-La Wing river-balcony rooms",
+    pool: "Two riverside pools + garden lawns",
+    family: "Cots, babysitting, kids' pool; genuine resort feel in the city",
+    dining: "Legendary breakfast; several restaurants incl. halal-aware kitchens on request",
+    boat: "Own shuttle + steps from the central pier for every river route",
+    forAffaan: "Top pick for you — flat riverside gardens to roam, its own pier for the ICONSIAM/Wat Arun boats, and the easiest BTS link if you skip the river.",
+    verdict: "Best overall for a toddler: space, gardens, unbeatable transport",
+    star: true,
+  },
+  {
+    name: "Millennium Hilton Bangkok",
+    tier: "Luxury",
+    price: "$140–190",
+    location: "Thonburi (west) bank, directly at ICONSIAM — free hotel boat crosses in minutes",
+    rooms: "Every room faces the river (the hotel's signature)",
+    pool: "Beach-style sand-edge pool + the city's best river-panorama rooftop",
+    family: "Cots, connecting rooms; the pool is a genuine toddler highlight",
+    dining: "Good breakfast; ICONSIAM's Sook Siam halal food hall is a 5-min boat ride",
+    boat: "Frequent free shuttle to ICONSIAM + Sathorn pier",
+    forAffaan: "That sandy-edged pool plus ICONSIAM on tap makes evenings effortless. West-bank location is a touch further from the Palace, but the free boat solves it.",
+    verdict: "Best pool + best value in the luxury tier",
+  },
+  {
+    name: "lebua at State Tower",
+    tier: "Luxury (all-suite)",
+    price: "$180–240",
+    location: "Silom end, ~600m uphill from the river/Sathorn pier",
+    rooms: "All suites — big, with kitchenettes and wrap-around balconies (great for a family)",
+    pool: "Small outdoor pool (the tower is famous for rooftop bars, not a resort pool)",
+    family: "Suite space is excellent for a cot + gear; but the Sky Bar/'Hangover film' vibe is adult",
+    dining: "World-famous rooftop restaurants (Sirocco/Sky Bar) — reservation-only, not toddler venues; breakfast is fine",
+    boat: "Nearest pier ~8–10 min walk (not right on the water)",
+    forAffaan: "The suites are family-sized, but you're not on the riverbank and the pool is small — you'd walk to the pier each time. Better for couples than toddlers.",
+    verdict: "Amazing suites & views, but not truly waterfront or pool-led",
+  },
+  {
+    name: "Montien Riverside Hotel",
+    tier: "Upper-midscale",
+    price: "$95–140",
+    location: "Rama III, south riverside — quieter, a bit further downriver from the old town",
+    rooms: "Large, recently renovated river-view rooms — strong space-for-money",
+    pool: "Big riverside pool, one of the better-value pools on the river",
+    family: "Spacious rooms + good pool make it quietly family-friendly; cots on request",
+    dining: "Well-reviewed buffet; halal-aware on request",
+    boat: "Hotel shuttle boat to the central piers (further downriver, so a longer ride)",
+    forAffaan: "A lot of room and pool for the money. Trade-off: it's further south, so every sightseeing boat/car trip is a bit longer.",
+    verdict: "Best big-room value if you don't mind being downriver",
+  },
+  {
+    name: "Ibis Bangkok Riverside",
+    tier: "Midscale (value)",
+    price: "$55–85",
+    location: "Thonburi (west) bank, near ICONSIAM; own shuttle boat",
+    rooms: "Compact, clean, reliable Ibis standard — river-view rooms available",
+    pool: "Riverside pool (bigger than you'd expect at this price)",
+    family: "Family rooms + pool; unbeatable price for a riverside base",
+    dining: "Simple breakfast; ICONSIAM halal hall a short boat away",
+    boat: "Free shuttle to ICONSIAM & Sathorn pier",
+    forAffaan: "The smart-budget play: riverside pool, river views, free ICONSIAM boat, for roughly a third of the luxury rate. Rooms are small — fine for three if you pack light.",
+    verdict: "Best budget riverside — great pool-and-boat value, small rooms",
+  },
+  {
+    name: "Centre Point Plus Hotel Silom",
+    tier: "Upper-midscale (aparthotel)",
+    price: "$90–130",
+    location: "Silom/Charoenkrung, a few blocks inland from the river (near Robinson/Charoen Krung)",
+    rooms: "Big apartment-style rooms with kitchenettes — excellent for families & long stays",
+    pool: "Rooftop pool",
+    family: "Genuinely family-focused brand: kids' facilities, huge rooms, laundry — very toddler-practical",
+    dining: "Good breakfast; loads of halal options in the surrounding Charoenkrung/Bang Rak area",
+    boat: "~8–12 min to the nearest pier (not directly on the water)",
+    forAffaan: "Family-sized apartments and a kitchenette are a real toddler advantage (warm milk, own snacks). The catch: it's near the river, not on it — you lose the balcony river view and step-to-pier convenience.",
+    verdict: "Most family-practical rooms, but inland — river is a short hop, not the doorstep",
+  },
+  {
+    name: "Salil Hotel Riverside (Bangkok - Charoenkrung Soi 1)",
+    tier: "Boutique midscale",
+    price: "$70–100",
+    location: "Charoenkrung Soi 1, near River City & Si Phraya pier — walkable old-town riverside",
+    rooms: "Stylish boutique rooms; charming design, on the compact side",
+    pool: "Small boutique pool (not a big swim pool)",
+    family: "Cosy and characterful; fine for a small family but not a facilities-led family hotel",
+    dining: "Cute café/breakfast; excellent halal eateries nearby in Bang Rak",
+    boat: "Short walk to Si Phraya/River City pier (ICONSIAM shuttle from there)",
+    forAffaan: "Lovely design and a walkable pier, but the small pool and compact rooms make it better for a couple than for pool-loving toddler days.",
+    verdict: "Most characterful & walkable, but light on pool/space for a toddler",
+  },
+];
+
+export const bangkokRiversideVerdict = "For your trip — riverside evenings, a toddler who loves the pool, and Palace/Wat Arun/ICONSIAM sightseeing by boat — the ranking is clear. Shangri-La is the best overall (gardens, its own pier, BTS link, resort feel). Millennium Hilton is the value-luxury pick and has the best pool plus ICONSIAM on the doorstep. Ibis Riverside is the budget hero if you just want a riverside pool and boat for a third of the price. lebua and Salil are the most striking but least toddler-suited (small pools, not truly on the water); Centre Point Plus gives the most family-practical apartment rooms but sits a few blocks inland; Montien is the big-room value play if being further downriver is fine.";
+
 // ─── AFFAAN ───────────────────────────────────────────────────────────────────
 export const toddlerSchedule = [
   { time: "6:30–7:30 AM", activity: "Wake, milk, nappy change, quiet play" },
