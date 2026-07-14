@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { umrahMeta } from "../data/umrah";
-import { malaysiaMeta } from "../data/malaysia";
+import { thailandMeta } from "../data/thailand";
 
 export default function Home() {
   return (
@@ -27,7 +27,7 @@ export default function Home() {
       {/* Story */}
       <div style={{ padding: "20px 22px 8px" }}>
         <p style={{ fontSize: 14.5, color: "var(--slate)", lineHeight: 1.7 }}>
-          Two journeys woven into one family story. First, five of us travel to the holy cities for <strong style={{ color: "var(--u-mid)" }}>Umrah</strong> — a pilgrimage of devotion and togetherness. Then, after a short breath in Dhaka, three of us fly on to <strong style={{ color: "var(--m-blue)" }}>Malaysia</strong> — islands, city lights, and little Affaan's first great adventure.
+          Two journeys woven into one family story. First, five of us travel to the holy cities for <strong style={{ color: "var(--u-mid)" }}>Umrah</strong> — a pilgrimage of devotion and togetherness. Then, after a short breath in Dhaka, three of us fly on to <strong style={{ color: "var(--m-blue)" }}>Thailand</strong> — a private pool villa on Koh Samui, ethical elephants, island charters, and the temples and river lights of Bangkok. Affaan's first great adventure.
         </p>
       </div>
 
@@ -53,15 +53,15 @@ export default function Home() {
           </div>
         </Link>
 
-        <Link to="/malaysia" style={{ display: "block" }}>
+        <Link to="/thailand" style={{ display: "block" }}>
           <div style={{ borderRadius: "var(--r-lg)", overflow: "hidden", boxShadow: "var(--shadow-md)", position: "relative", height: 148 }}>
-            <div style={{ position: "absolute", inset: 0, backgroundImage: "url(/hero-malaysia.jpg)", backgroundSize: "cover", backgroundPosition: "center" }} />
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(110deg, rgba(18,42,107,0.92) 0%, rgba(27,58,143,0.72) 45%, rgba(27,138,90,0.35) 100%)" }} />
+            <div style={{ position: "absolute", inset: 0, backgroundImage: "url(/hero-thailand.jpg)", backgroundSize: "cover", backgroundPosition: "center" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(110deg, rgba(18,42,107,0.92) 0%, rgba(27,58,143,0.72) 45%, rgba(14,140,140,0.4) 100%)" }} />
             <div style={{ position: "relative", padding: "18px 20px", color: "#fff", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
               <div>
                 <div className="eyebrow" style={{ color: "#EBD98C", marginBottom: 6 }}>JOURNEY TWO</div>
-                <div style={{ fontFamily: "var(--font-display)", fontSize: 25, fontWeight: 500, lineHeight: 1 }}>{malaysiaMeta.title}</div>
-                <div style={{ fontSize: 12.5, color: "rgba(255,255,255,0.85)", marginTop: 5 }}>{malaysiaMeta.dates}</div>
+                <div style={{ fontFamily: "var(--font-display)", fontSize: 25, fontWeight: 500, lineHeight: 1 }}>{thailandMeta.title}</div>
+                <div style={{ fontSize: 12.5, color: "rgba(255,255,255,0.85)", marginTop: 5 }}>{thailandMeta.dates}</div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: "#EBD98C" }}>
                 Open journey
@@ -81,8 +81,8 @@ export default function Home() {
       <div style={{ padding: "0 20px 12px" }}>
         {[
           { d: "22–29 Aug", t: "Umrah pilgrimage", s: "Meccah & Madina · all 5 travelers", c: "var(--u-mid)" },
-          { d: "29–31 Aug", t: "Short break in Dhaka", s: "Rest and repack between journeys", c: "var(--u-gold)" },
-          { d: "31 Aug – 8 Sep", t: "Malaysia holiday", s: "Rose, Farzana & Affaan", c: "var(--m-blue)" },
+          { d: "29 Aug – 1 Sep", t: "Short break in Dhaka", s: "Rest, repack, Thai e-visas in hand", c: "var(--u-gold)" },
+          { d: "1 – 8 Sep", t: "Thailand holiday", s: "Rose, Farzana & Affaan · Samui + Bangkok", c: "var(--m-blue)" },
         ].map((e, i) => (
           <div key={i} className="card pad" style={{ marginBottom: 8, borderLeft: `4px solid ${e.c}` }}>
             <div style={{ fontSize: 11, fontWeight: 700, color: e.c, letterSpacing: "0.04em" }}>{e.d}</div>

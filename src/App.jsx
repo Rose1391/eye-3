@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Umrah from "./pages/Umrah";
-import Malaysia from "./pages/Malaysia";
+import Thailand from "./pages/Thailand";
 import { Icon } from "./components/ui";
 
 export default function App() {
@@ -12,7 +12,7 @@ export default function App() {
   const navItems = [
     { to: "/", label: "Home", icon: Icon.Home, match: path === "/", cls: "home" },
     { to: "/umrah", label: "Umrah", icon: Icon.Mosque, match: path === "/umrah", cls: "umrah" },
-    { to: "/malaysia", label: "Malaysia", icon: Icon.Palm, match: path === "/malaysia", cls: "malaysia" },
+    { to: "/thailand", label: "Thailand", icon: Icon.Palm, match: path === "/thailand", cls: "malaysia" },
   ];
 
   return (
@@ -20,7 +20,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/umrah" element={<Umrah />} />
-        <Route path="/malaysia" element={<Malaysia />} />
+        <Route path="/thailand" element={<Thailand />} />
         <Route path="*" element={<Home />} />
       </Routes>
 
