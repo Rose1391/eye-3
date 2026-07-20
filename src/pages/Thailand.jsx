@@ -8,12 +8,13 @@ import {
   samuiTopPicks, samuiTopPickNote, choengMonVillas, choengMonVillaNote,
   carRentalIntro, carRentalOptions, carRentalTips,
   bangkokRiverside, bangkokRiversideVerdict,
+  thailandBookings, bookingsMeta,
 } from "../data/thailand";
 import { SectionHead } from "../components/ui";
 import Accordion from "../components/Accordion";
 import Checklist from "../components/Checklist";
 
-const TABS = ["Days", "Activities", "Beaches", "Hotels", "Cars", "Affaan", "Travelers", "Food", "Flights", "Costs", "Packing"];
+const TABS = ["Days", "Bookings", "Activities", "Beaches", "Hotels", "Cars", "Affaan", "Travelers", "Food", "Flights", "Costs", "Packing"];
 const BLUE = "var(--m-blue)";
 const GOLD = "var(--u-gold)";
 const TEAL = "#0E8C8C";
@@ -53,6 +54,7 @@ export default function Thailand() {
       </div>
 
       {tab === "Days" && <DaysTab />}
+      {tab === "Bookings" && <BookingsTab />}
       {tab === "Activities" && <ActivitiesTab />}
       {tab === "Beaches" && <BeachesTab />}
       {tab === "Hotels" && <HotelsTab />}
@@ -67,6 +69,149 @@ export default function Thailand() {
           <Checklist data={thailandChecklist} storageKey="tie3-thailand-checklist" accent={BLUE} />
         </div>
       )}
+    </div>
+  );
+}
+
+function daysUntil(iso) {
+  const now = new Date();
+  const deadline = new Date(iso);
+  return Math.ceil((deadline - now) / (1000 * 60 * 60 * 24));
+}
+
+function cancelStatus(iso) {
+  const d = daysUntil(iso);
+  if (d < 0) return { d, tone: "gone", label: "Free-cancellation window passed" };
+  if (d === 0) return { d, tone: "urgent", label: "Free cancellation ends TODAY" };
+  if (d <= 2) return { d, tone: "urgent", label: `Free cancellation ends in ${d} day${d === 1 ? "" : "s"}` };
+  if (d <= 5) return { d, tone: "soon", label: `${d} days of free cancellation left` };
+  return { d, tone: "ok", label: `Free until ${new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}` };
+}
+
+const TONE = {
+  urgent: { bg: "#FBEBEB", bd: "rgba(168,40,56,0.4)", fg: "#8B1E2D", dot: "#A82838" },
+  soon: { bg: "#FDF3DD", bd: "rgba(200,150,40,0.45)", fg: "#7A5510", dot: "#D8A838" },
+  ok: { bg: "#E3F3EA", bd: "rgba(20,102,63,0.3)", fg: "#14663F", dot: "#1B8A5A" },
+  gone: { bg: "#F2EEE8", bd: "var(--line)", fg: "var(--mist)", dot: "#8C857F" },
+};
+
+function BookingCard({ b }) {
+  const st = cancelStatus(b.freeCancelUntil);
+  const tone = TONE[st.tone];
+  const isOverlap = b.status === "overlap";
+  return (
+    <div className="card" style={{ marginBottom: 12, overflow: "hidden", border: b.status === "confirmed" ? "1.5px solid #0E8C8C" : "1px solid var(--line)" }}>
+      {/* Free-cancellation alert bar */}
+      <div style={{ background: tone.bg, borderBottom: `1px solid ${tone.bd}`, padding: "8px 14px", display: "flex", alignItems: "center", gap: 8 }}>
+        <span style={{ width: 8, height: 8, borderRadius: 99, background: tone.dot, flexShrink: 0 }} />
+        <span style={{ fontSize: 12, fontWeight: 700, color: tone.fg }}>{st.label}</span>
+        {st.tone === "urgent" && <span style={{ marginLeft: "auto", fontSize: 16 }}>🔔</span>}
+      </div>
+
+      <div className="pad">
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 6 }}>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontWeight: 700, fontSize: 15, lineHeight: 1.25 }}>{b.property}</div>
+            <div style={{ fontSize: 11.5, color: "var(--mist)", marginTop: 1 }}>{b.area}</div>
+          </div>
+          <div style={{ textAlign: "right", flexShrink: 0 }}>
+            <div style={{ fontFamily: "var(--font-mono)", fontSize: 14, fontWeight: 600, color: "#0E6B6B" }}>{b.priceBdt}</div>
+            <div style={{ fontSize: 10.5, color: "var(--mist)" }}>{b.priceLabel}</div>
+          </div>
+        </div>
+
+        {isOverlap && (
+          <div style={{ fontSize: 10.5, fontWeight: 700, color: "#8B1E2D", background: "#FBEBEB", display: "inline-block", padding: "3px 9px", borderRadius: 99, marginBottom: 8 }}>
+            ⚠️ OVERLAPPING — keep one, cancel the rest before the deadline
+          </div>
+        )}
+
+        <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "3px 10px", fontSize: 12, marginBottom: 8 }}>
+          <span style={{ color: "var(--mist)", fontWeight: 600 }}>Dates</span>
+          <span style={{ color: "var(--slate)" }}>{new Date(b.checkIn).toLocaleDateString("en-GB", { day: "numeric", month: "short" })} → {new Date(b.checkOut).toLocaleDateString("en-GB", { day: "numeric", month: "short" })} · {b.nights} nights</span>
+          <span style={{ color: "var(--mist)", fontWeight: 600 }}>Room</span><span style={{ color: "var(--slate)" }}>{b.room}</span>
+          <span style={{ color: "var(--mist)", fontWeight: 600 }}>Guests</span><span style={{ color: "var(--slate)" }}>{b.occupancy}</span>
+          <span style={{ color: "var(--mist)", fontWeight: 600 }}>Board</span><span style={{ color: "var(--slate)" }}>{b.board}</span>
+          <span style={{ color: "var(--mist)", fontWeight: 600 }}>Ref</span><span style={{ color: "var(--slate)", fontFamily: "var(--font-mono)", fontSize: 11.5 }}>{b.source} · {b.id}</span>
+        </div>
+
+        <Accordion accent="var(--m-blue)" title="Price & cancellation detail" defaultOpen={false}>
+          <div style={{ padding: "10px 14px" }}>
+            <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--m-blue)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 5 }}>Price breakdown</div>
+            {b.breakdown.map((r, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", color: "var(--slate)" }}>
+                <span>{r[0]}</span><span style={{ fontFamily: "var(--font-mono)" }}>{r[1]}</span>
+              </div>
+            ))}
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12.5, padding: "6px 0 2px", marginTop: 4, borderTop: "1px solid var(--line)", fontWeight: 700 }}>
+              <span>Total</span><span style={{ fontFamily: "var(--font-mono)" }}>{b.priceLabel} · {b.priceBdt}</span>
+            </div>
+
+            <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--m-blue)", textTransform: "uppercase", letterSpacing: "0.05em", margin: "12px 0 5px" }}>Cancellation tiers</div>
+            {b.cancelTiers.map((r, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", fontSize: 12, padding: "3px 0", color: "var(--slate)" }}>
+                <span>{r[0]}</span><span style={{ fontWeight: 600 }}>{r[1]}</span>
+              </div>
+            ))}
+            <div style={{ fontSize: 11.5, color: "var(--slate)", lineHeight: 1.5, marginTop: 10, paddingTop: 8, borderTop: "1px solid var(--line)" }}>
+              {b.payment}{b.phone ? ` · ☎ ${b.phone}` : ""}
+            </div>
+          </div>
+        </Accordion>
+      </div>
+    </div>
+  );
+}
+
+function BookingsTab() {
+  // Sort each leg so nearest free-cancellation deadline surfaces first
+  const byLeg = (leg) => thailandBookings.filter(b => b.leg === leg).sort((a, b) => new Date(a.freeCancelUntil) - new Date(b.freeCancelUntil));
+  const samui = byLeg("samui");
+  const bangkok = byLeg("bangkok");
+
+  // Soonest upcoming free-cancellation deadline across all bookings
+  const upcoming = [...thailandBookings]
+    .map(b => ({ b, d: daysUntil(b.freeCancelUntil) }))
+    .filter(x => x.d >= 0)
+    .sort((a, b) => a.d - b.d);
+  const next = upcoming[0];
+
+  return (
+    <div>
+      {/* Top alert banner — nearest deadline */}
+      {next && (
+        <div style={{ margin: "16px 20px 0", borderRadius: "var(--r-md)", overflow: "hidden", background: next.d <= 2 ? "linear-gradient(135deg, #8B1E2D, #A82838)" : "linear-gradient(135deg, var(--m-blue), #0E8C8C)", color: "#fff", padding: "16px 18px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+            <span style={{ fontSize: 18 }}>🔔</span>
+            <span className="eyebrow" style={{ color: "rgba(255,255,255,0.85)" }}>FREE-CANCELLATION ALERT</span>
+          </div>
+          <div style={{ fontSize: 14.5, fontWeight: 600, lineHeight: 1.4 }}>
+            {next.d === 0
+              ? `“${next.b.property}” — free cancellation ends TODAY.`
+              : `${next.d} day${next.d === 1 ? "" : "s"} left to cancel “${next.b.property}” for free (until ${new Date(next.b.freeCancelUntil).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}).`}
+          </div>
+          <div style={{ fontSize: 12, color: "rgba(255,255,255,0.8)", marginTop: 4 }}>
+            Decide before the deadline to avoid charges. Deadlines are in the property's local time.
+          </div>
+        </div>
+      )}
+
+      <div style={{ padding: "14px 20px 0" }}>
+        <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6 }}>{bookingsMeta.note}</p>
+      </div>
+
+      <SectionHead num="1" title="Koh Samui · 1–5 Sep" />
+      <div style={{ padding: "0 20px" }}>
+        {samui.map((b, i) => <BookingCard key={i} b={b} />)}
+      </div>
+
+      <SectionHead num="2" title="Bangkok · 5–8 Sep" />
+      <div style={{ padding: "0 20px 8px" }}>
+        {bangkok.map((b, i) => <BookingCard key={i} b={b} />)}
+        <div className="tip" style={{ background: "var(--amber-bg)", border: "1px solid var(--amber-line)", color: "var(--amber-text)", marginBottom: 16 }}>
+          <strong>Heads-up:</strong> {bookingsMeta.fxNote}
+        </div>
+      </div>
     </div>
   );
 }
