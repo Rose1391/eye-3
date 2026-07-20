@@ -520,7 +520,7 @@ export const thailandChecklist = [
 // Prices converted at planning rate ~1 THB = 3.35 BDT, 1 USD = 121 BDT — confirm live.
 export const bookingsMeta = {
   note: "Pulled from your confirmation emails. You booked several free-cancellation options while deciding — the ⚠️ overlaps below need one kept and the rest cancelled before their free-cancellation deadline.",
-  fxNote: "BDT figures are approximate (planning rate ~1 THB = 3.35 ৳). Your card is charged in THB/USD at the Bloomberg rate on the payment date.",
+  fxNote: "BDT figures use today's mid-market rates (~1 USD = ৳123, ~1 THB = ৳3.66) — not your card issuer's exact settlement rate, which may include a 1–3% markup on top of this.",
 };
 
 export const thailandBookings = [
@@ -537,7 +537,7 @@ export const thailandBookings = [
     occupancy: "2 adults, 1 child (1 yr)",
     board: "Breakfast included",
     guest: "Rose Mohammad Rezwanul Haque",
-    priceLabel: "THB 18,512", priceBdt: "৳62,000",
+    priceLabel: "THB 18,512", priceBdt: "৳67,760",
     breakdown: [
       ["Superior Villa (Private Pool)", "THB 15,595.62"],
       ["VAT", "THB 1,091.69"],
@@ -565,7 +565,7 @@ export const thailandBookings = [
     occupancy: "2 adults, 1 child (1 yr)",
     board: "Breakfast included",
     guest: "Mohammad Rezwanul Haque Rose",
-    priceLabel: "THB 15,965.90", priceBdt: "৳53,500",
+    priceLabel: "THB 15,965.90", priceBdt: "৳58,440",
     breakdown: [["Room (4 nights)", "THB 13,359.79"], ["Taxes & fees", "THB 2,606.11"]],
     freeCancelUntil: "2026-08-17T23:59:00",
     cancelTiers: [["Until 17 Aug 11:59 PM", "THB 0 (free)"], ["From 18 Aug", "Non-refundable"]],
@@ -584,7 +584,7 @@ export const thailandBookings = [
     occupancy: "2 adults",
     board: "Breakfast included",
     guest: "Mohammad Rezwanul Haque Rose",
-    priceLabel: "RMB 4,777.82", priceBdt: "≈ ৳80,000",
+    priceLabel: "RMB 4,777.82", priceBdt: "≈ ৳81,600 (RMB-priced — verify separately)",
     breakdown: [["Tropical Pool Villa (4 nights)", "RMB 4,777.82"]],
     freeCancelUntil: "2026-08-29T23:59:00",
     cancelTiers: [["Until 29 Aug 11:59 PM", "Free"], ["From 30 Aug", "Non-refundable"]],
@@ -604,7 +604,7 @@ export const thailandBookings = [
     occupancy: "2 adults, 1 child (3 yr)",
     board: "Breakfast included · 47% early-booking discount",
     guest: "Mohammad Rezwanul Haque Rose",
-    priceLabel: "THB 15,846.02", priceBdt: "৳53,000",
+    priceLabel: "THB 15,846.02", priceBdt: "৳58,000",
     breakdown: [["Rooms (3 nights)", "THB 14,593.41"], ["Taxes & fees", "THB 2,582.56"], ["App coupon 9.11%", "− THB 1,329.95"]],
     freeCancelUntil: "2026-09-02T23:59:00",
     cancelTiers: [["Until 2 Sep 11:59 PM", "Free"], ["From 3 Sep", "Non-refundable (100%)"]],
@@ -623,7 +623,7 @@ export const thailandBookings = [
     occupancy: "2 adults",
     board: "Breakfast included",
     guest: "Mohammad Rezwanul Haque Rose",
-    priceLabel: "THB 17,015.61", priceBdt: "৳57,000",
+    priceLabel: "THB 17,015.61", priceBdt: "৳62,290",
     breakdown: [["Rooms (3 nights)", "THB 14,456.40"], ["Taxes & fees", "THB 2,559.21"]],
     freeCancelUntil: "2026-09-03T23:59:00",
     cancelTiers: [["Until 3 Sep 11:59 PM", "Free"], ["From 4 Sep", "Non-refundable"]],
@@ -642,7 +642,7 @@ export const thailandBookings = [
     occupancy: "3 adults",
     board: "Breakfast included",
     guest: "Mohammad Rezwanul Haque Rose",
-    priceLabel: "USD 556.95", priceBdt: "৳67,000",
+    priceLabel: "USD 556.95", priceBdt: "৳68,505",
     breakdown: [["Rooms (3 nights)", "USD 473.19"], ["Taxes & fees", "USD 83.76"]],
     freeCancelUntil: "2026-08-18T23:59:00",
     cancelTiers: [["Until ~18 Aug", "Free"], ["After", "Charges apply"]],
@@ -661,7 +661,7 @@ export const thailandBookings = [
     occupancy: "2 adults",
     board: "Breakfast included",
     guest: "Mohammad Rezwanul Haque Rose",
-    priceLabel: "THB 11,647.20", priceBdt: "৳39,000",
+    priceLabel: "THB 11,647.20", priceBdt: "৳42,640",
     breakdown: [["Rooms (3 nights)", "THB 9,895.59"], ["Taxes & fees", "THB 1,751.61"]],
     freeCancelUntil: "2026-09-02T23:59:00",
     cancelTiers: [["Until 2 Sep 11:59 PM", "Free"], ["From 3 Sep", "Non-refundable"]],
