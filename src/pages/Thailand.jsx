@@ -9,12 +9,15 @@ import {
   carRentalIntro, carRentalOptions, carRentalTips,
   bangkokRiverside, bangkokRiversideVerdict,
   thailandBookings, bookingsMeta,
+  thailandSimOperators, thailandSimRecommendation, thailandSimTips,
+  thailandRideApps, thailandRideRecommendation,
+  carRentalOperatorsCompared, yarisPriceBreakdown, carRentalWhatsapp,
 } from "../data/thailand";
 import { SectionHead } from "../components/ui";
 import Accordion from "../components/Accordion";
 import Checklist from "../components/Checklist";
 
-const TABS = ["Days", "Bookings", "Activities", "Beaches", "Hotels", "Cars", "Affaan", "Travelers", "Food", "Flights", "Costs", "Packing"];
+const TABS = ["Days", "Bookings", "Activities", "Beaches", "Hotels", "Cars", "Comms", "Affaan", "Travelers", "Food", "Flights", "Costs", "Packing"];
 const BLUE = "var(--m-blue)";
 const GOLD = "var(--u-gold)";
 const TEAL = "#0E8C8C";
@@ -59,6 +62,7 @@ export default function Thailand() {
       {tab === "Beaches" && <BeachesTab />}
       {tab === "Hotels" && <HotelsTab />}
       {tab === "Cars" && <CarsTab />}
+      {tab === "Comms" && <CommsTab />}
       {tab === "Affaan" && <AffaanTab />}
       {tab === "Travelers" && <TravelersTab />}
       {tab === "Food" && <FoodTab />}
@@ -531,7 +535,70 @@ function CarsTab() {
         ))}
       </div>
 
-      <SectionHead num="02" title="Driver & rental tips" />
+      {/* Real operator comparison */}
+      <SectionHead num="02" title="Real operators compared — Toyota Yaris" />
+      <div style={{ padding: "0 20px" }}>
+        {carRentalOperatorsCompared.map((op, i) => (
+          <Accordion key={i} accent="#0E8C8C" defaultOpen={op.star} badge={op.type}
+            leftNode={
+              <div style={{ width: 40, height: 40, borderRadius: 10, flexShrink: 0, background: op.star ? "linear-gradient(135deg, #0E8C8C, #0B6B6B)" : "var(--cloud)", color: op.star ? "#fff" : "var(--slate)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M5 17h14M5 17a2 2 0 1 1-4 0M5 17a2 2 0 1 0 4 0m10 0a2 2 0 1 1-4 0m4 0a2 2 0 1 0 4 0M3 17V11l2-5h14l2 5v6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </div>
+            }
+            title={op.name} subtitle={op.price}>
+            <div style={{ padding: "11px 16px 14px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "78px 1fr", gap: 8, fontSize: 12.5 }}>
+                <span style={{ fontWeight: 700, color: "#0E6B6B" }}>Booking</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.booking}</span>
+                <span style={{ fontWeight: 700, color: "#0E6B6B" }}>Deposit</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.deposit}</span>
+                <span style={{ fontWeight: 700, color: "#0E6B6B" }}>Needs</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.requirements}</span>
+              </div>
+              <div style={{ fontSize: 12, color: "var(--slate)", fontStyle: "italic", marginTop: 10, paddingTop: 9, borderTop: "1px solid var(--line)" }}>{op.note}</div>
+            </div>
+          </Accordion>
+        ))}
+      </div>
+
+      {/* Yaris price breakdown */}
+      <SectionHead num="03" title="Toyota Yaris (2023–25) — full price breakdown" />
+      <div style={{ padding: "0 20px" }}>
+        <div className="card" style={{ overflow: "hidden" }}>
+          <div style={{ background: "linear-gradient(135deg, #0E8C8C, #0B6B6B)", color: "#fff", padding: "12px 16px" }}>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 500 }}>{yarisPriceBreakdown.vehicle}</div>
+          </div>
+          {yarisPriceBreakdown.rows.map((r, i) => (
+            <div key={i} style={{ padding: "10px 14px", borderBottom: i < yarisPriceBreakdown.rows.length - 1 ? "1px solid var(--line)" : "none" }}>
+              <div style={{ fontSize: 11.5, fontWeight: 700, color: "var(--slate)", marginBottom: 2 }}>{r[0]}</div>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 10 }}>
+                <span style={{ fontSize: 12.5, color: "var(--ink)" }}>{r[1]}</span>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, color: "#0E6B6B", flexShrink: 0 }}>{r[2]}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="tip warn" style={{ marginTop: 10, marginBottom: 16 }}>{yarisPriceBreakdown.note}</div>
+      </div>
+
+      {/* WhatsApp booking info */}
+      <SectionHead num="04" title="WhatsApp booking at the airport" />
+      <div style={{ padding: "0 20px 8px" }}>
+        <div className="card pad" style={{ background: "#E7F5F0", border: "1px solid rgba(14,140,140,0.3)", marginBottom: 10 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="#25D366"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.05-1.34A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2Zm0 18a7.9 7.9 0 0 1-4.06-1.11l-.29-.17-3 .8.8-2.92-.19-.3A7.93 7.93 0 1 1 12 20Zm4.4-5.9c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.55.12-.16.24-.63.78-.77.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.42-1.33-1.66-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.13 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.56.2-1.04.14-1.15-.06-.1-.22-.16-.46-.28Z" /></svg>
+            <span style={{ fontWeight: 700, fontSize: 14, color: "#0E6B6B" }}>WhatsApp is the fastest route to a local operator</span>
+          </div>
+          <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 10 }}>{carRentalWhatsapp.intro}</p>
+          <div className="tip warn" style={{ marginBottom: 10 }}>{carRentalWhatsapp.note}</div>
+          <div style={{ fontSize: 11.5, fontWeight: 700, color: "#0E6B6B", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 6 }}>What to send them</div>
+          {carRentalWhatsapp.whatToSend.map((w, i) => (
+            <div key={i} style={{ display: "flex", gap: 8, marginBottom: 5, alignItems: "flex-start" }}>
+              <span style={{ width: 5, height: 5, borderRadius: 99, background: "#0E8C8C", flexShrink: 0, marginTop: 6 }} />
+              <span style={{ fontSize: 12, color: "var(--ink)", lineHeight: 1.5 }}>{w}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <SectionHead num="05" title="Driver & rental tips" />
       <div style={{ padding: "0 20px 16px" }}>
         <div className="card" style={{ overflow: "hidden" }}>
           {carRentalTips.map((t, i) => (
@@ -543,6 +610,79 @@ function CarsTab() {
         </div>
         <div className="tip warn" style={{ marginTop: 14 }}>
           <strong>Bottom line:</strong> Book a private sedan + driver for your three touring days (temples, elephant sanctuary, island-charter pier) and skip a car on pure pool days. It's the least stressful, best-value way to move a toddler around Samui.
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SimCard({ op, accent }) {
+  return (
+    <div className="card" style={{ marginBottom: 12, overflow: "hidden", border: op.star ? `1.5px solid ${accent}` : "1px solid var(--line)" }}>
+      <div className="pad">
+        <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
+          {op.star && <svg viewBox="0 0 24 24" width="13" height="13" fill={accent}><path d="m12 3 2.6 5.6 6 .7-4.4 4.1 1.2 6L12 16.8 6.6 19.4l1.2-6L3.4 9.3l6-.7L12 3Z" /></svg>}
+          <span style={{ fontWeight: 700, fontSize: 15 }}>{op.name}</span>
+        </div>
+        <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.55, marginBottom: 10 }}>{op.coverage}</div>
+        {op.plans.map((p, j) => (
+          <div key={j} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "7px 0", borderTop: j === 0 ? "1px solid var(--line)" : "none" }}>
+            <div>
+              <div style={{ fontWeight: 600, fontSize: 12.5 }}>{p.label}</div>
+              <div style={{ fontSize: 11, color: "var(--mist)" }}>{p.data} · {p.validity}</div>
+            </div>
+            <div style={{ textAlign: "right" }}>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600, color: accent }}>{p.price}</div>
+              <div style={{ fontSize: 10.5, color: "var(--mist)" }}>{p.bdt}</div>
+            </div>
+          </div>
+        ))}
+        <div style={{ fontSize: 11.5, color: "var(--slate)", fontStyle: "italic", marginTop: 8, paddingTop: 8, borderTop: "1px solid var(--line)" }}>{op.note}</div>
+      </div>
+    </div>
+  );
+}
+
+function CommsTab() {
+  return (
+    <div>
+      <SectionHead num="01" title="SIM & eSIM — which network for Samui" />
+      <div style={{ padding: "0 20px" }}>
+        <div className="tip warn" style={{ marginBottom: 14, marginTop: 0 }}>
+          <strong>Why this matters for you:</strong> you'll be navigating Koh Samui's ring road by Google Maps in your rental car — network choice directly affects whether directions load on the move.
+        </div>
+        {thailandSimOperators.map((op, i) => <SimCard key={i} op={op} accent="#0E8C8C" />)}
+        <div className="tip malaysia" style={{ marginBottom: 16 }}>
+          <strong>Recommendation:</strong> {thailandSimRecommendation}
+        </div>
+
+        <SectionHead num="02" title="Practical tips" />
+        <div className="card" style={{ overflow: "hidden", marginBottom: 18 }}>
+          {thailandSimTips.map((t, i) => (
+            <div key={i} style={{ display: "flex", gap: 10, padding: "11px 14px", borderBottom: i < thailandSimTips.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start" }}>
+              <span style={{ width: 6, height: 6, borderRadius: 99, background: "#0E8C8C", flexShrink: 0, marginTop: 7 }} />
+              <span style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.55 }}>{t}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <SectionHead num="03" title="Ride-hailing & local apps" />
+      <div style={{ padding: "0 20px 8px" }}>
+        <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>
+          For Bangkok transport specifically — Koh Samui relies far more on your rental car than these apps.
+        </p>
+        {thailandRideApps.map((a, i) => (
+          <div key={i} className="card pad" style={{ marginBottom: 10, border: a.star ? "1.5px solid var(--m-blue)" : "1px solid var(--line)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 5 }}>
+              {a.star && <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--m-blue)"><path d="m12 3 2.6 5.6 6 .7-4.4 4.1 1.2 6L12 16.8 6.6 19.4l1.2-6L3.4 9.3l6-.7L12 3Z" /></svg>}
+              <span style={{ fontWeight: 700, fontSize: 14.5 }}>{a.name}</span>
+            </div>
+            <div style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6 }}>{a.note}</div>
+          </div>
+        ))}
+        <div className="tip malaysia" style={{ marginBottom: 16 }}>
+          <strong>Recommendation:</strong> {thailandRideRecommendation}
         </div>
       </div>
     </div>

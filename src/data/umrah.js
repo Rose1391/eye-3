@@ -325,3 +325,49 @@ export const madinaNote = {
   title: "Visiting Madina",
   body: "Visiting Madina is not obligatory for Umrah, but there is great reward in visiting Masjid an-Nabawi (the Prophet's Mosque). The Prophet ﷺ said one prayer there is better than 1,000 prayers elsewhere, except Masjid al-Haram. Whoever makes wudhu at home and prays at Masjid Quba earns a reward like that of an Umrah.",
 };
+
+// ─── COMMUNICATION — SIM & DATA IN SAUDI ARABIA ──────────────────────────────
+// Rates: SAR pegged 3.75/USD; ~1 USD = ৳123 (Jul 2026) → 1 SAR ≈ ৳32.80
+export const umrahSimOperators = [
+  {
+    name: "STC (Sawa Visitor)",
+    star: true,
+    coverage: "Strongest network inside Masjid al-Haram and Masjid an-Nabawi during peak crowding — the safest pick for staying connected during Tawaaf and busy prayer times.",
+    plans: [
+      { label: "Sawa Visitor 35", data: "6 GB", validity: "7 days", price: "SAR 40.25 (+VAT)", bdt: "≈ ৳1,485" },
+      { label: "Sawa Visitor 104", data: "20 GB", validity: "30 days", price: "SAR ~104", bdt: "≈ ৳3,840" },
+    ],
+    note: "STC counters sit immediately past customs at Jeddah arrivals. During peak Umrah season expect longer queues — an eSIM bought in advance skips this entirely.",
+  },
+  {
+    name: "Mobily (Visitors)",
+    star: false,
+    coverage: "Excellent value and strong in cities; slightly behind STC specifically inside the Haram during the busiest hours.",
+    plans: [
+      { label: "Visitors 90", data: "55 GB", validity: "30 days", price: "SAR 103.50", bdt: "≈ ৳3,845" },
+      { label: "Visitors 150", data: "40 GB", validity: "90 days", price: "SAR 150", bdt: "≈ ৳5,570" },
+    ],
+    note: "Best data-per-riyal of the three if you're mostly in Makkah/Madinah city areas rather than deep inside crowd surges.",
+  },
+  {
+    name: "Zain (Visitor)",
+    star: false,
+    coverage: "Good all-round; unique Call User Group (CUG) lets your whole family call each other free on matching Zain visitor plans — handy for staying in touch inside the Haram crowds.",
+    plans: [
+      { label: "Visitor 40", data: "7 GB", validity: "14 days", price: "SAR 40", bdt: "≈ ৳1,475" },
+      { label: "Visitor 85", data: "28 GB", validity: "21 days", price: "SAR 85", bdt: "≈ ৳3,130" },
+    ],
+    note: "Cheapest entry price of the three. The free family-to-family calling is genuinely useful if all 5 travellers get matching Zain SIMs.",
+  },
+];
+
+export const umrahSimRecommendation = "Get STC Sawa Visitor for the strongest signal inside the Haram itself — this matters most during Tawaaf and peak prayer crowding when towers are saturated. If the whole family wants free calls to each other, Zain's Visitor plans with Call User Group is worth considering instead. Buy at Jeddah or Madinah airport arrivals (passport + border number, ~10–15 min activation, no Iqama needed) or set up an eSIM (Airalo/Holafly) before flying to skip the queue entirely.";
+
+export const umrahSimTips = [
+  "Bring your passport — needed for SIM registration; a fingerprint scan is standard at the counter.",
+  "No Iqama required — tourists and Umrah visitors register with passport + border number only.",
+  "eSIM alternative: Airalo or Holafly activate before you fly — no airport queue, no physical SIM swap.",
+  "WhatsApp voice/video calls are now generally working on local Saudi networks and eSIMs, after years of restriction — but keep messaging as a fallback if calls drop.",
+  "Download your Nusuk permit and offline maps of the Haram area on good Wi-Fi before entering high-congestion zones — data loads slowly when towers are saturated.",
+  "Airport Wi-Fi is free in arrivals/departures at Jeddah and Madinah — enough to activate an eSIM or check messages while queuing for a physical SIM.",
+];

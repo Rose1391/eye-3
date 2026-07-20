@@ -4,12 +4,13 @@ import {
   umrahMeta, umrahTravelers, umrahFlights, umrahHotels, umrahDays,
   umrahCosts, umrahGrandTotal, umrahLogistics, umrahChecklist,
   umrahGuide, madinaNote,
+  umrahSimOperators, umrahSimRecommendation, umrahSimTips,
 } from "../data/umrah";
 import { SectionHead, RiteArt } from "../components/ui";
 import Accordion from "../components/Accordion";
 import Checklist from "../components/Checklist";
 
-const TABS = ["Days", "Guide", "Travelers", "Flights", "Hotels", "Costs", "Logistics", "Packing"];
+const TABS = ["Days", "Guide", "Travelers", "Flights", "Hotels", "Comms", "Costs", "Logistics", "Packing"];
 const RED = "var(--u-mid)";
 const GOLD = "var(--u-gold)";
 
@@ -50,6 +51,7 @@ export default function Umrah() {
       {tab === "Travelers" && <TravelersTab />}
       {tab === "Flights" && <FlightsTab />}
       {tab === "Hotels" && <HotelsTab />}
+      {tab === "Comms" && <CommsTab />}
       {tab === "Costs" && <CostsTab />}
       {tab === "Logistics" && <LogisticsTab />}
       {tab === "Packing" && (
@@ -281,6 +283,56 @@ function CostsTab() {
             <div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 500, color: "var(--u-gold-lt)" }}>{umrahGrandTotal.bdt}</div>
             <div style={{ fontSize: 12, color: "rgba(255,255,255,0.7)" }}>{umrahGrandTotal.usd}</div>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CommsTab() {
+  return (
+    <div>
+      <SectionHead num="01" title="SIM & data in Saudi Arabia" />
+      <div style={{ padding: "0 20px" }}>
+        <p style={{ fontSize: 13, color: "var(--slate)", lineHeight: 1.6, marginBottom: 14 }}>
+          Three licensed operators serve visitors: STC, Mobily, and Zain. All offer passport-only visitor SIMs — no Iqama needed.
+        </p>
+        {umrahSimOperators.map((op, i) => (
+          <div key={i} className="card" style={{ marginBottom: 12, overflow: "hidden", border: op.star ? "1.5px solid var(--u-mid)" : "1px solid var(--line)" }}>
+            <div className="pad">
+              <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
+                {op.star && <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--u-mid)"><path d="m12 3 2.6 5.6 6 .7-4.4 4.1 1.2 6L12 16.8 6.6 19.4l1.2-6L3.4 9.3l6-.7L12 3Z" /></svg>}
+                <span style={{ fontWeight: 700, fontSize: 15 }}>{op.name}</span>
+              </div>
+              <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.55, marginBottom: 10 }}>{op.coverage}</div>
+              {op.plans.map((p, j) => (
+                <div key={j} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "7px 0", borderTop: j === 0 ? "1px solid var(--line)" : "none" }}>
+                  <div>
+                    <div style={{ fontWeight: 600, fontSize: 12.5 }}>{p.label}</div>
+                    <div style={{ fontSize: 11, color: "var(--mist)" }}>{p.data} · {p.validity}</div>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <div style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600, color: "var(--u-mid)" }}>{p.price}</div>
+                    <div style={{ fontSize: 10.5, color: "var(--mist)" }}>{p.bdt}</div>
+                  </div>
+                </div>
+              ))}
+              <div style={{ fontSize: 11.5, color: "var(--slate)", fontStyle: "italic", marginTop: 8, paddingTop: 8, borderTop: "1px solid var(--line)" }}>{op.note}</div>
+            </div>
+          </div>
+        ))}
+        <div className="tip umrah" style={{ marginBottom: 16 }}>
+          <strong>Recommendation:</strong> {umrahSimRecommendation}
+        </div>
+
+        <SectionHead num="02" title="Practical tips" />
+        <div className="card" style={{ overflow: "hidden", marginBottom: 16 }}>
+          {umrahSimTips.map((t, i) => (
+            <div key={i} style={{ display: "flex", gap: 10, padding: "11px 14px", borderBottom: i < umrahSimTips.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start" }}>
+              <span style={{ width: 6, height: 6, borderRadius: 99, background: "var(--u-gold)", flexShrink: 0, marginTop: 7 }} />
+              <span style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.55 }}>{t}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

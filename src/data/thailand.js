@@ -669,3 +669,116 @@ export const thailandBookings = [
     phone: "+66 2 266 0521",
   },
 ];
+
+// ─── COMMUNICATION — SIM, eSIM & RIDE-HAILING IN THAILAND ────────────────────
+// Rates: ~1 USD = ৳123, ~1 THB = ৳3.66 (Jul 2026, mid-market)
+export const thailandSimOperators = [
+  {
+    name: "AIS (Tourist SIM / 5G eSIM)",
+    star: true,
+    coverage: "Strongest, most consistent 4G/5G on Koh Samui — the ring road, interior roads, and even ferry crossings to Koh Phangan/Koh Tao. This is the network that matters for Google Maps while driving your rental car.",
+    plans: [
+      { label: "AIS Tourist SIM", data: "30 GB", validity: "30 days", price: "≈ THB 599", bdt: "≈ ৳2,192" },
+      { label: "AIS 5G eSIM (via Klook)", data: "Unlimited (fair-use)", validity: "8 days", price: "≈ $12–15", bdt: "≈ ৳1,475–1,845" },
+    ],
+    note: "Available at every major airport (Suvarnabhumi, Don Mueang, Koh Samui USM) and thousands of 7-Eleven stores. This is the pick specifically because you'll be navigating by Google Maps around the island.",
+  },
+  {
+    name: "True / DTAC (merged network)",
+    star: false,
+    coverage: "Very good in Bangkok and the main tourist strips (Chaweng, Bophut, Lamai) on Samui, but shows more weak spots than AIS once you're on interior or south-coast roads.",
+    plans: [
+      { label: "DTAC Happy Tourist eSIM", data: "Unlimited", validity: "10 days", price: "≈ $9.90", bdt: "≈ ৳1,218" },
+      { label: "True 5G eSIM (via Klook)", data: "Unlimited (fair-use)", validity: "8 days", price: "≈ $12–15", bdt: "≈ ৳1,475–1,845" },
+    ],
+    note: "Cheapest unlimited-data option and includes a Thai number + local calls/SMS. Fine for Bangkok; a reasonable second SIM if you want a backup on Samui.",
+  },
+];
+
+export const thailandSimRecommendation = "Get an AIS Tourist SIM or AIS-routed 5G eSIM before or on arrival — it's the clear winner for Koh Samui's ring road and interior, which is exactly where you'll be relying on Google Maps while driving. True/DTAC is perfectly fine for Bangkok if you want a cheaper unlimited option there instead, or as a second line. Buy at the airport (Suvarnabhumi, Don Mueang, or Koh Samui USM arrivals kiosks — passport needed, 5–15 min) or activate an eSIM via Klook before you fly to skip the queue entirely.";
+
+export const thailandSimTips = [
+  "AIS wins specifically for Koh Samui's ring road, interior mountain roads, and ferry crossings — DTAC/True are noticeably weaker outside the main tourist strips.",
+  "eSIM via Klook activates before you land and lets you keep your home SIM active for calls/OTPs simultaneously — no airport queue.",
+  "Physical SIM kiosks are in the arrivals hall at Koh Samui Airport (USM), right after customs — bring your passport.",
+  "Top up any Thai SIM cheaply through the operator's app (AIS app / My AIS) — cheaper than buying a new package at a 7-Eleven.",
+  "Hotel and resort Wi-Fi across Thailand is generally strong — lets you stretch mobile data further when you're poolside rather than driving.",
+];
+
+export const thailandRideApps = [
+  {
+    name: "Grab",
+    star: true,
+    note: "The most reliable app in Thailand — widest driver coverage, best availability late at night and at airports, and the safest single choice if you only install one. Slightly pricier than Bolt on average.",
+  },
+  {
+    name: "Bolt",
+    star: false,
+    note: "Often 15–35% cheaper than Grab on the same route — worth checking every time. ⚠️ Caveat: Bolt's Thailand operating licence lapsed in May 2026 and the company has been running on a temporary regulatory extension since, while working through a backlog of violation cases. The app still functions, but don't rely on it as your only option — always have Grab installed as the dependable fallback.",
+  },
+  {
+    name: "InDrive",
+    star: false,
+    note: "You propose a fare and drivers accept or counter-offer — genuinely cheaper if you know roughly what a ride should cost and have a minute to negotiate. Good backup when Grab/Bolt are surging.",
+  },
+];
+
+export const thailandRideRecommendation = "Install Grab as your primary app — it's the most dependable for airport pickups, late-night rides, and Bangkok traffic. Check Bolt for the same route before booking since it's often cheaper, but keep Grab as the fallback given Bolt's unresolved licensing situation this year. InDrive is a good third option if you're comfortable negotiating a price. On Koh Samui itself, ride-hailing driver density is much lower than Bangkok — this is exactly why your own rental car matters more there than the apps.";
+
+// ─── EXPANDED CAR RENTAL — KOH SAMUI, WITH REAL OPERATORS ────────────────────
+export const carRentalOperatorsCompared = [
+  {
+    name: "SIXT (airport counter)",
+    type: "International brand",
+    price: "$21–38/day (≈ ৳2,585–4,674)",
+    booking: "Book online at sixt.com or via app; pickup directly in the arrivals hall at Samui Airport (USM).",
+    deposit: "Card hold, typically THB 5,000–10,000 depending on category — refunded after return inspection.",
+    requirements: "Passport, valid driving licence (IDP recommended for non-English licences), minimum age 18 (under-25 surcharge may apply).",
+    note: "Reviewers consistently report brand-new Toyota Yaris units and quick, well-organised pickup/drop-off directly in arrivals. Best if you want a known international brand and don't mind paying a bit more for it.",
+    star: true,
+  },
+  {
+    name: "Samui Cars / local independents (e.g. Samui Cars Group)",
+    type: "Local operator — WhatsApp booking",
+    price: "≈ THB 1,000/day (≈ ৳3,660) — often the cheapest all-in rate on the island",
+    booking: "Book directly via WhatsApp or the operator's website booking form; no passport deposit at some operators.",
+    deposit: "Cash deposit typical, THB 6,000–10,000, refunded on the spot after inspection at drop-off.",
+    requirements: "Passport, driving licence; free delivery to your hotel and free pickup from the airport (or hotel) reported by multiple reviewers — including baby seats provided free on request.",
+    note: "Consistently the cheapest option in independent reviews, with hotel delivery and airport drop-off included. WhatsApp-based booking is genuinely easy — good English communication reported.",
+  },
+  {
+    name: "Budget airport counters (Thrifty, Dollar, Thai Rent a Car, ASAP)",
+    type: "Budget chains",
+    price: "$13–20/day (≈ ৳1,600–2,460)",
+    booking: "Book via aggregator sites (Kayak, Trip.com, momondo) or directly at the airport counter.",
+    deposit: "Card hold, THB 5,000–15,000 depending on operator and vehicle.",
+    requirements: "Passport, driving licence, minimum age typically 21–25.",
+    note: "Cheapest headline rates, especially in the September low season (~20–35% below peak). Fleet condition varies more than SIXT or the top local operators — check reviews for the specific counter.",
+  },
+];
+
+export const yarisPriceBreakdown = {
+  vehicle: "Toyota Yaris / Yaris Ativ (2023–2025), automatic, 4-door",
+  rows: [
+    ["Daily rate (low season, Sep)", "THB 700–1,100 / day", "≈ ৳2,562–4,026"],
+    ["4-night total (your Samui stay)", "THB 2,800–4,400", "≈ ৳10,250–16,100"],
+    ["Security deposit (refundable)", "THB 5,000–10,000 (cash or card hold)", "≈ ৳18,300–36,600"],
+    ["Insurance excess / CDW", "Often included; deductible THB 5,000–30,000 if not upgraded", "≈ ৳18,300–109,800"],
+    ["Full-to-full fuel policy", "Pay only for fuel used — no refuel penalty if returned full", "—"],
+    ["Airport delivery/pickup", "Usually free with local operators; SIXT includes arrivals-hall pickup", "—"],
+    ["Child/baby seat", "Free on request at most local operators; confirm at booking for Affaan", "—"],
+  ],
+  note: "September (low season) typically runs 20–35% below peak rates island-wide. Always photograph the car with the rental staff present before driving off, and confirm the insurance excess amount in writing — this is the single most common dispute point in Samui rental reviews.",
+};
+
+export const carRentalWhatsapp = {
+  intro: "Several independent Samui operators take bookings directly over WhatsApp — genuinely the fastest way to lock in a Yaris with hotel delivery before you land.",
+  note: "Exact WhatsApp numbers change operator-to-operator and year-to-year, so confirm the current number on the operator's own website booking page before messaging (search \"[operator name] Koh Samui WhatsApp\" or check their site's contact page directly) rather than trust a number from a search result — a few older listings online are outdated.",
+  whatToSend: [
+    "Your dates: pickup 1 Sep, return 5 Sep",
+    "Vehicle: Toyota Yaris or Yaris Ativ, automatic",
+    "Pickup point: Samui Airport (USM) or your resort in Choeng Mon",
+    "Whether you need a baby/child seat for Affaan",
+    "Your flight number (Bangkok Airways from BKK) so they can track any delay",
+  ],
+};
