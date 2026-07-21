@@ -27,7 +27,7 @@ export default function Home() {
       {/* Story */}
       <div style={{ padding: "20px 22px 8px" }}>
         <p style={{ fontSize: 14.5, color: "var(--slate)", lineHeight: 1.7 }}>
-          Two journeys woven into one family story. First, five of us travel to the holy cities for <strong style={{ color: "var(--u-mid)" }}>Umrah</strong> — a pilgrimage of devotion and togetherness. Then, after a short breath in Dhaka, three of us fly on to <strong style={{ color: "var(--m-blue)" }}>Thailand</strong> — a private pool villa on Koh Samui, ethical elephants, island charters, and the temples and river lights of Bangkok. Affaan's first great adventure.
+          Two journeys, one family story. First, five of us to the holy cities for <strong style={{ color: "var(--u-mid)" }}>Umrah</strong>. Then three of us on to <strong style={{ color: "var(--m-blue)" }}>Thailand</strong> — Koh Samui and Bangkok, and Affaan's first great adventure.
         </p>
       </div>
 

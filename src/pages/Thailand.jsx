@@ -12,12 +12,14 @@ import {
   thailandSimOperators, thailandSimRecommendation, thailandSimTips,
   thailandRideApps, thailandRideRecommendation,
   carRentalOperatorsCompared, yarisPriceBreakdown, carRentalWhatsapp,
+  activityBookingGuide, activityBookingSitesNote, romanticEscapes,
+  thailandDos, thailandDonts, thailandDosNote,
 } from "../data/thailand";
 import { SectionHead } from "../components/ui";
 import Accordion from "../components/Accordion";
 import Checklist from "../components/Checklist";
 
-const TABS = ["Days", "Bookings", "Activities", "Beaches", "Hotels", "Cars", "Comms", "Affaan", "Travelers", "Food", "Flights", "Costs", "Packing"];
+const TABS = ["Days", "Bookings", "Activities", "Beaches", "Hotels", "Cars", "Comms", "Etiquette", "Affaan", "Travelers", "Food", "Flights", "Costs", "Packing"];
 const BLUE = "var(--m-blue)";
 const GOLD = "var(--u-gold)";
 const TEAL = "#0E8C8C";
@@ -63,6 +65,7 @@ export default function Thailand() {
       {tab === "Hotels" && <HotelsTab />}
       {tab === "Cars" && <CarsTab />}
       {tab === "Comms" && <CommsTab />}
+      {tab === "Etiquette" && <EtiquetteTab />}
       {tab === "Affaan" && <AffaanTab />}
       {tab === "Travelers" && <TravelersTab />}
       {tab === "Food" && <FoodTab />}
@@ -121,6 +124,7 @@ function BookingCard({ b }) {
           <div style={{ textAlign: "right", flexShrink: 0 }}>
             <div style={{ fontFamily: "var(--font-mono)", fontSize: 14, fontWeight: 600, color: "#0E6B6B" }}>{b.priceBdt}</div>
             <div style={{ fontSize: 10.5, color: "var(--mist)" }}>{b.priceLabel}</div>
+            {b.currency && <span style={{ fontSize: 9, fontWeight: 700, color: "#7A5510", background: "#FDF3DD", padding: "1px 6px", borderRadius: 99, marginTop: 3, display: "inline-block" }}>{b.currency}</span>}
           </div>
         </div>
 
@@ -313,7 +317,7 @@ function ActivitiesTab() {
       </div>
 
       <SectionHead num="B" title="Bangkok — everything" icon="building" />
-      <div style={{ padding: "0 20px 16px" }}>
+      <div style={{ padding: "0 20px 4px" }}>
         <div className="card" style={{ overflow: "hidden" }}>
           {bangkokActivities.map((a, i) => (
             <div key={i} style={{ padding: "11px 14px", borderBottom: i < bangkokActivities.length - 1 ? "1px solid var(--line)" : "none" }}>
@@ -325,6 +329,74 @@ function ActivitiesTab() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Where & when to book */}
+      <SectionHead num="C" title="Where & when to book — early" icon="check" />
+      <div style={{ padding: "0 20px" }}>
+        <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>{activityBookingSitesNote}</p>
+        {activityBookingGuide.map((a, i) => (
+          <div key={i} className="card pad" style={{ marginBottom: 10 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 5 }}>
+              <span style={{ fontWeight: 700, fontSize: 13.5, lineHeight: 1.3 }}>{a.name}</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: 10.5, color: "#0E6B6B", flexShrink: 0, textAlign: "right" }}>{a.price}</span>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "4px 8px", fontSize: 12 }}>
+              <span style={{ fontWeight: 700, color: "var(--m-blue)", display: "flex", alignItems: "center", gap: 4 }}>🎫 Book on</span><span style={{ color: "var(--ink)" }}>{a.site}</span>
+              <span style={{ fontWeight: 700, color: "var(--m-blue)", display: "flex", alignItems: "center", gap: 4 }}>⏰ When</span><span style={{ color: "var(--ink)" }}>{a.when}</span>
+              <span style={{ fontWeight: 700, color: "var(--m-blue)", display: "flex", alignItems: "center", gap: 4 }}>💡 Why</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{a.why}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Romantic escapes */}
+      <SectionHead num="D" title="Romantic escapes — for you two" icon="spa" />
+      <div style={{ padding: "0 20px 16px" }}>
+        <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>
+          Small grown-up moments for you and Farzana — most work around Affaan's nap or with resort babysitting.
+        </p>
+        {romanticEscapes.map((r, i) => (
+          <div key={i} className="card pad" style={{ marginBottom: 10, borderLeft: "3px solid #C0507A" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 4 }}>
+              <span style={{ fontSize: 10, fontWeight: 700, color: "#9A3D5F", background: "#FBEAF1", padding: "2px 8px", borderRadius: 99 }}>{r.where}</span>
+              <span style={{ fontWeight: 700, fontSize: 13.5 }}>{r.title}</span>
+            </div>
+            <div style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 5 }}>{r.desc}</div>
+            <div style={{ fontSize: 11.5, color: "#9A3D5F", fontStyle: "italic" }}>💞 {r.tip}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function EtiquetteTab() {
+  return (
+    <div>
+      <SectionHead num="01" title="Do — to travel gracefully" icon="check" />
+      <div style={{ padding: "0 20px" }}>
+        <div className="card" style={{ overflow: "hidden" }}>
+          {thailandDos.map((d, i) => (
+            <div key={i} style={{ display: "flex", gap: 12, padding: "12px 14px", borderBottom: i < thailandDos.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start" }}>
+              <span style={{ fontSize: 20, flexShrink: 0, lineHeight: 1.2 }}>{d.icon}</span>
+              <span style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.55 }}>{d.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <SectionHead num="02" title="Don't — to avoid trouble & scams" icon="warn" />
+      <div style={{ padding: "0 20px" }}>
+        <div className="card" style={{ overflow: "hidden" }}>
+          {thailandDonts.map((d, i) => (
+            <div key={i} style={{ display: "flex", gap: 12, padding: "12px 14px", borderBottom: i < thailandDonts.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start", background: d.severe ? "#FBEBEB" : "transparent" }}>
+              <span style={{ fontSize: 20, flexShrink: 0, lineHeight: 1.2 }}>{d.icon}</span>
+              <span style={{ fontSize: 12.5, color: d.severe ? "#8B1E2D" : "var(--ink)", lineHeight: 1.55, fontWeight: d.severe ? 600 : 400 }}>{d.text}</span>
+            </div>
+          ))}
+        </div>
+        <div className="tip malaysia" style={{ marginTop: 14, marginBottom: 16 }}>{thailandDosNote}</div>
       </div>
     </div>
   );
