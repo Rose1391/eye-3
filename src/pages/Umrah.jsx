@@ -179,7 +179,7 @@ function GuideTab() {
 function TravelersTab() {
   return (
     <div>
-      <SectionHead num="01" title="Who's travelling" />
+      <SectionHead num="01" title="Who's travelling" icon="people" />
       <div style={{ padding: "0 20px 8px" }}>
         <p style={{ fontSize: 13, color: "var(--slate)", lineHeight: 1.6, marginBottom: 14 }}>
           Five travellers for the pilgrimage — four adults and little Affaan, all journeying to the holy cities together.
@@ -214,7 +214,7 @@ function TravelersTab() {
 function FlightsTab() {
   return (
     <div>
-      <SectionHead num="01" title="Flights" />
+      <SectionHead num="01" title="Flights" icon="plane" />
       <div style={{ padding: "0 20px" }}>
         {umrahFlights.map((f, i) => (
           <div key={i} className="card pad" style={{ marginBottom: 12, borderLeft: "4px solid var(--u-mid)" }}>
@@ -236,7 +236,7 @@ function FlightsTab() {
 function HotelsTab() {
   return (
     <div>
-      <SectionHead num="01" title="Where you'll stay" />
+      <SectionHead num="01" title="Where you'll stay" icon="bed" />
       <div style={{ padding: "0 20px 16px" }}>
         {umrahHotels.map((h, i) => (
           <div key={i} className="card" style={{ marginBottom: 14, overflow: "hidden" }}>
@@ -258,7 +258,7 @@ function HotelsTab() {
 function CostsTab() {
   return (
     <div>
-      <SectionHead num="01" title="Cost summary" />
+      <SectionHead num="01" title="Cost summary" icon="money" />
       <div style={{ padding: "0 20px" }}>
         {umrahCosts.map((c, i) => (
           <div key={i} className="card pad" style={{ marginBottom: 10 }}>
@@ -292,7 +292,7 @@ function CostsTab() {
 function CommsTab() {
   return (
     <div>
-      <SectionHead num="01" title="SIM & data in Saudi Arabia" />
+      <SectionHead num="01" title="SIM & data in Saudi Arabia" icon="sim" />
       <div style={{ padding: "0 20px" }}>
         <p style={{ fontSize: 13, color: "var(--slate)", lineHeight: 1.6, marginBottom: 14 }}>
           Three licensed operators serve visitors: STC, Mobily, and Zain. All offer passport-only visitor SIMs — no Iqama needed.
@@ -325,7 +325,7 @@ function CommsTab() {
           <strong>Recommendation:</strong> {umrahSimRecommendation}
         </div>
 
-        <SectionHead num="02" title="Practical tips" />
+        <SectionHead num="02" title="Practical tips" icon="tips" />
         <div className="card" style={{ overflow: "hidden", marginBottom: 16 }}>
           {umrahSimTips.map((t, i) => (
             <div key={i} style={{ display: "flex", gap: 10, padding: "11px 14px", borderBottom: i < umrahSimTips.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start" }}>
@@ -342,7 +342,7 @@ function CommsTab() {
 function LogisticsTab() {
   return (
     <div>
-      <SectionHead num="01" title="Logistics & agency" />
+      <SectionHead num="01" title="Logistics & agency" icon="route" />
       <div style={{ padding: "0 20px 16px" }}>
         <div className="card" style={{ overflow: "hidden" }}>
           {umrahLogistics.map((l, i) => (

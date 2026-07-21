@@ -54,10 +54,20 @@ export const Icon = {
   ),
 };
 
-export function SectionHead({ num, title }) {
+const SECTION_ICONS = {
+  bell: "🔔", pin: "📍", bed: "🛏️", star: "⭐", villa: "🏝️", pool: "🏊",
+  building: "🏙️", shop: "🛍️", car: "🚗", sim: "📶", ride: "🚕", tips: "💡",
+  beach: "🏖️", temple: "🛕", elephant: "🐘", food: "🍽️", baby: "👶",
+  plane: "✈️", money: "💰", pack: "🎒", people: "👨‍👩‍👦", clock: "🕐",
+  phone: "📱", whatsapp: "💬", route: "🗺️", spa: "💆", warn: "⚠️",
+  kaaba: "🕋", pray: "🤲", doc: "📄", health: "💊", check: "✅",
+};
+
+export function SectionHead({ num, title, icon }) {
+  const sym = icon && SECTION_ICONS[icon];
   return (
     <div className="section-head">
-      {num && <span className="num">{num}</span>}
+      {sym ? <span className="sec-icon">{sym}</span> : (num && <span className="num">{num}</span>)}
       <h2>{title}</h2>
       <span className="line" />
     </div>

@@ -124,10 +124,11 @@ export const umrahDays = [
 export const umrahCosts = [
   { item: "Travel Package (4 adults + Affaan)", bdt: "৳9,10,000", usd: "~$7,398", note: "Flight, hotel, visa, Ziyarah — all included" },
   { item: "Food — Lunch & Dinner (mid-range, 7 days)", bdt: "৳68,900", usd: "~$560", note: "5 people, 2 meals/day, ~SAR 30/meal" },
+  { item: "SIM / data (family)", bdt: "৳6,600 – ৳13,000", usd: "~$54–106", note: "STC Sawa Visitor + eSIMs — see Comms tab (1 SAR ≈ ৳32.80)" },
   { item: "Shopping (family budget)", bdt: "৳50,000", usd: "~$407", note: "Gifts, dates, prayer items, abayas" },
 ];
 
-export const umrahGrandTotal = { bdt: "৳10,28,900", usd: "~$8,365" };
+export const umrahGrandTotal = { bdt: "৳10,38,700", usd: "~$8,445" };
 
 export const umrahLogistics = [
   { label: "Travel Agency", value: "Fly Hajj Aviation, Gulshan, Dhaka" },
@@ -147,11 +148,23 @@ export const umrahChecklist = [
       "Saudi visa confirmation / approval printout",
       "Flight e-tickets — Qatar Airways (22 Aug) & Emirates (29 Aug)",
       "Hotel booking confirmations — Mövenpick & Elaf Taiba",
+      "Nusuk app installed + Umrah permit downloaded offline",
       "Travel insurance documents",
       "Fly Hajj Aviation contact — Mr. Fahim +880 1737-600000",
       "Cash — Saudi Riyal (SAR) for food, shopping, tips",
       "International debit/credit card",
       "Printed copies of all bookings (backup to phone)",
+    ],
+  },
+  {
+    section: "Connectivity & Phone",
+    items: [
+      "STC Sawa Visitor SIM planned — strongest signal inside the Haram",
+      "OR eSIM (Airalo/Holafly) set up before flying to skip the airport queue",
+      "Offline maps of Makkah + Madinah Haram areas downloaded on Wi-Fi",
+      "WhatsApp ready for family calls (now works on Saudi networks)",
+      "Power bank charged — long days between hotel and Haram",
+      "All 5 travelers' phone numbers shared with Mr. Fahim + each other",
     ],
   },
   {
@@ -163,7 +176,7 @@ export const umrahChecklist = [
       "Prayer mat (compact travel size)",
       "Tasbih (prayer beads)",
       "Small Quran or offline Quran app",
-      "Du'a and Ziyarah guidebook",
+      "Du'a and Ziyarah guidebook (see the Guide tab)",
       "Unscented soap and shampoo (required in Ihram)",
       "Sandals / slippers (easy on-off for Haram)",
     ],

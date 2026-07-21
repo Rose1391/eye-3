@@ -204,12 +204,12 @@ function BookingsTab() {
         <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6 }}>{bookingsMeta.note}</p>
       </div>
 
-      <SectionHead num="1" title="Koh Samui · 1–5 Sep" />
+      <SectionHead num="1" title="Koh Samui · 1–5 Sep" icon="bell" />
       <div style={{ padding: "0 20px" }}>
         {samui.map((b, i) => <BookingCard key={i} b={b} />)}
       </div>
 
-      <SectionHead num="2" title="Bangkok · 5–8 Sep" />
+      <SectionHead num="2" title="Bangkok · 5–8 Sep" icon="bell" />
       <div style={{ padding: "0 20px 8px" }}>
         {bangkok.map((b, i) => <BookingCard key={i} b={b} />)}
         <div className="tip" style={{ background: "var(--amber-bg)", border: "1px solid var(--amber-line)", color: "var(--amber-text)", marginBottom: 16 }}>
@@ -286,7 +286,7 @@ function ActivitiesTab() {
         </p>
       </div>
 
-      <SectionHead num="A" title="Koh Samui — everything" />
+      <SectionHead num="A" title="Koh Samui — everything" icon="beach" />
       <div style={{ padding: "0 20px" }}>
         <div className="card" style={{ overflow: "hidden" }}>
           {samuiActivities.map((a, i) => (
@@ -312,7 +312,7 @@ function ActivitiesTab() {
         </div>
       </div>
 
-      <SectionHead num="B" title="Bangkok — everything" />
+      <SectionHead num="B" title="Bangkok — everything" icon="building" />
       <div style={{ padding: "0 20px 16px" }}>
         <div className="card" style={{ overflow: "hidden" }}>
           {bangkokActivities.map((a, i) => (
@@ -333,7 +333,7 @@ function ActivitiesTab() {
 function BeachesTab() {
   return (
     <div>
-      <SectionHead num="01" title="Koh Samui — every beach compared" />
+      <SectionHead num="01" title="Koh Samui — every beach compared" icon="beach" />
       <div style={{ padding: "0 20px" }}>
         {samuiBeaches.map((b, i) => (
           <div key={i} className="card" style={{ marginBottom: 10, overflow: "hidden", border: b.star ? "1.5px solid #0E8C8C" : "1px solid var(--line)" }}>
@@ -380,7 +380,7 @@ function HotelsTab() {
   return (
     <div>
       {/* YOUR TOP PICKS */}
-      <SectionHead num="★" title="Your top-pick resorts" />
+      <SectionHead num="★" title="Your top-pick resorts" icon="star" />
       <div style={{ padding: "0 20px" }}>
         <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>{samuiTopPickNote}</p>
         {samuiTopPicks.map((h, i) => (
@@ -407,7 +407,7 @@ function HotelsTab() {
       </div>
 
       {/* CHOENG MON BEACHFRONT SPA VILLAS */}
-      <SectionHead num="1B" title="5 Choeng Mon beachfront pool villas · spa · under $200" />
+      <SectionHead num="1B" title="5 Choeng Mon beachfront pool villas · spa · under $200" icon="villa" />
       <div style={{ padding: "0 20px" }}>
         {choengMonVillas.map((h, i) => (
           <div key={i} className="card pad" style={{ marginBottom: 10, border: h.star ? "1.5px solid #0E8C8C" : "1px solid var(--line)" }}>
@@ -429,7 +429,7 @@ function HotelsTab() {
       </div>
 
       {/* 10 RESORTS UNDER 200 */}
-      <SectionHead num="1C" title="10 more pool-villa resorts under $200" />
+      <SectionHead num="1C" title="10 more pool-villa resorts under $200" icon="pool" />
       <div style={{ padding: "0 20px" }}>
         {samuiResorts.map((h, i) => (
           <div key={i} className="card" style={{ marginBottom: 10, overflow: "hidden", border: h.star ? "1.5px solid #0E8C8C" : "1px solid var(--line)" }}>
@@ -451,7 +451,7 @@ function HotelsTab() {
       </div>
 
       {/* BANGKOK RIVERSIDE — DEEP COMPARISON */}
-      <SectionHead num="2A" title="Bangkok riverside — deep comparison" />
+      <SectionHead num="2A" title="Bangkok riverside — deep comparison" icon="building" />
       <div style={{ padding: "0 20px" }}>
         <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>
           Your seven riverside hotels, compared across every dimension that matters for Bangkok sightseeing with a toddler. Tap each to expand.
@@ -496,7 +496,7 @@ function HotelsTab() {
       </div>
 
       {/* SHOPPING HOTELS */}
-      <SectionHead num="2B" title="Bangkok — 3 for shopping" />
+      <SectionHead num="2B" title="Bangkok — 3 for shopping" icon="shop" />
       <div style={{ padding: "0 20px 8px" }}>
         {shopping.map((h, i) => (
           <div key={i} className="card pad" style={{ marginBottom: 10, borderLeft: "4px solid var(--m-red)" }}>
@@ -518,7 +518,7 @@ function HotelsTab() {
 function CarsTab() {
   return (
     <div>
-      <SectionHead num="01" title="Renting a car in Koh Samui" />
+      <SectionHead num="01" title="Renting a car in Koh Samui" icon="car" />
       <div style={{ padding: "0 20px" }}>
         <p style={{ fontSize: 13, color: "var(--slate)", lineHeight: 1.65, marginBottom: 14 }}>{carRentalIntro}</p>
         {carRentalOptions.map((c, i) => (
@@ -536,30 +536,32 @@ function CarsTab() {
       </div>
 
       {/* Real operator comparison */}
-      <SectionHead num="02" title="Real operators compared — Toyota Yaris" />
+      <SectionHead num="02" title="Real operators compared — Toyota Yaris" icon="car" />
       <div style={{ padding: "0 20px" }}>
         {carRentalOperatorsCompared.map((op, i) => (
-          <Accordion key={i} accent="#0E8C8C" defaultOpen={op.star} badge={op.type}
+          <Accordion key={i} accent="#0E8C8C" defaultOpen={op.star}
             leftNode={
-              <div style={{ width: 40, height: 40, borderRadius: 10, flexShrink: 0, background: op.star ? "linear-gradient(135deg, #0E8C8C, #0B6B6B)" : "var(--cloud)", color: op.star ? "#fff" : "var(--slate)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M5 17h14M5 17a2 2 0 1 1-4 0M5 17a2 2 0 1 0 4 0m10 0a2 2 0 1 1-4 0m4 0a2 2 0 1 0 4 0M3 17V11l2-5h14l2 5v6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              <div style={{ width: 42, height: 42, borderRadius: 11, flexShrink: 0, background: op.star ? "linear-gradient(135deg, #0E8C8C, #0B6B6B)" : "var(--cloud)", color: op.star ? "#fff" : "var(--slate)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
+                <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M5 17h14M5 17a2 2 0 1 1-4 0M5 17a2 2 0 1 0 4 0m10 0a2 2 0 1 1-4 0m4 0a2 2 0 1 0 4 0M3 17V11l2-5h14l2 5v6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                {op.star && <span style={{ position: "absolute", top: -5, right: -5, background: "var(--u-gold)", color: "#fff", fontSize: 9, fontWeight: 700, borderRadius: 99, padding: "1px 5px", border: "1.5px solid #fff" }}>★</span>}
               </div>
             }
-            title={op.name} subtitle={op.price}>
-            <div style={{ padding: "11px 16px 14px" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "78px 1fr", gap: 8, fontSize: 12.5 }}>
-                <span style={{ fontWeight: 700, color: "#0E6B6B" }}>Booking</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.booking}</span>
-                <span style={{ fontWeight: 700, color: "#0E6B6B" }}>Deposit</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.deposit}</span>
-                <span style={{ fontWeight: 700, color: "#0E6B6B" }}>Needs</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.requirements}</span>
+            title={op.name} subtitle={op.type}>
+            <div style={{ padding: "6px 16px 14px" }}>
+              <div style={{ display: "inline-block", fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600, color: "#0E6B6B", background: "#E5F3F3", padding: "5px 11px", borderRadius: 8, marginBottom: 11 }}>{op.price}</div>
+              <div style={{ display: "grid", gridTemplateColumns: "76px 1fr", gap: "7px 8px", fontSize: 12.5 }}>
+                <span style={{ fontWeight: 700, color: "#0E6B6B", display: "flex", alignItems: "center", gap: 4 }}><span>🔗</span> Booking</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.booking}</span>
+                <span style={{ fontWeight: 700, color: "#0E6B6B", display: "flex", alignItems: "center", gap: 4 }}><span>💳</span> Deposit</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.deposit}</span>
+                <span style={{ fontWeight: 700, color: "#0E6B6B", display: "flex", alignItems: "center", gap: 4 }}><span>📋</span> Needs</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.requirements}</span>
               </div>
-              <div style={{ fontSize: 12, color: "var(--slate)", fontStyle: "italic", marginTop: 10, paddingTop: 9, borderTop: "1px solid var(--line)" }}>{op.note}</div>
+              <div style={{ fontSize: 12, color: "var(--slate)", fontStyle: "italic", marginTop: 11, paddingTop: 10, borderTop: "1px solid var(--line)" }}>{op.note}</div>
             </div>
           </Accordion>
         ))}
       </div>
 
       {/* Yaris price breakdown */}
-      <SectionHead num="03" title="Toyota Yaris (2023–25) — full price breakdown" />
+      <SectionHead num="03" title="Toyota Yaris (2023–25) — full price breakdown" icon="money" />
       <div style={{ padding: "0 20px" }}>
         <div className="card" style={{ overflow: "hidden" }}>
           <div style={{ background: "linear-gradient(135deg, #0E8C8C, #0B6B6B)", color: "#fff", padding: "12px 16px" }}>
@@ -579,7 +581,7 @@ function CarsTab() {
       </div>
 
       {/* WhatsApp booking info */}
-      <SectionHead num="04" title="WhatsApp booking at the airport" />
+      <SectionHead num="04" title="WhatsApp booking at the airport" icon="whatsapp" />
       <div style={{ padding: "0 20px 8px" }}>
         <div className="card pad" style={{ background: "#E7F5F0", border: "1px solid rgba(14,140,140,0.3)", marginBottom: 10 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
@@ -598,7 +600,7 @@ function CarsTab() {
         </div>
       </div>
 
-      <SectionHead num="05" title="Driver & rental tips" />
+      <SectionHead num="05" title="Driver & rental tips" icon="tips" />
       <div style={{ padding: "0 20px 16px" }}>
         <div className="card" style={{ overflow: "hidden" }}>
           {carRentalTips.map((t, i) => (
@@ -646,7 +648,7 @@ function SimCard({ op, accent }) {
 function CommsTab() {
   return (
     <div>
-      <SectionHead num="01" title="SIM & eSIM — which network for Samui" />
+      <SectionHead num="01" title="SIM & eSIM — which network for Samui" icon="sim" />
       <div style={{ padding: "0 20px" }}>
         <div className="tip warn" style={{ marginBottom: 14, marginTop: 0 }}>
           <strong>Why this matters for you:</strong> you'll be navigating Koh Samui's ring road by Google Maps in your rental car — network choice directly affects whether directions load on the move.
@@ -656,7 +658,7 @@ function CommsTab() {
           <strong>Recommendation:</strong> {thailandSimRecommendation}
         </div>
 
-        <SectionHead num="02" title="Practical tips" />
+        <SectionHead num="02" title="Practical tips" icon="tips" />
         <div className="card" style={{ overflow: "hidden", marginBottom: 18 }}>
           {thailandSimTips.map((t, i) => (
             <div key={i} style={{ display: "flex", gap: 10, padding: "11px 14px", borderBottom: i < thailandSimTips.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start" }}>
@@ -667,7 +669,7 @@ function CommsTab() {
         </div>
       </div>
 
-      <SectionHead num="03" title="Ride-hailing & local apps" />
+      <SectionHead num="03" title="Ride-hailing & local apps" icon="ride" />
       <div style={{ padding: "0 20px 8px" }}>
         <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>
           For Bangkok transport specifically — Koh Samui relies far more on your rental car than these apps.
@@ -708,7 +710,7 @@ function AffaanTab() {
           ))}
         </div>
       </div>
-      <SectionHead num="02" title="Thailand-specific notes for Affaan" />
+      <SectionHead num="02" title="Thailand-specific notes for Affaan" icon="baby" />
       <div style={{ padding: "0 20px 16px" }}>
         {affaanNotes.map((n, i) => (
           <div key={i} className="card pad" style={{ marginBottom: 10, borderTop: "3px solid #0E8C8C" }}>
@@ -729,7 +731,7 @@ function TravelersTab() {
   ];
   return (
     <div>
-      <SectionHead num="01" title="Who's travelling" />
+      <SectionHead num="01" title="Who's travelling" icon="people" />
       <div style={{ padding: "0 20px 8px" }}>
         <p style={{ fontSize: 13, color: "var(--slate)", lineHeight: 1.6, marginBottom: 14 }}>
           The three of you — islands, elephants, and temples built entirely around a 21-month-old's rhythm.
@@ -757,7 +759,7 @@ function FoodTab() {
   const grouped = thailandRestaurants.reduce((acc, r) => { (acc[r.dest] = acc[r.dest] || []).push(r); return acc; }, {});
   return (
     <div>
-      <SectionHead num="01" title="Halal eating, both places" />
+      <SectionHead num="01" title="Halal eating, both places" icon="food" />
       <div style={{ padding: "0 20px 8px" }}>
         <p style={{ fontSize: 13, color: "var(--slate)", marginBottom: 14, lineHeight: 1.6 }}>
           The one real difference from Malaysia: halal needs planning in Samui (coordinate with the resort kitchen before arrival) but is easy in Bangkok.
@@ -783,7 +785,7 @@ function FoodTab() {
 function FlightsTab() {
   return (
     <div>
-      <SectionHead num="01" title="Full route" />
+      <SectionHead num="01" title="Full route" icon="plane" />
       <div style={{ padding: "0 20px 8px" }}>
         {thailandFlights.map((f, i) => (
           <div key={i} className="card pad" style={{ marginBottom: 10, borderLeft: "3px solid var(--m-blue)" }}>
@@ -807,7 +809,7 @@ function FlightsTab() {
 function CostsTab() {
   return (
     <div>
-      <SectionHead num="01" title="Estimated cost — 3 travelers" />
+      <SectionHead num="01" title="Estimated cost — 3 travelers" icon="money" />
       <div style={{ padding: "0 20px" }}>
         <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 14 }}>
           Full 8-day estimate. Hotel lines use the recommendation lists — the final total depends on which villa and riverside hotel you lock in.

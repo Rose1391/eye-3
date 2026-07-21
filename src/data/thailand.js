@@ -440,31 +440,58 @@ export const thailandRestaurants = [
 ];
 
 // ─── COSTS ────────────────────────────────────────────────────────────────────
+// Anchored to your real bookings where available; FX at ~1 USD = ৳123, 1 THB = ৳3.66 (Jul 2026)
 export const thailandCosts = [
   { item: "Flights — Thai Airways DAC⇄BKK (TG340/TG339)", low: "৳95,000", high: "৳1,25,000", note: "2 adults + infant fare" },
   { item: "Bangkok Airways BKK⇄USM (both legs)", low: "৳42,000", high: "৳58,000", note: "Samui monopoly route — book early" },
-  { item: "Koh Samui pool villa — 4 nights", low: "৳49,000", high: "৳98,000", note: "$100–200/night from the resort list" },
-  { item: "Bangkok riverside hotel — 3 nights", low: "৳40,000", high: "৳88,000", note: "$110–240/night from the hotel list" },
-  { item: "Thai e-visas (Bangladeshi passports)", low: "৳12,000", high: "৳18,000", note: "Apply well ahead — required, unlike Malaysia" },
+  { item: "Koh Samui pool villa — 4 nights", low: "৳67,760", high: "৳90,000", note: "From your bookings: Sea Valley ৳67,760 → Tolani ~৳81,600" },
+  { item: "Bangkok riverside hotel — 3 nights", low: "৳42,640", high: "৳70,000", note: "From your bookings: Centre Point ৳42,640 → Chatrium ৳68,505" },
+  { item: "Thai e-visas (Bangladeshi passports)", low: "৳12,000", high: "৳18,000", note: "Required — apply well ahead" },
+  { item: "SIM / eSIM data", low: "৳2,200", high: "৳5,000", note: "AIS tourist SIM or eSIM — see Comms tab" },
+  { item: "Samui car rental (4 days) + transfers", low: "৳14,000", high: "৳28,000", note: "Toyota Yaris ~৳3,660/day, or driver-for-day — see Cars tab" },
   { item: "Food — 8 days, 3 travelers", low: "৳45,000", high: "৳70,000", note: "Resort halal + Bangkok halal restaurants" },
   { item: "Activities & tours", low: "৳45,000", high: "৳70,000", note: "Elephant sanctuary, private charter, SEA LIFE, cruise, spa" },
-  { item: "Transfers & local transport", low: "৳15,000", high: "৳25,000", note: "Airport cars, Grab, shuttle boats" },
+  { item: "Bangkok ride-hailing (Grab/Bolt)", low: "৳5,000", high: "৳12,000", note: "Shuttle boats are free; Grab for the rest" },
   { item: "Shopping", low: "৳25,000", high: "৳40,000", note: "Siam malls, Asiatique, souvenirs" },
 ];
 
-export const thailandCostRange = { low: "৳3,68,000", high: "৳5,92,000", lowUsd: "~$2,990", highUsd: "~$4,810" };
+export const thailandCostRange = { low: "৳3,95,600", high: "৳5,86,000", lowUsd: "~$3,220", highUsd: "~$4,765" };
 
 // ─── CHECKLIST ────────────────────────────────────────────────────────────────
 export const thailandChecklist = [
   {
-    section: "Documents & Logistics",
+    section: "Before You Fly — Decisions & Bookings",
+    items: [
+      "Resolve overlapping Samui bookings — keep one, cancel the rest before 17 Aug (Sea Valley / Mimosa deadline)",
+      "Resolve overlapping Bangkok bookings — cancel unwanted ones before their deadlines (Chatrium ~18 Aug is earliest)",
+      "Suggested keep: Tolani (Samui) + Chatrium (Bangkok) — best value + beach for Affaan",
+      "Confirm the kept resort cooks halal — coordinate with the kitchen in writing before arrival",
+      "Pre-request halal meal on the Chao Phraya dinner cruise (24–48h notice)",
+      "Book the AIS eSIM via Klook before departure (skips the airport queue)",
+      "Pre-book Samui car: WhatsApp a local operator or reserve SIXT — ask for a child seat for Affaan",
+    ],
+  },
+  {
+    section: "Documents & Money",
     items: [
       "Thai e-visa for all 3 — REQUIRED for Bangladeshi passports, apply early",
       "Passports valid 6+ months — including Affaan's",
-      "TG340/TG339 + Bangkok Airways tickets saved offline",
-      "Hotel confirmations — Samui villa + Bangkok riverside",
+      "TG340 / TG339 + Bangkok Airways (BKK⇄USM) tickets saved offline",
+      "Kept hotel confirmations saved offline — Samui + Bangkok",
       "Travel insurance covering Affaan",
-      "Halal meal requests confirmed: resort kitchen + dinner cruise",
+      "Driving licence + International Driving Permit (IDP) — required to rent/drive on Samui",
+      "A card that works abroad + some THB cash for car deposit and markets",
+    ],
+  },
+  {
+    section: "Connectivity & Transport",
+    items: [
+      "AIS SIM/eSIM active — best coverage for Google Maps on Samui's ring road",
+      "Grab app installed (primary ride-hailing) + Bolt as a price-check backup",
+      "Google Maps offline area downloaded for Koh Samui + Bangkok",
+      "Travel car-seat harness packed — Thai rentals/taxis rarely provide one",
+      "Screenshot the car operator's WhatsApp booking confirmation + pickup point",
+      "Note Bangkok hotel's free shuttle-boat pier + times",
     ],
   },
   {
@@ -473,7 +500,7 @@ export const thailandChecklist = [
       "Nappies — 4–5 days extra beyond planned use",
       "Wipes — generous supply",
       "Formula / preferred milk powder",
-      "Familiar snacks for flight days",
+      "Familiar snacks for flight + travel days",
       "Sippy cup / favourite bottle",
       "2–3 comfort toys including THE one",
       "Light muslin wraps for boat + sea-breeze evenings",
@@ -497,7 +524,6 @@ export const thailandChecklist = [
       "Lightweight stroller — Bangkok malls, ICONSIAM, Asiatique",
       "Soft carrier — Big Buddha stairs, Grand Palace crowds, markets",
       "Swim nappies (3–4) + toddler life vest for kayak/charter",
-      "Travel car-seat harness (Thai taxis rarely have seats)",
       "Beach bucket & spade",
       "Pool-villa safety check on arrival: gates, depth, door locks",
     ],
@@ -507,6 +533,7 @@ export const thailandChecklist = [
     items: [
       "Protect the 12:30–2:30 PM nap — it also dodges the rain slot",
       "Outdoors before 12 or after 3:30 only",
+      "Photograph the rental car with staff present before driving off",
       "Confirm charter boat has shade + calm-bay route",
       "Pre-boarding request on every flight",
       "Baby cot + high chair confirmed at both hotels",
@@ -738,8 +765,8 @@ export const carRentalOperatorsCompared = [
     star: true,
   },
   {
-    name: "Samui Cars / local independents (e.g. Samui Cars Group)",
-    type: "Local operator — WhatsApp booking",
+    name: "Samui Cars (local independents)",
+    type: "Local · WhatsApp booking",
     price: "≈ THB 1,000/day (≈ ৳3,660) — often the cheapest all-in rate on the island",
     booking: "Book directly via WhatsApp or the operator's website booking form; no passport deposit at some operators.",
     deposit: "Cash deposit typical, THB 6,000–10,000, refunded on the spot after inspection at drop-off.",
@@ -747,8 +774,8 @@ export const carRentalOperatorsCompared = [
     note: "Consistently the cheapest option in independent reviews, with hotel delivery and airport drop-off included. WhatsApp-based booking is genuinely easy — good English communication reported.",
   },
   {
-    name: "Budget airport counters (Thrifty, Dollar, Thai Rent a Car, ASAP)",
-    type: "Budget chains",
+    name: "Budget chains (Thrifty, Dollar, ASAP)",
+    type: "Budget airport counters",
     price: "$13–20/day (≈ ৳1,600–2,460)",
     booking: "Book via aggregator sites (Kayak, Trip.com, momondo) or directly at the airport counter.",
     deposit: "Card hold, THB 5,000–15,000 depending on operator and vehicle.",
