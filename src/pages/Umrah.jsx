@@ -63,32 +63,38 @@ export default function Umrah() {
   );
 }
 
-function DaysTab() {
+function DayDetail({ d }) {
   return (
-    <div style={{ padding: "14px 20px 12px" }}>
-      {umrahDays.map((d, i) => (
-        <Accordion
-          key={i}
-          defaultOpen={i === 0}
-          accent={RED}
-          badge={d.city}
-          leftNode={
-            <div style={{ width: 42, height: 42, borderRadius: 10, flexShrink: 0, background: d.transit ? GOLD : "linear-gradient(135deg, var(--u-deep), var(--u-mid))", color: "#fff", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", lineHeight: 1 }}>
-              <span style={{ fontSize: 9, opacity: 0.85, fontWeight: 600 }}>DAY</span>
-              <span style={{ fontSize: 17, fontWeight: 700 }}>{d.day}</span>
-            </div>
-          }
-          title={d.title}
-          subtitle={d.date}
-        >
-          {d.items.map((it, j) => (
-            <div key={j} style={{ padding: "10px 16px", borderBottom: j < d.items.length - 1 ? "1px solid var(--line)" : "none" }}>
-              <div style={{ fontWeight: 600, fontSize: 13.5, marginBottom: 1 }}>{it.label}</div>
-              <div style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.5 }}>{it.detail}</div>
-            </div>
-          ))}
-        </Accordion>
+    <div style={{ padding: "0 14px" }}>
+      {d.items.map((it, j) => (
+        <div key={j} style={{ padding: "9px 0", borderBottom: j < d.items.length - 1 ? "1px solid var(--line)" : "none" }}>
+          <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 1 }}>{it.label}</div>
+          <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.5 }}>{it.detail}</div>
+        </div>
       ))}
+    </div>
+  );
+}
+
+function DaysTab() {
+  const cityIcon = (d) => d.transit ? "✈️" : /madina/i.test(d.city) ? "🕌" : "🕋";
+  const tiles = umrahDays.map((d) => ({
+    key: `d${d.day}`,
+    icon: cityIcon(d),
+    label: `Day ${d.day} · ${d.city}`,
+    sub: d.date,
+    accent: d.transit ? "var(--u-gold)" : "var(--u-mid)",
+    render: () => <DayDetail d={d} />,
+  }));
+  return (
+    <div style={{ paddingTop: 16 }}>
+      <div style={{ padding: "0 20px 10px" }}>
+        <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6 }}>
+          Eight days across Makkah and Madinah. Tap any day to open it.
+        </p>
+      </div>
+      <TileGrid tiles={tiles} accent="var(--u-mid)" />
+      <div style={{ height: 16 }} />
     </div>
   );
 }
@@ -315,33 +321,41 @@ function TravelersTab() {
 }
 
 function CostsTab() {
+  const tiles = umrahCosts.map((c2, i) => ({
+    key: `c${i}`,
+    icon: /package/i.test(c2.item) ? "📦" : /food/i.test(c2.item) ? "🍽️" : /sim|data/i.test(c2.item) ? "📶" : "🛍️",
+    label: c2.item.replace(/\s*\(.*\)/, ""),
+    sub: c2.bdt,
+    accent: "var(--u-mid)",
+    render: () => (
+      <div style={{ padding: "0 14px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: 17, fontWeight: 600, color: "var(--u-deep)" }}>{c2.bdt}</span>
+          <span style={{ fontSize: 12, color: "var(--mist)" }}>{c2.usd}</span>
+        </div>
+        <div style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6 }}>{c2.note}</div>
+      </div>
+    ),
+  }));
   return (
-    <div>
-      <SectionHead num="01" title="Cost summary" icon="money" />
-      <div style={{ padding: "0 20px" }}>
-        {umrahCosts.map((c, i) => (
-          <div key={i} className="card pad" style={{ marginBottom: 10 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 2 }}>{c.item}</div>
-                <div style={{ fontSize: 12, color: "var(--mist)" }}>{c.note}</div>
-              </div>
-              <div style={{ textAlign: "right", flexShrink: 0 }}>
-                <div style={{ fontFamily: "var(--font-mono)", fontSize: 14, fontWeight: 500, color: "var(--u-deep)" }}>{c.bdt}</div>
-                <div style={{ fontSize: 11, color: "var(--mist)" }}>{c.usd}</div>
-              </div>
-            </div>
-          </div>
-        ))}
-        <div style={{ borderRadius: "var(--r-md)", padding: "18px 20px", marginTop: 6, background: "linear-gradient(135deg, var(--u-deep), var(--u-mid))", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+    <div style={{ paddingTop: 16 }}>
+      {/* Grand total header */}
+      <div style={{ padding: "0 20px 12px" }}>
+        <div style={{ borderRadius: "var(--r-md)", padding: "15px 17px", background: "linear-gradient(135deg, var(--u-deep), var(--u-mid))", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div>
-            <div className="eyebrow" style={{ color: "var(--u-gold-lt)" }}>GRAND TOTAL</div>
-            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.65)", marginTop: 2 }}>Package + food + shopping</div>
+            <div className="eyebrow" style={{ color: "var(--u-gold-lt)", fontSize: 9.5 }}>GRAND TOTAL</div>
+            <div style={{ fontSize: 10.5, color: "rgba(255,255,255,0.65)", marginTop: 2 }}>Package + food + SIM + shopping</div>
           </div>
           <div style={{ textAlign: "right" }}>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 500, color: "var(--u-gold-lt)" }}>{umrahGrandTotal.bdt}</div>
-            <div style={{ fontSize: 12, color: "rgba(255,255,255,0.7)" }}>{umrahGrandTotal.usd}</div>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 500, color: "var(--u-gold-lt)", lineHeight: 1.1 }}>{umrahGrandTotal.bdt}</div>
+            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.7)" }}>{umrahGrandTotal.usd}</div>
           </div>
+        </div>
+      </div>
+      <TileGrid tiles={tiles} accent="var(--u-mid)" />
+      <div style={{ padding: "14px 20px 16px" }}>
+        <div className="tip umrah" style={{ marginTop: 0 }}>
+          <strong>Note:</strong> Package price is confirmed with Fly Hajj Aviation. Food, SIM, and shopping are estimates — carry a buffer.
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { umrahMeta } from "../data/umrah";
 import { thailandMeta } from "../data/thailand";
@@ -52,18 +53,21 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Quick stats */}
-      <div style={{ padding: "9px 16px 10px", display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8, flexShrink: 0 }}>
-        {[
-          { k: "15", l: "days away" },
-          { k: "2", l: "countries" },
-          { k: "5", l: "cities" },
-        ].map((s, i) => (
-          <div key={i} className="card" style={{ padding: "7px 6px", textAlign: "center" }}>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: 19, fontWeight: 600, color: "var(--u-gold)", lineHeight: 1 }}>{s.k}</div>
-            <div style={{ fontSize: 9.5, color: "var(--mist)", marginTop: 2, letterSpacing: "0.03em" }}>{s.l}</div>
-          </div>
-        ))}
+      {/* Countdown */}
+      <div style={{ padding: "10px 16px 0", flexShrink: 0 }}>
+        <Countdown />
+      </div>
+
+      {/* Story fills remaining space */}
+      <div className="home-story" style={{ padding: "10px 16px 0", flexShrink: 1, minHeight: 0, overflow: "hidden" }}>
+        <div className="card" style={{ padding: "11px 13px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+          <div className="eyebrow" style={{ color: "var(--u-gold)", fontSize: 9, marginBottom: 5 }}>THE STORY</div>
+          <p style={{ fontSize: 11.5, color: "var(--slate)", lineHeight: 1.55, margin: 0 }}>
+            In August we travel as five to the holy cities — Makkah for Umrah, then Madinah, the whole family together.
+            A week later just the three of us fly on to Thailand: a pool villa on Choeng Mon's calm bay, elephants,
+            an island boat, and Bangkok's river lights. <strong style={{ color: "var(--u-mid)" }}>Affaan's first great adventure.</strong>
+          </p>
+        </div>
       </div>
 
       <div className="home-spacer" />
@@ -95,5 +99,46 @@ function JourneyTile({ to, tone, num, title, sub, meta, bg }) {
         </div>
       </div>
     </Link>
+  );
+}
+
+function Countdown() {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const t = setInterval(() => setNow(new Date()), 60000);
+    return () => clearInterval(t);
+  }, []);
+
+  const legs = [
+    { label: "Umrah", date: new Date("2026-08-22T00:00:00"), c1: "#5A1420", c2: "#8B1E2D", tint: "#F5E9EB" },
+    { label: "Thailand", date: new Date("2026-09-01T00:00:00"), c1: "#1B3A8F", c2: "#0E8C8C", tint: "#E5F0F3" },
+  ];
+  const day = 86400000;
+
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 9 }}>
+      {legs.map((l, i) => {
+        const diff = Math.ceil((l.date - now) / day);
+        const away = diff > 0;
+        const total = 120;
+        const pct = away ? Math.max(4, Math.min(100, ((total - diff) / total) * 100)) : 100;
+        return (
+          <div key={i} className="card" style={{ padding: "9px 11px", overflow: "hidden" }}>
+            <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 6 }}>
+              <span style={{ fontSize: 10, fontWeight: 700, color: l.c2, letterSpacing: "0.03em" }}>{l.label}</span>
+              <span style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 600, color: l.c1, lineHeight: 1 }}>
+                {away ? diff : "—"}
+              </span>
+            </div>
+            <div style={{ fontSize: 9, color: "var(--mist)", marginTop: 1, marginBottom: 6 }}>
+              {away ? (diff === 1 ? "day to go" : "days to go") : "under way"}
+            </div>
+            <div style={{ height: 5, borderRadius: 99, background: l.tint, overflow: "hidden" }}>
+              <div style={{ width: `${pct}%`, height: "100%", borderRadius: 99, background: `linear-gradient(90deg, ${l.c1}, ${l.c2})`, transition: "width 0.6s ease" }} />
+            </div>
+          </div>
+        );
+      })}
+    </div>
   );
 }
