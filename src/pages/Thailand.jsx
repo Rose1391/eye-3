@@ -14,12 +14,14 @@ import {
   carRentalOperatorsCompared, yarisPriceBreakdown, carRentalWhatsapp,
   activityBookingGuide, activityBookingSitesNote, romanticEscapes,
   thailandDos, thailandDonts, thailandDosNote,
+  thaiPhrases, thaiPhraseNote, offlineEssentials,
 } from "../data/thailand";
 import { SectionHead } from "../components/ui";
 import Accordion from "../components/Accordion";
 import Checklist from "../components/Checklist";
+import TileGrid from "../components/TileGrid";
 
-const TABS = ["Days", "Bookings", "Activities", "Beaches", "Hotels", "Cars", "Comms", "Etiquette", "Affaan", "Travelers", "Food", "Flights", "Costs", "Packing"];
+const TABS = ["Days", "Bookings", "Activities", "Beaches", "Hotels", "Cars", "Comms", "Phrases", "Etiquette", "Affaan", "Travelers", "Food", "Flights", "Costs", "Packing"];
 const BLUE = "var(--m-blue)";
 const GOLD = "var(--u-gold)";
 const TEAL = "#0E8C8C";
@@ -65,6 +67,7 @@ export default function Thailand() {
       {tab === "Hotels" && <HotelsTab />}
       {tab === "Cars" && <CarsTab />}
       {tab === "Comms" && <CommsTab />}
+      {tab === "Phrases" && <PhrasesTab />}
       {tab === "Etiquette" && <EtiquetteTab />}
       {tab === "Affaan" && <AffaanTab />}
       {tab === "Travelers" && <TravelersTab />}
@@ -164,6 +167,13 @@ function BookingCard({ b }) {
             <div style={{ fontSize: 11.5, color: "var(--slate)", lineHeight: 1.5, marginTop: 10, paddingTop: 8, borderTop: "1px solid var(--line)" }}>
               {b.payment}{b.phone ? ` · ☎ ${b.phone}` : ""}
             </div>
+            {b.manageUrl && (
+              <a href={b.manageUrl} target="_blank" rel="noopener noreferrer"
+                style={{ display: "inline-flex", alignItems: "center", gap: 5, marginTop: 10, fontSize: 11.5, fontWeight: 700, color: "#fff", background: "var(--m-blue)", padding: "7px 13px", borderRadius: 99 }}>
+                Manage / cancel on {b.source}
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.4"><path d="M7 17L17 7M9 7h8v8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </a>
+            )}
           </div>
         </Accordion>
       </div>
@@ -204,7 +214,20 @@ function BookingsTab() {
         </div>
       )}
 
-      <div style={{ padding: "14px 20px 0" }}>
+      {/* Decision summary strip */}
+      <div style={{ margin: "14px 20px 0", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 9 }}>
+        {[
+          { n: samui.length, l: "Samui held", c: "#0E8C8C" },
+          { n: bangkok.length, l: "Bangkok held", c: "var(--m-blue)" },
+        ].map((s, i) => (
+          <div key={i} className="card" style={{ padding: "11px 12px", borderLeft: `3px solid ${s.c}` }}>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 21, fontWeight: 600, color: s.c, lineHeight: 1 }}>{s.n}</div>
+            <div style={{ fontSize: 10.5, color: "var(--mist)", marginTop: 3 }}>{s.l} · keep 1</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ padding: "12px 20px 0" }}>
         <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6 }}>{bookingsMeta.note}</p>
       </div>
 
@@ -281,122 +304,134 @@ function CFBadge({ cf }) {
   );
 }
 
-function ActivitiesTab() {
+function ActRows({ list }) {
   return (
-    <div>
-      <div style={{ padding: "18px 20px 0" }}>
-        <p style={{ fontSize: 13, color: "var(--slate)", lineHeight: 1.6 }}>
-          The complete list of everything worth doing in both places — nothing left out. Each item is flagged so you can plan around Affaan or take turns.
-        </p>
-      </div>
-
-      <SectionHead num="A" title="Koh Samui — everything" icon="beach" />
-      <div style={{ padding: "0 20px" }}>
-        <div className="card" style={{ overflow: "hidden" }}>
-          {samuiActivities.map((a, i) => (
-            <div key={i} style={{ padding: "11px 14px", borderBottom: i < samuiActivities.length - 1 ? "1px solid var(--line)" : "none" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 3 }}>
-                <span style={{ fontWeight: 600, fontSize: 13.5, lineHeight: 1.35 }}>{a.name}</span>
-                <CFBadge cf={a.cf} />
-              </div>
-              <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.5 }}>{a.note}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Koh Phangan verdict */}
-      <div style={{ padding: "18px 20px 0" }}>
-        <div className="card" style={{ overflow: "hidden", border: "1.5px solid var(--u-gold)" }}>
-          <div style={{ background: "linear-gradient(135deg, #B8912F, var(--u-gold))", color: "#fff", padding: "12px 16px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 500 }}>{phanganVerdict.title}</div>
-            <span style={{ fontSize: 11, fontWeight: 700, background: "rgba(255,255,255,0.22)", padding: "4px 11px", borderRadius: 99 }}>{phanganVerdict.verdict}</span>
+    <div style={{ padding: "0 14px" }}>
+      {list.map((a, i) => (
+        <div key={i} style={{ padding: "9px 0", borderBottom: i < list.length - 1 ? "1px solid var(--line)" : "none" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8, marginBottom: 2 }}>
+            <span style={{ fontWeight: 600, fontSize: 13, lineHeight: 1.3 }}>{a.name}</span>
+            <CFBadge cf={a.cf} />
           </div>
-          <div className="pad" style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.65 }}>{phanganVerdict.body}</div>
+          <div style={{ fontSize: 11.5, color: "var(--slate)", lineHeight: 1.5 }}>{a.note}</div>
         </div>
-      </div>
+      ))}
+    </div>
+  );
+}
 
-      <SectionHead num="B" title="Bangkok — everything" icon="building" />
-      <div style={{ padding: "0 20px 4px" }}>
-        <div className="card" style={{ overflow: "hidden" }}>
-          {bangkokActivities.map((a, i) => (
-            <div key={i} style={{ padding: "11px 14px", borderBottom: i < bangkokActivities.length - 1 ? "1px solid var(--line)" : "none" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 3 }}>
-                <span style={{ fontWeight: 600, fontSize: 13.5, lineHeight: 1.35 }}>{a.name}</span>
-                <CFBadge cf={a.cf} />
-              </div>
-              <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.5 }}>{a.note}</div>
-            </div>
-          ))}
-        </div>
+function ActivitiesTab() {
+  const tiles = [
+    { key: "samui", icon: "🏝️", label: "Koh Samui", sub: `${samuiActivities.length} things to do`, render: () => <ActRows list={samuiActivities} /> },
+    { key: "bkk", icon: "🏙️", label: "Bangkok", sub: `${bangkokActivities.length} things to do`, accent: "var(--m-blue)", render: () => <ActRows list={bangkokActivities} /> },
+    { key: "phangan", icon: "⛴️", label: "Koh Phangan?", sub: "Our verdict", accent: "var(--u-gold)", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        <div style={{ display: "inline-block", fontSize: 10.5, fontWeight: 700, background: "#FDF3DD", color: "#7A5510", padding: "3px 10px", borderRadius: 99, marginBottom: 8 }}>{phanganVerdict.verdict}</div>
+        <div style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.65 }}>{phanganVerdict.body}</div>
       </div>
-
-      {/* Where & when to book */}
-      <SectionHead num="C" title="Where & when to book — early" icon="check" />
-      <div style={{ padding: "0 20px" }}>
-        <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>{activityBookingSitesNote}</p>
+    )},
+    { key: "book", icon: "🎫", label: "Where to book", sub: "Sites + lead times", accent: "var(--m-blue)", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        <p style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.6, marginBottom: 10 }}>{activityBookingSitesNote}</p>
         {activityBookingGuide.map((a, i) => (
-          <div key={i} className="card pad" style={{ marginBottom: 10 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 5 }}>
-              <span style={{ fontWeight: 700, fontSize: 13.5, lineHeight: 1.3 }}>{a.name}</span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: 10.5, color: "#0E6B6B", flexShrink: 0, textAlign: "right" }}>{a.price}</span>
+          <div key={i} style={{ padding: "10px 0", borderTop: "1px solid var(--line)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 4 }}>
+              <span style={{ fontWeight: 700, fontSize: 12.5, lineHeight: 1.3 }}>{a.name}</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "#0E6B6B", flexShrink: 0, textAlign: "right" }}>{a.price}</span>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "4px 8px", fontSize: 12 }}>
-              <span style={{ fontWeight: 700, color: "var(--m-blue)", display: "flex", alignItems: "center", gap: 4 }}>🎫 Book on</span><span style={{ color: "var(--ink)" }}>{a.site}</span>
-              <span style={{ fontWeight: 700, color: "var(--m-blue)", display: "flex", alignItems: "center", gap: 4 }}>⏰ When</span><span style={{ color: "var(--ink)" }}>{a.when}</span>
-              <span style={{ fontWeight: 700, color: "var(--m-blue)", display: "flex", alignItems: "center", gap: 4 }}>💡 Why</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{a.why}</span>
+            <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "3px 7px", fontSize: 11.5 }}>
+              <span style={{ fontWeight: 700, color: "var(--m-blue)" }}>🎫</span><span style={{ color: "var(--ink)" }}>{a.site}</span>
+              <span style={{ fontWeight: 700, color: "var(--m-blue)" }}>⏰</span><span style={{ color: "var(--ink)" }}>{a.when}</span>
+              <span style={{ fontWeight: 700, color: "var(--m-blue)" }}>💡</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{a.why}</span>
             </div>
           </div>
         ))}
       </div>
-
-      {/* Romantic escapes */}
-      <SectionHead num="D" title="Romantic escapes — for you two" icon="spa" />
-      <div style={{ padding: "0 20px 16px" }}>
-        <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>
-          Small grown-up moments for you and Farzana — most work around Affaan's nap or with resort babysitting.
+    )},
+    { key: "romance", icon: "💞", label: "Romantic escapes", sub: "For you two", accent: "#C0507A", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        <p style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.6, marginBottom: 10 }}>
+          Grown-up moments around Affaan's nap or with resort babysitting.
         </p>
         {romanticEscapes.map((r, i) => (
-          <div key={i} className="card pad" style={{ marginBottom: 10, borderLeft: "3px solid #C0507A" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 4 }}>
-              <span style={{ fontSize: 10, fontWeight: 700, color: "#9A3D5F", background: "#FBEAF1", padding: "2px 8px", borderRadius: 99 }}>{r.where}</span>
-              <span style={{ fontWeight: 700, fontSize: 13.5 }}>{r.title}</span>
+          <div key={i} style={{ padding: "10px 0", borderTop: "1px solid var(--line)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 3, flexWrap: "wrap" }}>
+              <span style={{ fontSize: 9.5, fontWeight: 700, color: "#9A3D5F", background: "#FBEAF1", padding: "2px 7px", borderRadius: 99 }}>{r.where}</span>
+              <span style={{ fontWeight: 700, fontSize: 12.5 }}>{r.title}</span>
             </div>
-            <div style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 5 }}>{r.desc}</div>
-            <div style={{ fontSize: 11.5, color: "#9A3D5F", fontStyle: "italic" }}>💞 {r.tip}</div>
+            <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.55, marginBottom: 4 }}>{r.desc}</div>
+            <div style={{ fontSize: 11, color: "#9A3D5F", fontStyle: "italic" }}>💞 {r.tip}</div>
           </div>
         ))}
+      </div>
+    )},
+  ];
+  return (
+    <div style={{ paddingTop: 16 }}>
+      <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, padding: "0 20px 12px" }}>
+        Everything worth doing in both places — nothing left out, each flagged for Affaan. Tap a tile.
+      </p>
+      <TileGrid tiles={tiles} />
+    </div>
+  );
+}
+
+function PhrasesTab() {
+  const tiles = thaiPhrases.map((g, i) => ({
+    key: `g${i}`, icon: g.icon, label: g.group, sub: `${g.items.length} phrases`,
+    render: () => (
+      <div style={{ padding: "0 14px" }}>
+        {g.items.map((p, j) => (
+          <div key={j} style={{ padding: "9px 0", borderBottom: j < g.items.length - 1 ? "1px solid var(--line)" : "none" }}>
+            <div style={{ fontSize: 15, fontWeight: 500, color: "var(--ink)", lineHeight: 1.3 }}>{p.thai}</div>
+            <div style={{ fontFamily: "var(--font-mono)", fontSize: 12.5, color: "#0E6B6B", fontWeight: 600, marginTop: 2 }}>{p.say}</div>
+            <div style={{ fontSize: 12, color: "var(--slate)", marginTop: 2, lineHeight: 1.45 }}>{p.mean}</div>
+          </div>
+        ))}
+      </div>
+    ),
+  }));
+  return (
+    <div style={{ paddingTop: 16 }}>
+      <div style={{ padding: "0 20px 12px" }}>
+        <div className="tip malaysia" style={{ marginTop: 0 }}>{thaiPhraseNote}</div>
+      </div>
+      <TileGrid tiles={tiles} />
+      <div style={{ padding: "14px 20px 16px" }}>
+        <div className="tip warn"><strong>Offline tip:</strong> {offlineEssentials}</div>
       </div>
     </div>
   );
 }
 
 function EtiquetteTab() {
-  return (
-    <div>
-      <SectionHead num="01" title="Do — to travel gracefully" icon="check" />
-      <div style={{ padding: "0 20px" }}>
-        <div className="card" style={{ overflow: "hidden" }}>
-          {thailandDos.map((d, i) => (
-            <div key={i} style={{ display: "flex", gap: 12, padding: "12px 14px", borderBottom: i < thailandDos.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start" }}>
-              <span style={{ fontSize: 20, flexShrink: 0, lineHeight: 1.2 }}>{d.icon}</span>
-              <span style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.55 }}>{d.text}</span>
-            </div>
-          ))}
-        </div>
+  const tiles = [
+    { key: "do", icon: "✅", label: "Do", sub: `${thailandDos.length} habits`, accent: "#1B8A5A", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        {thailandDos.map((d, i) => (
+          <div key={i} style={{ display: "flex", gap: 10, padding: "9px 0", borderBottom: i < thailandDos.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start" }}>
+            <span style={{ fontSize: 17, flexShrink: 0, lineHeight: 1.2 }}>{d.icon}</span>
+            <span style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.55 }}>{d.text}</span>
+          </div>
+        ))}
       </div>
-
-      <SectionHead num="02" title="Don't — to avoid trouble & scams" icon="warn" />
-      <div style={{ padding: "0 20px" }}>
-        <div className="card" style={{ overflow: "hidden" }}>
-          {thailandDonts.map((d, i) => (
-            <div key={i} style={{ display: "flex", gap: 12, padding: "12px 14px", borderBottom: i < thailandDonts.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start", background: d.severe ? "#FBEBEB" : "transparent" }}>
-              <span style={{ fontSize: 20, flexShrink: 0, lineHeight: 1.2 }}>{d.icon}</span>
-              <span style={{ fontSize: 12.5, color: d.severe ? "#8B1E2D" : "var(--ink)", lineHeight: 1.55, fontWeight: d.severe ? 600 : 400 }}>{d.text}</span>
-            </div>
-          ))}
-        </div>
-        <div className="tip malaysia" style={{ marginTop: 14, marginBottom: 16 }}>{thailandDosNote}</div>
+    )},
+    { key: "dont", icon: "⚠️", label: "Don't", sub: `${thailandDonts.length} to avoid`, accent: "#A82838", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        {thailandDonts.map((d, i) => (
+          <div key={i} style={{ display: "flex", gap: 10, padding: "9px 8px", margin: "0 -8px", borderBottom: i < thailandDonts.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start", background: d.severe ? "#FBEBEB" : "transparent", borderRadius: d.severe ? 6 : 0 }}>
+            <span style={{ fontSize: 17, flexShrink: 0, lineHeight: 1.2 }}>{d.icon}</span>
+            <span style={{ fontSize: 12.5, color: d.severe ? "#8B1E2D" : "var(--ink)", lineHeight: 1.55, fontWeight: d.severe ? 600 : 400 }}>{d.text}</span>
+          </div>
+        ))}
+      </div>
+    )},
+  ];
+  return (
+    <div style={{ paddingTop: 16 }}>
+      <TileGrid tiles={tiles} />
+      <div style={{ padding: "14px 20px 16px" }}>
+        <div className="tip malaysia" style={{ marginTop: 0 }}>{thailandDosNote}</div>
       </div>
     </div>
   );
@@ -447,243 +482,182 @@ function BeachSpaBadges({ beachfront, spa }) {
 }
 
 function HotelsTab() {
-  const riverside = bangkokHotels.filter(h => h.type.startsWith("Riverside"));
   const shopping = bangkokHotels.filter(h => h.type === "Shopping");
-  return (
-    <div>
-      {/* YOUR TOP PICKS */}
-      <SectionHead num="★" title="Your top-pick resorts" icon="star" />
-      <div style={{ padding: "0 20px" }}>
-        <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>{samuiTopPickNote}</p>
+  const tiles = [
+    { key: "picks", icon: "⭐", label: "Your top picks", sub: `${samuiTopPicks.length} named resorts`, render: () => (
+      <div style={{ padding: "0 14px" }}>
+        <p style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.6, marginBottom: 10 }}>{samuiTopPickNote}</p>
         {samuiTopPicks.map((h, i) => (
-          <div key={i} className="card" style={{ marginBottom: 10, overflow: "hidden", border: h.star ? "1.5px solid #0E8C8C" : "1px solid var(--line)" }}>
-            <div className="pad">
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 4 }}>
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    {h.star && <svg viewBox="0 0 24 24" width="13" height="13" fill="#0E8C8C" style={{ flexShrink: 0 }}><path d="m12 3 2.6 5.6 6 .7-4.4 4.1 1.2 6L12 16.8 6.6 19.4l1.2-6L3.4 9.3l6-.7L12 3Z" /></svg>}
-                    <span style={{ fontWeight: 600, fontSize: 14, lineHeight: 1.25 }}>{h.name}</span>
-                  </div>
-                  <div style={{ fontSize: 11.5, color: "var(--mist)", marginTop: 2 }}>{h.area} · {h.pool}</div>
-                </div>
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: 12.5, fontWeight: 500, color: "#0E8C8C", flexShrink: 0 }}>{h.price}</span>
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "2px 8px", fontSize: 12, marginTop: 6 }}>
-                <span style={{ color: "var(--mist)", fontWeight: 600 }}>Swim</span><span style={{ color: "var(--slate)" }}>{h.swim}</span>
-              </div>
-              <div style={{ fontSize: 12, color: "var(--slate)", fontStyle: "italic", marginTop: 6, borderTop: "1px solid var(--line)", paddingTop: 7 }}>{h.note}</div>
-              <BeachSpaBadges beachfront={h.beachfront} spa={h.spa} />
+          <div key={i} style={{ padding: "10px 0", borderTop: "1px solid var(--line)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 3 }}>
+              <span style={{ fontWeight: 700, fontSize: 12.5, lineHeight: 1.3 }}>{h.star ? "★ " : ""}{h.name}</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "#0E6B6B", flexShrink: 0 }}>{h.price}</span>
             </div>
+            <div style={{ fontSize: 11, color: "var(--mist)", marginBottom: 4 }}>{h.area} · {h.pool}</div>
+            <div style={{ fontSize: 11.5, color: "var(--slate)", lineHeight: 1.5 }}><strong>Swim:</strong> {h.swim}</div>
+            <div style={{ fontSize: 11.5, color: "var(--slate)", fontStyle: "italic", marginTop: 4 }}>{h.note}</div>
+            <BeachSpaBadges beachfront={h.beachfront} spa={h.spa} />
           </div>
         ))}
       </div>
-
-      {/* CHOENG MON BEACHFRONT SPA VILLAS */}
-      <SectionHead num="1B" title="5 Choeng Mon beachfront pool villas · spa · under $200" icon="villa" />
-      <div style={{ padding: "0 20px" }}>
+    )},
+    { key: "cm", icon: "🏝️", label: "Choeng Mon villas", sub: "Beachfront + spa < $200", render: () => (
+      <div style={{ padding: "0 14px" }}>
         {choengMonVillas.map((h, i) => (
-          <div key={i} className="card pad" style={{ marginBottom: 10, border: h.star ? "1.5px solid #0E8C8C" : "1px solid var(--line)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 4 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                {h.star && <svg viewBox="0 0 24 24" width="13" height="13" fill="#0E8C8C" style={{ flexShrink: 0 }}><path d="m12 3 2.6 5.6 6 .7-4.4 4.1 1.2 6L12 16.8 6.6 19.4l1.2-6L3.4 9.3l6-.7L12 3Z" /></svg>}
-                <span style={{ fontWeight: 600, fontSize: 14 }}>{h.name}</span>
-              </div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 500, color: "#0E8C8C", flexShrink: 0 }}>{h.price}</span>
+          <div key={i} style={{ padding: "9px 0", borderBottom: i < choengMonVillas.length - 1 ? "1px solid var(--line)" : "none" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
+              <span style={{ fontWeight: 700, fontSize: 12.5 }}>{h.star ? "★ " : ""}{h.name}</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "#0E6B6B", flexShrink: 0 }}>{h.price}</span>
             </div>
-            <div style={{ fontSize: 11.5, color: "#7A3B78", fontWeight: 600, marginBottom: 4 }}>💆 {h.spa}</div>
-            <div style={{ fontSize: 12, color: "var(--slate)", fontStyle: "italic" }}>{h.note}</div>
+            <div style={{ fontSize: 11, color: "#7A3B78", fontWeight: 600, margin: "2px 0 3px" }}>💆 {h.spa}</div>
+            <div style={{ fontSize: 11.5, color: "var(--slate)", fontStyle: "italic", lineHeight: 1.5 }}>{h.note}</div>
           </div>
         ))}
-        <div className="card pad" style={{ background: "#E5F3F3", border: "1px solid rgba(14,140,140,0.3)", marginBottom: 8 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: "#0E8C8C", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 5 }}>Note</div>
-          <div style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.6 }}>{choengMonVillaNote}</div>
-        </div>
+        <div className="tip malaysia" style={{ marginTop: 10 }}>{choengMonVillaNote}</div>
       </div>
-
-      {/* 10 RESORTS UNDER 200 */}
-      <SectionHead num="1C" title="10 more pool-villa resorts under $200" icon="pool" />
-      <div style={{ padding: "0 20px" }}>
+    )},
+    { key: "more", icon: "🏊", label: "10 more resorts", sub: "Pool villas < $200", render: () => (
+      <div style={{ padding: "0 14px" }}>
         {samuiResorts.map((h, i) => (
-          <div key={i} className="card" style={{ marginBottom: 10, overflow: "hidden", border: h.star ? "1.5px solid #0E8C8C" : "1px solid var(--line)" }}>
-            <div className="pad">
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 6 }}>
-                <div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    {h.star && <svg viewBox="0 0 24 24" width="13" height="13" fill="#0E8C8C"><path d="m12 3 2.6 5.6 6 .7-4.4 4.1 1.2 6L12 16.8 6.6 19.4l1.2-6L3.4 9.3l6-.7L12 3Z" /></svg>}
-                    <span style={{ fontWeight: 600, fontSize: 14.5 }}>{h.name}</span>
-                  </div>
-                  <div style={{ fontSize: 11.5, color: "var(--mist)", marginTop: 1 }}>{h.area} · {h.pool}</div>
-                </div>
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: 12.5, fontWeight: 500, color: "#0E8C8C", flexShrink: 0 }}>{h.price}</span>
-              </div>
-              <div style={{ fontSize: 12, color: "var(--slate)", fontStyle: "italic" }}>{h.note}</div>
+          <div key={i} style={{ padding: "9px 0", borderBottom: i < samuiResorts.length - 1 ? "1px solid var(--line)" : "none" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
+              <span style={{ fontWeight: 600, fontSize: 12.5 }}>{h.star ? "★ " : ""}{h.name}</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "#0E6B6B", flexShrink: 0 }}>{h.price}</span>
             </div>
+            <div style={{ fontSize: 11, color: "var(--mist)" }}>{h.area} · {h.pool}</div>
+            <div style={{ fontSize: 11.5, color: "var(--slate)", fontStyle: "italic", marginTop: 2 }}>{h.note}</div>
           </div>
         ))}
       </div>
-
-      {/* BANGKOK RIVERSIDE — DEEP COMPARISON */}
-      <SectionHead num="2A" title="Bangkok riverside — deep comparison" icon="building" />
-      <div style={{ padding: "0 20px" }}>
-        <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>
-          Your seven riverside hotels, compared across every dimension that matters for Bangkok sightseeing with a toddler. Tap each to expand.
-        </p>
+    )},
+    { key: "river", icon: "🏙️", label: "Bangkok riverside", sub: "7 compared in depth", accent: "var(--m-blue)", render: () => (
+      <div style={{ padding: "0 6px" }}>
         {bangkokRiverside.map((h, i) => (
-          <Accordion key={i} accent="var(--m-blue)"
-            badge={h.price}
-            defaultOpen={h.star}
-            leftNode={
-              <div style={{ width: 40, height: 40, borderRadius: 10, flexShrink: 0, background: h.star ? "linear-gradient(135deg, var(--m-blue), #0E8C8C)" : "var(--cloud)", color: h.star ? "#fff" : "var(--slate)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 15 }}>
-                {h.star ? "★" : (i + 1)}
-              </div>
-            }
-            title={h.name}
-            subtitle={`${h.tier} · ${h.verdict}`}
-          >
-            <div style={{ padding: "10px 16px 14px" }}>
-              {[
-                ["Location", h.location],
-                ["Rooms", h.rooms],
-                ["Pool", h.pool],
-                ["Family", h.family],
-                ["Dining", h.dining],
-                ["River boat", h.boat],
-              ].map(([k, v], j) => (
-                <div key={j} style={{ display: "grid", gridTemplateColumns: "76px 1fr", gap: 8, padding: "6px 0", borderBottom: "1px solid var(--line)" }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: "var(--m-blue)", textTransform: "uppercase", letterSpacing: "0.03em" }}>{k}</span>
-                  <span style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.5 }}>{v}</span>
+          <Accordion key={i} accent="var(--m-blue)" badge={h.price} defaultOpen={false}
+            leftNode={<div style={{ width: 34, height: 34, borderRadius: 9, flexShrink: 0, background: h.star ? "linear-gradient(135deg, var(--m-blue), #0E8C8C)" : "var(--cloud)", color: h.star ? "#fff" : "var(--slate)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 13 }}>{h.star ? "★" : (i + 1)}</div>}
+            title={h.name} subtitle={h.verdict}>
+            <div style={{ padding: "8px 14px 12px" }}>
+              {[["Location", h.location],["Rooms", h.rooms],["Pool", h.pool],["Family", h.family],["Dining", h.dining],["River boat", h.boat]].map(([k, v], j) => (
+                <div key={j} style={{ display: "grid", gridTemplateColumns: "70px 1fr", gap: 8, padding: "5px 0", borderBottom: "1px solid var(--line)" }}>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: "var(--m-blue)", textTransform: "uppercase" }}>{k}</span>
+                  <span style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.5 }}>{v}</span>
                 </div>
               ))}
-              <div style={{ marginTop: 10, background: "#E5F3F3", border: "1px solid rgba(14,140,140,0.25)", borderRadius: "var(--r-sm)", padding: "9px 11px" }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "#0E6B6B" }}>For Affaan — </span>
-                <span style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.55 }}>{h.forAffaan}</span>
+              <div style={{ marginTop: 8, background: "#E5F3F3", borderRadius: 6, padding: "8px 10px" }}>
+                <span style={{ fontSize: 10.5, fontWeight: 700, color: "#0E6B6B" }}>For Affaan — </span>
+                <span style={{ fontSize: 12, color: "var(--ink)", lineHeight: 1.55 }}>{h.forAffaan}</span>
               </div>
             </div>
           </Accordion>
         ))}
-        <div className="card pad" style={{ background: "var(--m-sand)", border: "1px solid rgba(27,58,143,0.2)", marginTop: 4, marginBottom: 8 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: "var(--m-blue)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 5 }}>The verdict</div>
-          <div style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.65 }}>{bangkokRiversideVerdict}</div>
-        </div>
+        <div className="tip malaysia" style={{ margin: "10px 8px 0" }}>{bangkokRiversideVerdict}</div>
       </div>
-
-      {/* SHOPPING HOTELS */}
-      <SectionHead num="2B" title="Bangkok — 3 for shopping" icon="shop" />
-      <div style={{ padding: "0 20px 8px" }}>
+    )},
+    { key: "shop", icon: "🛍️", label: "Bangkok shopping", sub: "3 mall-side hotels", accent: "var(--m-red)", render: () => (
+      <div style={{ padding: "0 14px" }}>
         {shopping.map((h, i) => (
-          <div key={i} className="card pad" style={{ marginBottom: 10, borderLeft: "4px solid var(--m-red)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 10, marginBottom: 4 }}>
-              <span style={{ fontWeight: 600, fontSize: 14.5 }}>{h.name}</span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: 12.5, color: "var(--m-red)", flexShrink: 0 }}>{h.price}</span>
+          <div key={i} style={{ padding: "9px 0", borderBottom: i < shopping.length - 1 ? "1px solid var(--line)" : "none" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
+              <span style={{ fontWeight: 600, fontSize: 12.5 }}>{h.name}</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--m-red)", flexShrink: 0 }}>{h.price}</span>
             </div>
-            <div style={{ fontSize: 12, color: "var(--slate)" }}>{h.note}</div>
+            <div style={{ fontSize: 11.5, color: "var(--slate)", marginTop: 2 }}>{h.note}</div>
           </div>
         ))}
-        <div className="tip malaysia" style={{ marginBottom: 16 }}>
-          <strong>Recommendation:</strong> {hotelRecommendation}
-        </div>
+        <div className="tip malaysia" style={{ marginTop: 10 }}>{hotelRecommendation}</div>
       </div>
+    )},
+  ];
+  return (
+    <div style={{ paddingTop: 16 }}>
+      <TileGrid tiles={tiles} />
+      <div style={{ height: 16 }} />
     </div>
   );
 }
 
 function CarsTab() {
-  return (
-    <div>
-      <SectionHead num="01" title="Renting a car in Koh Samui" icon="car" />
-      <div style={{ padding: "0 20px" }}>
-        <p style={{ fontSize: 13, color: "var(--slate)", lineHeight: 1.65, marginBottom: 14 }}>{carRentalIntro}</p>
-        {carRentalOptions.map((c, i) => (
-          <div key={i} className="card pad" style={{ marginBottom: 10, border: c.best ? "1.5px solid #0E8C8C" : "1px solid var(--line)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, marginBottom: 5 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                {c.best && <span style={{ fontSize: 10, fontWeight: 700, background: "#E5F3F3", color: "#0E6B6B", padding: "2px 8px", borderRadius: 99 }}>BEST WITH A TODDLER</span>}
-              </div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, fontWeight: 500, color: "#0E8C8C", flexShrink: 0, textAlign: "right" }}>{c.price}</span>
+  const tiles = [
+    { key: "how", icon: "🚗", label: "How to get around", sub: "4 options compared", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        <p style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.6, marginBottom: 10 }}>{carRentalIntro}</p>
+        {carRentalOptions.map((c2, i) => (
+          <div key={i} style={{ padding: "10px 0", borderTop: "1px solid var(--line)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 3 }}>
+              <span style={{ fontWeight: 700, fontSize: 12.5 }}>{c2.best ? "★ " : ""}{c2.mode}</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: 10.5, color: "#0E6B6B", flexShrink: 0, textAlign: "right" }}>{c2.price}</span>
             </div>
-            <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 4 }}>{c.mode}</div>
-            <div style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6 }}>{c.detail}</div>
+            <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.55 }}>{c2.detail}</div>
           </div>
         ))}
       </div>
-
-      {/* Real operator comparison */}
-      <SectionHead num="02" title="Real operators compared — Toyota Yaris" icon="car" />
-      <div style={{ padding: "0 20px" }}>
+    )},
+    { key: "ops", icon: "🏢", label: "Real operators", sub: "SIXT · local · budget", render: () => (
+      <div style={{ padding: "0 6px" }}>
         {carRentalOperatorsCompared.map((op, i) => (
           <Accordion key={i} accent="#0E8C8C" defaultOpen={op.star}
-            leftNode={
-              <div style={{ width: 42, height: 42, borderRadius: 11, flexShrink: 0, background: op.star ? "linear-gradient(135deg, #0E8C8C, #0B6B6B)" : "var(--cloud)", color: op.star ? "#fff" : "var(--slate)", display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
-                <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M5 17h14M5 17a2 2 0 1 1-4 0M5 17a2 2 0 1 0 4 0m10 0a2 2 0 1 1-4 0m4 0a2 2 0 1 0 4 0M3 17V11l2-5h14l2 5v6" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                {op.star && <span style={{ position: "absolute", top: -5, right: -5, background: "var(--u-gold)", color: "#fff", fontSize: 9, fontWeight: 700, borderRadius: 99, padding: "1px 5px", border: "1.5px solid #fff" }}>★</span>}
-              </div>
-            }
+            leftNode={<div style={{ width: 34, height: 34, borderRadius: 9, flexShrink: 0, background: op.star ? "linear-gradient(135deg, #0E8C8C, #0B6B6B)" : "var(--cloud)", color: op.star ? "#fff" : "var(--slate)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M5 17h14M5 17a2 2 0 1 1-4 0M5 17a2 2 0 1 0 4 0m10 0a2 2 0 1 1-4 0m4 0a2 2 0 1 0 4 0M3 17V11l2-5h14l2 5v6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </div>}
             title={op.name} subtitle={op.type}>
-            <div style={{ padding: "6px 16px 14px" }}>
-              <div style={{ display: "inline-block", fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600, color: "#0E6B6B", background: "#E5F3F3", padding: "5px 11px", borderRadius: 8, marginBottom: 11 }}>{op.price}</div>
-              <div style={{ display: "grid", gridTemplateColumns: "76px 1fr", gap: "7px 8px", fontSize: 12.5 }}>
-                <span style={{ fontWeight: 700, color: "#0E6B6B", display: "flex", alignItems: "center", gap: 4 }}><span>🔗</span> Booking</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.booking}</span>
-                <span style={{ fontWeight: 700, color: "#0E6B6B", display: "flex", alignItems: "center", gap: 4 }}><span>💳</span> Deposit</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.deposit}</span>
-                <span style={{ fontWeight: 700, color: "#0E6B6B", display: "flex", alignItems: "center", gap: 4 }}><span>📋</span> Needs</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.requirements}</span>
+            <div style={{ padding: "6px 14px 12px" }}>
+              <div style={{ display: "inline-block", fontFamily: "var(--font-mono)", fontSize: 11.5, fontWeight: 600, color: "#0E6B6B", background: "#E5F3F3", padding: "4px 10px", borderRadius: 7, marginBottom: 9 }}>{op.price}</div>
+              <div style={{ display: "grid", gridTemplateColumns: "68px 1fr", gap: "6px 8px", fontSize: 12 }}>
+                <span style={{ fontWeight: 700, color: "#0E6B6B" }}>🔗 Book</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.booking}</span>
+                <span style={{ fontWeight: 700, color: "#0E6B6B" }}>💳 Deposit</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.deposit}</span>
+                <span style={{ fontWeight: 700, color: "#0E6B6B" }}>📋 Needs</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{op.requirements}</span>
               </div>
-              <div style={{ fontSize: 12, color: "var(--slate)", fontStyle: "italic", marginTop: 11, paddingTop: 10, borderTop: "1px solid var(--line)" }}>{op.note}</div>
+              <div style={{ fontSize: 11.5, color: "var(--slate)", fontStyle: "italic", marginTop: 9, paddingTop: 8, borderTop: "1px solid var(--line)" }}>{op.note}</div>
             </div>
           </Accordion>
         ))}
       </div>
-
-      {/* Yaris price breakdown */}
-      <SectionHead num="03" title="Toyota Yaris (2023–25) — full price breakdown" icon="money" />
-      <div style={{ padding: "0 20px" }}>
-        <div className="card" style={{ overflow: "hidden" }}>
-          <div style={{ background: "linear-gradient(135deg, #0E8C8C, #0B6B6B)", color: "#fff", padding: "12px 16px" }}>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 500 }}>{yarisPriceBreakdown.vehicle}</div>
+    )},
+    { key: "yaris", icon: "💰", label: "Yaris price", sub: "Full breakdown", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        <div style={{ fontWeight: 700, fontSize: 12.5, marginBottom: 8, color: "#0E6B6B" }}>{yarisPriceBreakdown.vehicle}</div>
+        {yarisPriceBreakdown.rows.map((r, i) => (
+          <div key={i} style={{ padding: "8px 0", borderTop: "1px solid var(--line)" }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--slate)", marginBottom: 2 }}>{r[0]}</div>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
+              <span style={{ fontSize: 12, color: "var(--ink)" }}>{r[1]}</span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "#0E6B6B", flexShrink: 0 }}>{r[2]}</span>
+            </div>
           </div>
-          {yarisPriceBreakdown.rows.map((r, i) => (
-            <div key={i} style={{ padding: "10px 14px", borderBottom: i < yarisPriceBreakdown.rows.length - 1 ? "1px solid var(--line)" : "none" }}>
-              <div style={{ fontSize: 11.5, fontWeight: 700, color: "var(--slate)", marginBottom: 2 }}>{r[0]}</div>
-              <div style={{ display: "flex", justifyContent: "space-between", gap: 10 }}>
-                <span style={{ fontSize: 12.5, color: "var(--ink)" }}>{r[1]}</span>
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, color: "#0E6B6B", flexShrink: 0 }}>{r[2]}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="tip warn" style={{ marginTop: 10, marginBottom: 16 }}>{yarisPriceBreakdown.note}</div>
+        ))}
+        <div className="tip warn" style={{ marginTop: 10 }}>{yarisPriceBreakdown.note}</div>
       </div>
-
-      {/* WhatsApp booking info */}
-      <SectionHead num="04" title="WhatsApp booking at the airport" icon="whatsapp" />
-      <div style={{ padding: "0 20px 8px" }}>
-        <div className="card pad" style={{ background: "#E7F5F0", border: "1px solid rgba(14,140,140,0.3)", marginBottom: 10 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="#25D366"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.05-1.34A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2Zm0 18a7.9 7.9 0 0 1-4.06-1.11l-.29-.17-3 .8.8-2.92-.19-.3A7.93 7.93 0 1 1 12 20Zm4.4-5.9c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.55.12-.16.24-.63.78-.77.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.42-1.33-1.66-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.13 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.56.2-1.04.14-1.15-.06-.1-.22-.16-.46-.28Z" /></svg>
-            <span style={{ fontWeight: 700, fontSize: 14, color: "#0E6B6B" }}>WhatsApp is the fastest route to a local operator</span>
+    )},
+    { key: "wa", icon: "💬", label: "WhatsApp booking", sub: "Fastest local route", accent: "#25A366", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        <p style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.6, marginBottom: 8 }}>{carRentalWhatsapp.intro}</p>
+        <div className="tip warn" style={{ marginBottom: 10 }}>{carRentalWhatsapp.note}</div>
+        <div style={{ fontSize: 11, fontWeight: 700, color: "#0E6B6B", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 6 }}>What to send</div>
+        {carRentalWhatsapp.whatToSend.map((w, i) => (
+          <div key={i} style={{ display: "flex", gap: 8, marginBottom: 5, alignItems: "flex-start" }}>
+            <span style={{ width: 5, height: 5, borderRadius: 99, background: "#0E8C8C", flexShrink: 0, marginTop: 6 }} />
+            <span style={{ fontSize: 12, color: "var(--ink)", lineHeight: 1.5 }}>{w}</span>
           </div>
-          <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 10 }}>{carRentalWhatsapp.intro}</p>
-          <div className="tip warn" style={{ marginBottom: 10 }}>{carRentalWhatsapp.note}</div>
-          <div style={{ fontSize: 11.5, fontWeight: 700, color: "#0E6B6B", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 6 }}>What to send them</div>
-          {carRentalWhatsapp.whatToSend.map((w, i) => (
-            <div key={i} style={{ display: "flex", gap: 8, marginBottom: 5, alignItems: "flex-start" }}>
-              <span style={{ width: 5, height: 5, borderRadius: 99, background: "#0E8C8C", flexShrink: 0, marginTop: 6 }} />
-              <span style={{ fontSize: 12, color: "var(--ink)", lineHeight: 1.5 }}>{w}</span>
-            </div>
-          ))}
-        </div>
+        ))}
       </div>
-
-      <SectionHead num="05" title="Driver & rental tips" icon="tips" />
-      <div style={{ padding: "0 20px 16px" }}>
-        <div className="card" style={{ overflow: "hidden" }}>
-          {carRentalTips.map((t, i) => (
-            <div key={i} style={{ display: "flex", gap: 10, padding: "11px 14px", borderBottom: i < carRentalTips.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start" }}>
-              <span style={{ width: 6, height: 6, borderRadius: 99, background: "#0E8C8C", flexShrink: 0, marginTop: 7 }} />
-              <span style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.55 }}>{t}</span>
-            </div>
-          ))}
-        </div>
-        <div className="tip warn" style={{ marginTop: 14 }}>
-          <strong>Bottom line:</strong> Book a private sedan + driver for your three touring days (temples, elephant sanctuary, island-charter pier) and skip a car on pure pool days. It's the least stressful, best-value way to move a toddler around Samui.
+    )},
+    { key: "tips", icon: "💡", label: "Driver tips", sub: `${carRentalTips.length} essentials`, render: () => (
+      <div style={{ padding: "0 14px" }}>
+        {carRentalTips.map((t, i) => (
+          <div key={i} style={{ display: "flex", gap: 9, padding: "8px 0", borderBottom: i < carRentalTips.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start" }}>
+            <span style={{ width: 5, height: 5, borderRadius: 99, background: "#0E8C8C", flexShrink: 0, marginTop: 6 }} />
+            <span style={{ fontSize: 12, color: "var(--ink)", lineHeight: 1.55 }}>{t}</span>
+          </div>
+        ))}
+      </div>
+    )},
+  ];
+  return (
+    <div style={{ paddingTop: 16 }}>
+      <TileGrid tiles={tiles} />
+      <div style={{ padding: "14px 20px 16px" }}>
+        <div className="tip warn" style={{ marginTop: 0 }}>
+          <strong>Bottom line:</strong> a private sedan + driver for your three touring days, and no car on pure pool days.
         </div>
       </div>
     </div>
@@ -718,47 +692,45 @@ function SimCard({ op, accent }) {
 }
 
 function CommsTab() {
-  return (
-    <div>
-      <SectionHead num="01" title="SIM & eSIM — which network for Samui" icon="sim" />
-      <div style={{ padding: "0 20px" }}>
-        <div className="tip warn" style={{ marginBottom: 14, marginTop: 0 }}>
-          <strong>Why this matters for you:</strong> you'll be navigating Koh Samui's ring road by Google Maps in your rental car — network choice directly affects whether directions load on the move.
+  const tiles = [
+    { key: "sim", icon: "📶", label: "SIM & eSIM", sub: "AIS vs True/DTAC", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        <div className="tip warn" style={{ marginTop: 0, marginBottom: 10 }}>
+          <strong>Why it matters:</strong> you'll navigate Samui's ring road by Google Maps — network choice decides whether directions load on the move.
         </div>
         {thailandSimOperators.map((op, i) => <SimCard key={i} op={op} accent="#0E8C8C" />)}
-        <div className="tip malaysia" style={{ marginBottom: 16 }}>
-          <strong>Recommendation:</strong> {thailandSimRecommendation}
-        </div>
-
-        <SectionHead num="02" title="Practical tips" icon="tips" />
-        <div className="card" style={{ overflow: "hidden", marginBottom: 18 }}>
-          {thailandSimTips.map((t, i) => (
-            <div key={i} style={{ display: "flex", gap: 10, padding: "11px 14px", borderBottom: i < thailandSimTips.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start" }}>
-              <span style={{ width: 6, height: 6, borderRadius: 99, background: "#0E8C8C", flexShrink: 0, marginTop: 7 }} />
-              <span style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.55 }}>{t}</span>
-            </div>
-          ))}
-        </div>
+        <div className="tip malaysia">{thailandSimRecommendation}</div>
       </div>
-
-      <SectionHead num="03" title="Ride-hailing & local apps" icon="ride" />
-      <div style={{ padding: "0 20px 8px" }}>
-        <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>
-          For Bangkok transport specifically — Koh Samui relies far more on your rental car than these apps.
+    )},
+    { key: "ride", icon: "🚕", label: "Ride-hailing", sub: "Grab · Bolt · InDrive", accent: "var(--m-blue)", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        <p style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.6, marginBottom: 10 }}>
+          Mainly for Bangkok — Samui leans on your rental car.
         </p>
         {thailandRideApps.map((a, i) => (
-          <div key={i} className="card pad" style={{ marginBottom: 10, border: a.star ? "1.5px solid var(--m-blue)" : "1px solid var(--line)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 5 }}>
-              {a.star && <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--m-blue)"><path d="m12 3 2.6 5.6 6 .7-4.4 4.1 1.2 6L12 16.8 6.6 19.4l1.2-6L3.4 9.3l6-.7L12 3Z" /></svg>}
-              <span style={{ fontWeight: 700, fontSize: 14.5 }}>{a.name}</span>
-            </div>
-            <div style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6 }}>{a.note}</div>
+          <div key={i} style={{ padding: "10px 0", borderTop: "1px solid var(--line)" }}>
+            <div style={{ fontWeight: 700, fontSize: 12.5, marginBottom: 3 }}>{a.star ? "★ " : ""}{a.name}</div>
+            <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.6 }}>{a.note}</div>
           </div>
         ))}
-        <div className="tip malaysia" style={{ marginBottom: 16 }}>
-          <strong>Recommendation:</strong> {thailandRideRecommendation}
-        </div>
+        <div className="tip malaysia" style={{ marginTop: 10 }}>{thailandRideRecommendation}</div>
       </div>
+    )},
+    { key: "tips", icon: "💡", label: "Data tips", sub: `${thailandSimTips.length} pointers`, render: () => (
+      <div style={{ padding: "0 14px" }}>
+        {thailandSimTips.map((t, i) => (
+          <div key={i} style={{ display: "flex", gap: 9, padding: "8px 0", borderBottom: i < thailandSimTips.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start" }}>
+            <span style={{ width: 5, height: 5, borderRadius: 99, background: "#0E8C8C", flexShrink: 0, marginTop: 6 }} />
+            <span style={{ fontSize: 12, color: "var(--ink)", lineHeight: 1.55 }}>{t}</span>
+          </div>
+        ))}
+      </div>
+    )},
+  ];
+  return (
+    <div style={{ paddingTop: 16 }}>
+      <TileGrid tiles={tiles} />
+      <div style={{ height: 16 }} />
     </div>
   );
 }

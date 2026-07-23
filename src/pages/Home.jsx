@@ -4,97 +4,96 @@ import { thailandMeta } from "../data/thailand";
 
 export default function Home() {
   return (
-    <div className="page">
-      {/* Photo hero */}
-      <div style={{ position: "relative", height: 260, overflow: "hidden" }}>
-        <div style={{
-          position: "absolute", inset: 0,
-          backgroundImage: "url(/hero-full.jpg)",
-          backgroundSize: "cover", backgroundPosition: "center",
-        }} />
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "linear-gradient(180deg, rgba(90,20,32,0.15) 0%, rgba(90,20,32,0.35) 45%, rgba(28,20,18,0.92) 100%)",
-        }} />
-        <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "0 24px 22px", color: "#fff" }}>
-          <div className="eyebrow" style={{ color: "rgba(255,255,255,0.75)", marginBottom: 8 }}>A FAMILY JOURNEY · 2026</div>
-          <h1 style={{ fontFamily: "var(--font-display)", fontSize: 40, fontWeight: 400, lineHeight: 0.98, letterSpacing: "-0.02em" }}>
-            Tour in <span style={{ fontStyle: "italic", color: "var(--u-gold-lt)" }}>Eye 3</span>
+    <div className="page home-fit">
+      {/* Slim hero */}
+      <div style={{ position: "relative", height: 104, overflow: "hidden", flexShrink: 0 }}>
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "url(/hero-full.jpg)", backgroundSize: "cover", backgroundPosition: "center 38%" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(165deg, rgba(20,12,10,0.62), rgba(0,20,50,0.78))" }} />
+        <div style={{ position: "relative", padding: "13px 20px", color: "#fff" }}>
+          <div className="eyebrow" style={{ color: "#EBD98C", fontSize: 9.5, marginBottom: 3 }}>A FAMILY JOURNEY · 2026</div>
+          <h1 style={{ fontFamily: "var(--font-display)", fontSize: 25, fontWeight: 500, lineHeight: 1.0 }}>
+            Tour in <em style={{ color: "#EBD98C", fontStyle: "italic" }}>Eye 3</em>
           </h1>
+          <div style={{ fontSize: 10.5, color: "rgba(255,255,255,0.8)", marginTop: 4, lineHeight: 1.35 }}>
+            Two journeys, one family story — Umrah, then Thailand.
+          </div>
         </div>
       </div>
 
-      {/* Story */}
-      <div style={{ padding: "20px 22px 8px" }}>
-        <p style={{ fontSize: 14.5, color: "var(--slate)", lineHeight: 1.7 }}>
-          Two journeys, one family story. First, five of us to the holy cities for <strong style={{ color: "var(--u-mid)" }}>Umrah</strong>. Then three of us on to <strong style={{ color: "var(--m-blue)" }}>Thailand</strong> — Koh Samui and Bangkok, and Affaan's first great adventure.
-        </p>
+      {/* Journey tiles */}
+      <div style={{ padding: "10px 16px 0", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, flexShrink: 0 }}>
+        <JourneyTile
+          to="/umrah" tone="umrah" num="ONE" title="Umrah" sub={umrahMeta.dates}
+          meta="5 travellers · Makkah & Madinah" bg="/hero-umrah.jpg"
+        />
+        <JourneyTile
+          to="/thailand" tone="thai" num="TWO" title="Thailand" sub={thailandMeta.dates}
+          meta="3 travellers · Samui & Bangkok" bg="/hero-thailand.jpg"
+        />
       </div>
 
-      {/* Two journey gateways */}
-      <div style={{ padding: "14px 20px 8px" }}>
-        <div className="eyebrow" style={{ marginBottom: 12 }}>CHOOSE YOUR JOURNEY</div>
-
-        <Link to="/umrah" style={{ display: "block", marginBottom: 14 }}>
-          <div style={{ borderRadius: "var(--r-lg)", overflow: "hidden", boxShadow: "var(--shadow-md)", position: "relative", height: 148 }}>
-            <div style={{ position: "absolute", inset: 0, backgroundImage: "url(/hero-umrah.jpg)", backgroundSize: "cover", backgroundPosition: "center" }} />
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(110deg, rgba(90,20,32,0.92) 0%, rgba(139,30,45,0.78) 45%, rgba(139,30,45,0.25) 100%)" }} />
-            <div style={{ position: "relative", padding: "18px 20px", color: "#fff", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-              <div>
-                <div className="eyebrow" style={{ color: "var(--u-gold-lt)", marginBottom: 6 }}>JOURNEY ONE</div>
-                <div style={{ fontFamily: "var(--font-display)", fontSize: 25, fontWeight: 500, lineHeight: 1 }}>{umrahMeta.title}</div>
-                <div style={{ fontSize: 12.5, color: "rgba(255,255,255,0.82)", marginTop: 5 }}>{umrahMeta.dates}</div>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: "var(--u-gold-lt)" }}>
-                Open journey
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+      {/* Timeline strip */}
+      <div style={{ padding: "10px 16px 0", flexShrink: 0 }}>
+        <div className="card" style={{ overflow: "hidden" }}>
+          {[
+            { d: "22–29 Aug", t: "Umrah pilgrimage", s: "Family of five", c: "var(--u-mid)" },
+            { d: "29 Aug – 1 Sep", t: "Break in Dhaka", s: "Rest, repack, e-visas", c: "var(--u-gold)" },
+            { d: "1 – 8 Sep", t: "Thailand holiday", s: "Rose, Farzana & Affaan", c: "var(--m-blue)" },
+          ].map((r, i, arr) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "7px 13px", borderBottom: i < arr.length - 1 ? "1px solid var(--line)" : "none" }}>
+              <span style={{ width: 7, height: 7, borderRadius: 99, background: r.c, flexShrink: 0 }} />
+              <div style={{ minWidth: 92, fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--mist)", fontWeight: 500 }}>{r.d}</div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 12.5, fontWeight: 600, lineHeight: 1.2 }}>{r.t}</div>
+                <div style={{ fontSize: 10, color: "var(--mist)", lineHeight: 1.25 }}>{r.s}</div>
               </div>
             </div>
-          </div>
-        </Link>
-
-        <Link to="/thailand" style={{ display: "block" }}>
-          <div style={{ borderRadius: "var(--r-lg)", overflow: "hidden", boxShadow: "var(--shadow-md)", position: "relative", height: 148 }}>
-            <div style={{ position: "absolute", inset: 0, backgroundImage: "url(/hero-thailand.jpg)", backgroundSize: "cover", backgroundPosition: "center" }} />
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(110deg, rgba(18,42,107,0.92) 0%, rgba(27,58,143,0.72) 45%, rgba(14,140,140,0.4) 100%)" }} />
-            <div style={{ position: "relative", padding: "18px 20px", color: "#fff", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-              <div>
-                <div className="eyebrow" style={{ color: "#EBD98C", marginBottom: 6 }}>JOURNEY TWO</div>
-                <div style={{ fontFamily: "var(--font-display)", fontSize: 25, fontWeight: 500, lineHeight: 1 }}>{thailandMeta.title}</div>
-                <div style={{ fontSize: 12.5, color: "rgba(255,255,255,0.85)", marginTop: 5 }}>{thailandMeta.dates}</div>
-              </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: "#EBD98C" }}>
-                Open journey
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              </div>
-            </div>
-          </div>
-        </Link>
+          ))}
+        </div>
       </div>
 
-      {/* Full timeline */}
-      <div className="section-head">
-        <span className="num">◆</span>
-        <h2>The full journey</h2>
-        <span className="line" />
-      </div>
-      <div style={{ padding: "0 20px 12px" }}>
+      {/* Quick stats */}
+      <div style={{ padding: "9px 16px 10px", display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8, flexShrink: 0 }}>
         {[
-          { d: "22–29 Aug", t: "Umrah pilgrimage", s: "Meccah & Madina · all 5 travelers", c: "var(--u-mid)" },
-          { d: "29 Aug – 1 Sep", t: "Short break in Dhaka", s: "Rest, repack, Thai e-visas in hand", c: "var(--u-gold)" },
-          { d: "1 – 8 Sep", t: "Thailand holiday", s: "Rose, Farzana & Affaan · Samui + Bangkok", c: "var(--m-blue)" },
-        ].map((e, i) => (
-          <div key={i} className="card pad" style={{ marginBottom: 8, borderLeft: `4px solid ${e.c}` }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: e.c, letterSpacing: "0.04em" }}>{e.d}</div>
-            <div style={{ fontWeight: 600, fontSize: 15, marginTop: 2 }}>{e.t}</div>
-            <div style={{ fontSize: 12.5, color: "var(--mist)", marginTop: 1 }}>{e.s}</div>
+          { k: "15", l: "days away" },
+          { k: "2", l: "countries" },
+          { k: "5", l: "cities" },
+        ].map((s, i) => (
+          <div key={i} className="card" style={{ padding: "7px 6px", textAlign: "center" }}>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 19, fontWeight: 600, color: "var(--u-gold)", lineHeight: 1 }}>{s.k}</div>
+            <div style={{ fontSize: 9.5, color: "var(--mist)", marginTop: 2, letterSpacing: "0.03em" }}>{s.l}</div>
           </div>
         ))}
       </div>
 
-      <p className="center muted" style={{ fontSize: 11, padding: "14px 30px 24px", lineHeight: 1.6 }}>
-        Everything here is finalized except a few items awaiting your travel agent. Add to your home screen for offline access during the trip.
-      </p>
+      <div className="home-spacer" />
+      <div className="home-navpad" />
     </div>
+  );
+}
+
+function JourneyTile({ to, tone, num, title, sub, meta, bg }) {
+  const grad = tone === "umrah"
+    ? "linear-gradient(165deg, rgba(90,20,32,0.80), rgba(139,30,45,0.90))"
+    : "linear-gradient(165deg, rgba(18,42,107,0.80), rgba(14,140,140,0.88))";
+  return (
+    <Link to={to} style={{ display: "block", borderRadius: "var(--r-md)", overflow: "hidden", position: "relative", minHeight: 132 }}>
+      <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${bg})`, backgroundSize: "cover", backgroundPosition: "center" }} />
+      <div style={{ position: "absolute", inset: 0, background: grad }} />
+      <div style={{ position: "relative", padding: "11px 11px", color: "#fff", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: 132 }}>
+        <div>
+          <div className="eyebrow" style={{ color: "#EBD98C", fontSize: 8.5, marginBottom: 4 }}>JOURNEY {num}</div>
+          <div style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 500, lineHeight: 1.05 }}>{title}</div>
+          <div style={{ fontSize: 10.5, color: "rgba(255,255,255,0.88)", marginTop: 3 }}>{sub}</div>
+        </div>
+        <div>
+          <div style={{ fontSize: 9.5, color: "rgba(255,255,255,0.7)", lineHeight: 1.3, marginBottom: 6 }}>{meta}</div>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 10.5, fontWeight: 700, color: "#EBD98C" }}>
+            Open
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.4"><path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </span>
+        </div>
+      </div>
+    </Link>
   );
 }

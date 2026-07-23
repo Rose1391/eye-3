@@ -384,3 +384,99 @@ export const umrahSimTips = [
   "Download your Nusuk permit and offline maps of the Haram area on good Wi-Fi before entering high-congestion zones — data loads slowly when towers are saturated.",
   "Airport Wi-Fi is free in arrivals/departures at Jeddah and Madinah — enough to activate an eSIM or check messages while queuing for a physical SIM.",
 ];
+
+// ─── ARABIC PHRASES — pronunciation in English ───────────────────────────────
+export const arabicPhraseNote = "In Makkah and Madinah many shopkeepers and drivers speak Urdu, Hindi, or Bangla — you'll manage. But even a few words of Arabic changes how you're received, especially with hotel staff and taxi drivers. Say them simply; nobody expects perfect pronunciation.";
+
+export const arabicPhrases = [
+  {
+    group: "Greetings & courtesy", icon: "🤲",
+    items: [
+      { ar: "السَّلامُ عَلَيْكُم", say: "as-salaamu ʿalaykum", mean: "Peace be upon you (the universal greeting)" },
+      { ar: "وَعَلَيْكُمُ السَّلام", say: "wa ʿalaykumu s-salaam", mean: "And peace be upon you (the reply)" },
+      { ar: "شُكْرًا", say: "shukran", mean: "Thank you" },
+      { ar: "عَفْوًا", say: "ʿafwan", mean: "You're welcome / Excuse me" },
+      { ar: "مِن فَضْلِك", say: "min faḍlik", mean: "Please" },
+      { ar: "إِن شاءَ الله", say: "in shaa Allah", mean: "God willing (used constantly)" },
+      { ar: "جَزاكَ اللهُ خَيْرًا", say: "jazaak Allahu khayran", mean: "May Allah reward you with good (warmest thanks)" },
+      { ar: "نَعَم / لا", say: "naʿam / laa", mean: "Yes / No" },
+    ],
+  },
+  {
+    group: "At the Haram", icon: "🕋",
+    items: [
+      { ar: "أَيْنَ الحَجَرُ الأَسْوَد؟", say: "ayna al-ḥajar al-aswad?", mean: "Where is the Black Stone?" },
+      { ar: "أَيْنَ المَسْعى؟", say: "ayna al-masʿaa?", mean: "Where is the Sa'ee area?" },
+      { ar: "أَيْنَ بابُ...؟", say: "ayna baab...?", mean: "Where is Gate...? (then the number)" },
+      { ar: "أَيْنَ مَقامُ إِبْراهيم؟", say: "ayna maqaam Ibraheem?", mean: "Where is Maqam Ibrahim?" },
+      { ar: "أَيْنَ ماءُ زَمْزَم؟", say: "ayna maa' Zamzam?", mean: "Where is the Zamzam water?" },
+      { ar: "مَتى الصَّلاة؟", say: "mataa aṣ-ṣalaah?", mean: "When is the prayer?" },
+      { ar: "أَيْنَ مُصَلّى النِّساء؟", say: "ayna muṣallaa an-nisaa'?", mean: "Where is the women's prayer area?" },
+      { ar: "أَيْنَ المِصْعَد؟", say: "ayna al-miṣʿad?", mean: "Where is the lift/elevator?" },
+    ],
+  },
+  {
+    group: "Food & halal", icon: "🍽️",
+    items: [
+      { ar: "طَعامٌ حَلال", say: "ṭaʿaam ḥalaal", mean: "Halal food (everything in KSA is halal, but useful phrasing)" },
+      { ar: "ماء", say: "maa'", mean: "Water" },
+      { ar: "بِدونِ سُكَّر", say: "bidoon sukkar", mean: "Without sugar" },
+      { ar: "غَيْرُ حارّ", say: "ghayr ḥaarr", mean: "Not spicy (for Affaan's food)" },
+      { ar: "لَذيذ", say: "ladheedh", mean: "Delicious" },
+      { ar: "الحِساب مِن فَضْلِك", say: "al-ḥisaab min faḍlik", mean: "The bill, please" },
+      { ar: "طَعامٌ لِلأَطْفال", say: "ṭaʿaam lil-aṭfaal", mean: "Food for children" },
+    ],
+  },
+  {
+    group: "Shopping & money", icon: "💰",
+    items: [
+      { ar: "بِكَم هٰذا؟", say: "bikam haadhaa?", mean: "How much is this?" },
+      { ar: "غالي جِدًّا", say: "ghaali jiddan", mean: "Very expensive (polite bargaining)" },
+      { ar: "آخِرُ سِعْر؟", say: "aakhir siʿr?", mean: "Last/best price?" },
+      { ar: "واحِد / اثْنان / ثَلاثة", say: "waaḥid / ithnaan / thalaatha", mean: "1 / 2 / 3" },
+      { ar: "أَرْبَعة / خَمْسة / عَشَرة", say: "arbaʿa / khamsa / ʿashara", mean: "4 / 5 / 10" },
+      { ar: "مِئة / أَلْف", say: "mi'a / alf", mean: "Hundred / Thousand" },
+      { ar: "هَل تَقْبَلُ البِطاقة؟", say: "hal taqbal al-biṭaaqa?", mean: "Do you accept cards?" },
+    ],
+  },
+  {
+    group: "Getting around", icon: "🚕",
+    items: [
+      { ar: "إِلى الحَرَم مِن فَضْلِك", say: "ilaa al-ḥaram min faḍlik", mean: "To the Haram, please" },
+      { ar: "إِلى الفُنْدُق", say: "ilaa al-funduq", mean: "To the hotel" },
+      { ar: "كَم الأُجْرة؟", say: "kam al-ujra?", mean: "How much is the fare? (agree BEFORE riding)" },
+      { ar: "قِف هُنا", say: "qif hunaa", mean: "Stop here" },
+      { ar: "أَيْنَ الحَمّام؟", say: "ayna al-ḥammaam?", mean: "Where is the toilet?" },
+      { ar: "يَمين / يَسار", say: "yameen / yasaar", mean: "Right / Left" },
+      { ar: "المَطار", say: "al-maṭaar", mean: "The airport" },
+    ],
+  },
+  {
+    group: "Help & emergencies", icon: "🆘",
+    items: [
+      { ar: "ساعِدْني", say: "saaʿidnee", mean: "Help me" },
+      { ar: "أَنا تائِه", say: "anaa taa'ih", mean: "I am lost" },
+      { ar: "ضاعَ ابْني", say: "ḍaaʿa ibnee", mean: "My son is lost (know this one)" },
+      { ar: "طَبيب / مُسْتَشْفى", say: "ṭabeeb / mustashfaa", mean: "Doctor / Hospital" },
+      { ar: "صَيْدَلِيَّة", say: "ṣaydaliyya", mean: "Pharmacy" },
+      { ar: "لا أَفْهَم", say: "laa afham", mean: "I don't understand" },
+      { ar: "هَل تَتَكَلَّمُ الإِنْجِليزِيَّة؟", say: "hal tatakallam al-ingleeziyya?", mean: "Do you speak English?" },
+      { ar: "أَنا مِن بَنْغلاديش", say: "anaa min Bangladesh", mean: "I am from Bangladesh" },
+    ],
+  },
+];
+
+// ─── PILGRIMAGE PROGRESS ─────────────────────────────────────────────────────
+export const umrahRiteSteps = [
+  { key: "ihram", label: "Ihram", icon: "👕", note: "Enter the sacred state before Meeqat" },
+  { key: "tawaf", label: "Tawaaf", icon: "🕋", note: "Seven circuits around the Ka'bah" },
+  { key: "saee", label: "Sa'ee", icon: "🏃", note: "Seven walks between Safa & Marwah" },
+  { key: "halq", label: "Halq / Taqseer", icon: "✂️", note: "Cutting the hair — Umrah complete" },
+];
+
+export const umrahJourneyStats = [
+  { k: "5", l: "travellers" },
+  { k: "8", l: "days" },
+  { k: "2", l: "holy cities" },
+  { k: "4", l: "rites" },
+];

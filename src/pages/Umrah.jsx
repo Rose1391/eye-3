@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   umrahMeta, umrahTravelers, umrahFlights, umrahHotels, umrahDays,
   umrahCosts, umrahGrandTotal, umrahLogistics, umrahChecklist,
   umrahGuide, madinaNote,
   umrahSimOperators, umrahSimRecommendation, umrahSimTips,
+  arabicPhrases, arabicPhraseNote, umrahRiteSteps, umrahJourneyStats,
 } from "../data/umrah";
 import { SectionHead, RiteArt } from "../components/ui";
 import Accordion from "../components/Accordion";
 import Checklist from "../components/Checklist";
+import TileGrid from "../components/TileGrid";
 
-const TABS = ["Days", "Guide", "Travelers", "Flights", "Hotels", "Comms", "Costs", "Logistics", "Packing"];
+const TABS = ["Days", "Guide", "Trip", "Comms", "Phrases", "Costs", "Packing"];
 const RED = "var(--u-mid)";
 const GOLD = "var(--u-gold)";
 
@@ -48,12 +50,10 @@ export default function Umrah() {
 
       {tab === "Days" && <DaysTab />}
       {tab === "Guide" && <GuideTab />}
-      {tab === "Travelers" && <TravelersTab />}
-      {tab === "Flights" && <FlightsTab />}
-      {tab === "Hotels" && <HotelsTab />}
+      {tab === "Trip" && <TravelersTab />}
       {tab === "Comms" && <CommsTab />}
+      {tab === "Phrases" && <PhrasesTab />}
       {tab === "Costs" && <CostsTab />}
-      {tab === "Logistics" && <LogisticsTab />}
       {tab === "Packing" && (
         <div style={{ paddingTop: 16 }}>
           <Checklist data={umrahChecklist} storageKey="tie3-umrah-checklist" accent={RED} />
@@ -104,153 +104,212 @@ function DuaCard({ dua }) {
   );
 }
 
-function GuideTab() {
+function RiteProgress() {
+  const [done, setDone] = useState({});
+  useEffect(() => {
+    try { const s = localStorage.getItem("tie3-umrah-rites"); if (s) setDone(JSON.parse(s)); } catch (e) {}
+  }, []);
+  function toggle(k) {
+    setDone(prev => {
+      const next = { ...prev, [k]: !prev[k] };
+      try { localStorage.setItem("tie3-umrah-rites", JSON.stringify(next)); } catch (e) {}
+      return next;
+    });
+  }
+  const count = umrahRiteSteps.filter(r => done[r.key]).length;
+  const pct = Math.round((count / umrahRiteSteps.length) * 100);
   return (
-    <div style={{ padding: "16px 20px 12px" }}>
-      <div style={{ marginBottom: 16 }}>
-        <div style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 500, marginBottom: 4 }}>Umrah, step by step</div>
-        <p style={{ fontSize: 13, color: "var(--slate)", lineHeight: 1.6 }}>
-          The four rites of Umrah with their du'as in Arabic, transliteration, and English. Tap any step to open it.
+    <div style={{ padding: "0 20px 4px" }}>
+      <div className="card" style={{ overflow: "hidden", border: "1px solid rgba(201,161,74,0.4)" }}>
+        <div style={{ background: "linear-gradient(135deg, var(--u-deep), var(--u-mid))", color: "#fff", padding: "12px 15px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div>
+            <div className="eyebrow" style={{ color: "var(--u-gold-lt)", fontSize: 9.5 }}>PILGRIMAGE PROGRESS</div>
+            <div style={{ fontSize: 14, fontWeight: 600, marginTop: 2 }}>
+              {count === 0 ? "Rites not started" : count === umrahRiteSteps.length ? "Umrah complete — Alhamdulillah" : `${count} of ${umrahRiteSteps.length} rites done`}
+            </div>
+          </div>
+          <div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 600, color: "var(--u-gold-lt)" }}>{pct}%</div>
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)" }}>
+          {umrahRiteSteps.map((r, i) => {
+            const on = !!done[r.key];
+            return (
+              <button key={r.key} onClick={() => toggle(r.key)}
+                style={{ padding: "11px 4px", borderRight: i < 3 ? "1px solid var(--line)" : "none", background: on ? "rgba(201,161,74,0.14)" : "var(--white)", display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+                <span style={{ fontSize: 17, opacity: on ? 1 : 0.4 }}>{r.icon}</span>
+                <span style={{ fontSize: 9.5, fontWeight: 700, color: on ? "var(--u-mid)" : "var(--mist)", textAlign: "center", lineHeight: 1.2 }}>{r.label}</span>
+                {on && <span style={{ fontSize: 9, color: "var(--u-gold)" }}>✓</span>}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div style={{ fontSize: 10.5, color: "var(--mist)", textAlign: "center", marginTop: 6 }}>Tap a rite to mark it done — saved on this device</div>
+    </div>
+  );
+}
+
+function GuideTab() {
+  const tiles = umrahGuide.map((g) => {
+    const Art = RiteArt[g.icon];
+    return {
+      key: `r${g.step}`,
+      icon: g.icon === "ihram" ? "👕" : g.icon === "tawaf" ? "🕋" : g.icon === "saee" ? "🏃" : "✂️",
+      label: g.title,
+      sub: g.subtitle,
+      accent: "var(--u-mid)",
+      render: () => (
+        <div style={{ padding: "0 14px" }}>
+          <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>{g.intro}</p>
+          {g.diagram && (
+            <div style={{ marginBottom: 14 }}>
+              <div style={{ background: "#fff", border: "1px solid var(--line)", borderRadius: "var(--r-sm)", padding: "12px 10px", textAlign: "center" }}>
+                <img src={g.diagram} alt={`${g.title} diagram`} style={{ width: "100%", maxWidth: 320, height: "auto", display: "inline-block" }} />
+              </div>
+              {g.diagramCaption && <div style={{ fontSize: 11, color: "var(--mist)", fontStyle: "italic", marginTop: 6, lineHeight: 1.5, textAlign: "center" }}>{g.diagramCaption}</div>}
+            </div>
+          )}
+          <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--u-gold)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 8 }}>What to do</div>
+          <div style={{ marginBottom: 14 }}>
+            {g.prep.map((p, j) => (
+              <div key={j} style={{ display: "flex", gap: 9, marginBottom: 6, alignItems: "flex-start" }}>
+                <span style={{ width: 6, height: 6, borderRadius: 99, background: "var(--u-gold)", flexShrink: 0, marginTop: 6 }} />
+                <span style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.5 }}>{p}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--u-gold)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 8 }}>Du'as</div>
+          {g.duas.map((d, k) => <DuaCard key={k} dua={d} />)}
+        </div>
+      ),
+    };
+  });
+
+  return (
+    <div style={{ paddingTop: 16 }}>
+      <RiteProgress />
+      <div style={{ padding: "12px 20px 12px" }}>
+        <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6 }}>
+          The four rites with du'as in Arabic, transliteration, and English. Tap a tile to open it.
         </p>
       </div>
-
-      {umrahGuide.map((g, i) => {
-        const Art = RiteArt[g.icon];
-        return (
-          <Accordion
-            key={i}
-            defaultOpen={i === 0}
-            accent="var(--u-mid)"
-            badge={`Step ${g.step}`}
-            leftNode={
-              <div style={{ width: 44, height: 44, borderRadius: 11, flexShrink: 0, background: "linear-gradient(135deg, var(--u-deep), var(--u-mid))", color: "var(--u-gold-lt)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                {Art ? <Art width="26" height="26" /> : <span style={{ fontWeight: 700 }}>{g.step}</span>}
-              </div>
-            }
-            title={g.title}
-            subtitle={g.subtitle}
-          >
-            <div style={{ padding: "12px 16px" }}>
-              <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6, marginBottom: 12 }}>{g.intro}</p>
-
-              {g.diagram && (
-                <div style={{ marginBottom: 14 }}>
-                  <div style={{ background: "#fff", border: "1px solid var(--line)", borderRadius: "var(--r-sm)", padding: "14px 12px", textAlign: "center" }}>
-                    <img src={g.diagram} alt={`${g.title} diagram`} style={{ width: "100%", maxWidth: 340, height: "auto", display: "inline-block" }} />
-                  </div>
-                  {g.diagramCaption && (
-                    <div style={{ fontSize: 11.5, color: "var(--mist)", fontStyle: "italic", marginTop: 6, lineHeight: 1.5, textAlign: "center", padding: "0 8px" }}>{g.diagramCaption}</div>
-                  )}
-                </div>
-              )}
-
-              <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--u-gold)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 8 }}>What to do</div>
-              <div style={{ marginBottom: 16 }}>
-                {g.prep.map((p, j) => (
-                  <div key={j} style={{ display: "flex", gap: 10, marginBottom: 7, alignItems: "flex-start" }}>
-                    <span style={{ width: 6, height: 6, borderRadius: 99, background: "var(--u-gold)", flexShrink: 0, marginTop: 6 }} />
-                    <span style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.5 }}>{p}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--u-gold)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 8 }}>Du'as</div>
-              {g.duas.map((d, k) => <DuaCard key={k} dua={d} />)}
-            </div>
-          </Accordion>
-        );
-      })}
-
-      {/* Madina note */}
-      <div className="card" style={{ overflow: "hidden", marginTop: 6, border: "1px solid rgba(201,161,74,0.4)" }}>
-        <div style={{ background: "linear-gradient(135deg, var(--u-gold), #B8912F)", color: "#fff", padding: "12px 16px" }}>
-          <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 500 }}>{madinaNote.title}</div>
+      <TileGrid tiles={tiles} accent="var(--u-mid)" />
+      <div style={{ padding: "14px 20px 16px" }}>
+        <div className="card" style={{ overflow: "hidden", border: "1px solid rgba(201,161,74,0.4)" }}>
+          <div style={{ background: "linear-gradient(135deg, var(--u-gold), #B8912F)", color: "#fff", padding: "11px 15px" }}>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 500 }}>{madinaNote.title}</div>
+          </div>
+          <div className="pad" style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.65 }}>{madinaNote.body}</div>
         </div>
-        <div className="pad" style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.65 }}>{madinaNote.body}</div>
+        <div className="tip umrah" style={{ marginTop: 12 }}>
+          <strong>Note:</strong> A concise reference — follow your group's scholar or Mr. Fahim for the authoritative sequence.
+        </div>
       </div>
+    </div>
+  );
+}
 
-      <div className="tip umrah" style={{ marginTop: 14 }}>
-        <strong>Note:</strong> This guide is a concise reference. Follow your group's scholar or guide (Mr. Fahim) for the authoritative sequence and any questions during the rites.
+function PhrasesTab() {
+  const tiles = arabicPhrases.map((g, i) => ({
+    key: `a${i}`, icon: g.icon, label: g.group, sub: `${g.items.length} phrases`, accent: "var(--u-mid)",
+    render: () => (
+      <div style={{ padding: "0 14px" }}>
+        {g.items.map((p, j) => (
+          <div key={j} style={{ padding: "9px 0", borderBottom: j < g.items.length - 1 ? "1px solid var(--line)" : "none" }}>
+            <div dir="rtl" style={{ fontFamily: "'Amiri', serif", fontSize: 19, color: "var(--u-deep)", lineHeight: 1.6, textAlign: "right" }}>{p.ar}</div>
+            <div style={{ fontFamily: "var(--font-mono)", fontSize: 12.5, color: "var(--u-mid)", fontWeight: 600, marginTop: 3 }}>{p.say}</div>
+            <div style={{ fontSize: 12, color: "var(--slate)", marginTop: 2, lineHeight: 1.45 }}>{p.mean}</div>
+          </div>
+        ))}
+      </div>
+    ),
+  }));
+  return (
+    <div style={{ paddingTop: 16 }}>
+      <div style={{ padding: "0 20px 12px" }}>
+        <div className="tip umrah" style={{ marginTop: 0 }}>{arabicPhraseNote}</div>
+      </div>
+      <TileGrid tiles={tiles} accent="var(--u-mid)" />
+      <div style={{ padding: "14px 20px 16px" }}>
+        <div className="tip warn"><strong>Offline tip:</strong> Screenshot these before you fly — mobile data inside the Haram is often saturated at peak prayer times.</div>
       </div>
     </div>
   );
 }
 
 function TravelersTab() {
-  return (
-    <div>
-      <SectionHead num="01" title="Who's travelling" icon="people" />
-      <div style={{ padding: "0 20px 8px" }}>
-        <p style={{ fontSize: 13, color: "var(--slate)", lineHeight: 1.6, marginBottom: 14 }}>
-          Five travellers for the pilgrimage — four adults and little Affaan, all journeying to the holy cities together.
-        </p>
-        <div className="card" style={{ overflow: "hidden" }}>
-          {umrahTravelers.map((t, i) => (
-            <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "13px 16px", borderBottom: i < umrahTravelers.length - 1 ? "1px solid var(--line)" : "none" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div style={{ width: 34, height: 34, borderRadius: 99, background: "var(--u-light)", color: "var(--u-mid)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 14, flexShrink: 0 }}>
-                  {t.name.charAt(0)}
-                </div>
-                <div>
-                  <div style={{ fontWeight: 600, fontSize: 14.5 }}>{t.name}</div>
-                  <div style={{ fontSize: 11.5, color: "var(--mist)" }}>{t.role}</div>
-                </div>
+  const tiles = [
+    { key: "who", icon: "👨‍👩‍👦", label: "Travellers", sub: "5 pilgrims", accent: "var(--u-mid)", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        {umrahTravelers.map((t, i) => (
+          <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderBottom: i < umrahTravelers.length - 1 ? "1px solid var(--line)" : "none" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div style={{ width: 30, height: 30, borderRadius: 99, background: "var(--u-light)", color: "var(--u-mid)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 13, flexShrink: 0 }}>{t.name.charAt(0)}</div>
+              <div>
+                <div style={{ fontWeight: 600, fontSize: 13.5 }}>{t.name}</div>
+                <div style={{ fontSize: 11, color: "var(--mist)" }}>{t.role}</div>
               </div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: 12.5, color: "var(--u-mid)", fontWeight: 500 }}>{t.rate}</span>
             </div>
-          ))}
-        </div>
-        <div className="card pad" style={{ marginTop: 12, background: "var(--u-light)", border: "1px solid rgba(139,30,45,0.15)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <span style={{ fontWeight: 600, fontSize: 13.5, color: "var(--u-deep)" }}>Package total (all 5)</span>
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: 15, fontWeight: 600, color: "var(--u-mid)" }}>৳9,10,000</span>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--u-mid)", fontWeight: 500 }}>{t.rate}</span>
           </div>
+        ))}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 10, padding: "9px 11px", background: "var(--u-light)", borderRadius: "var(--r-sm)" }}>
+          <span style={{ fontWeight: 600, fontSize: 12.5, color: "var(--u-deep)" }}>Package total (all 5)</span>
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: 14, fontWeight: 600, color: "var(--u-mid)" }}>৳9,10,000</span>
         </div>
       </div>
-    </div>
-  );
-}
-
-function FlightsTab() {
-  return (
-    <div>
-      <SectionHead num="01" title="Flights" icon="plane" />
-      <div style={{ padding: "0 20px" }}>
-        {umrahFlights.map((f, i) => (
-          <div key={i} className="card pad" style={{ marginBottom: 12, borderLeft: "4px solid var(--u-mid)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-              <span className="pill" style={{ background: "var(--u-light)", color: "var(--u-mid)" }}>{f.leg}</span>
-              <span style={{ fontSize: 12, color: "var(--mist)", fontWeight: 600 }}>{f.date}</span>
+    )},
+    { key: "fly", icon: "✈️", label: "Flights", sub: `${umrahFlights.length} legs`, accent: "var(--u-mid)", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        {umrahFlights.map((fl, i) => (
+          <div key={i} style={{ padding: "10px 0", borderBottom: i < umrahFlights.length - 1 ? "1px solid var(--line)" : "none" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
+              <span className="pill" style={{ background: "var(--u-light)", color: "var(--u-mid)", fontSize: 10 }}>{fl.leg}</span>
+              <span style={{ fontSize: 11, color: "var(--mist)", fontWeight: 600 }}>{fl.date}</span>
             </div>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 500 }}>{f.airline}</div>
-            <div style={{ fontFamily: "var(--font-mono)", fontSize: 12, color: "var(--u-gold)", margin: "2px 0 8px" }}>{f.flights}</div>
-            <div style={{ fontSize: 13, fontWeight: 500, marginBottom: 4 }}>{f.route}</div>
-            <div style={{ fontSize: 12.5, color: "var(--slate)" }}>{f.note}</div>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 500 }}>{fl.airline}</div>
+            <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--u-gold)", margin: "2px 0 5px" }}>{fl.flights}</div>
+            <div style={{ fontSize: 12.5, fontWeight: 500, marginBottom: 3 }}>{fl.route}</div>
+            <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.5 }}>{fl.note}</div>
           </div>
         ))}
       </div>
-    </div>
-  );
-}
-
-function HotelsTab() {
-  return (
-    <div>
-      <SectionHead num="01" title="Where you'll stay" icon="bed" />
-      <div style={{ padding: "0 20px 16px" }}>
+    )},
+    { key: "stay", icon: "🛏️", label: "Hotels", sub: "Makkah & Madinah", accent: "var(--u-mid)", render: () => (
+      <div style={{ padding: "0 14px" }}>
         {umrahHotels.map((h, i) => (
-          <div key={i} className="card" style={{ marginBottom: 14, overflow: "hidden" }}>
-            <div style={{ background: "linear-gradient(135deg, var(--u-deep), var(--u-mid))", color: "#fff", padding: "14px 18px" }}>
-              <div className="eyebrow" style={{ color: "var(--u-gold-lt)", marginBottom: 4 }}>{h.city}</div>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 500 }}>{h.name}</div>
-            </div>
-            <div className="pad">
-              <div style={{ fontSize: 13.5, color: "var(--ink)", marginBottom: 6 }}>{h.room}</div>
-              <span className="pill" style={{ background: "var(--u-light)", color: "var(--u-mid)" }}>{h.nights}</span>
-            </div>
+          <div key={i} style={{ padding: "10px 0", borderBottom: i < umrahHotels.length - 1 ? "1px solid var(--line)" : "none" }}>
+            <div className="eyebrow" style={{ color: "var(--u-gold)", fontSize: 9.5, marginBottom: 3 }}>{h.city}</div>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 500, marginBottom: 4 }}>{h.name}</div>
+            <div style={{ fontSize: 12.5, color: "var(--slate)", marginBottom: 5 }}>{h.room}</div>
+            <span className="pill" style={{ background: "var(--u-light)", color: "var(--u-mid)", fontSize: 10 }}>{h.nights}</span>
           </div>
         ))}
       </div>
+    )},
+    { key: "log", icon: "🗺️", label: "Logistics", sub: "Agency & ground", accent: "var(--u-mid)", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        {umrahLogistics.map((l, i) => (
+          <div key={i} style={{ padding: "9px 0", borderBottom: i < umrahLogistics.length - 1 ? "1px solid var(--line)" : "none" }}>
+            <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--u-gold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 2 }}>{l.label}</div>
+            <div style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.5 }}>{l.value}</div>
+          </div>
+        ))}
+      </div>
+    )},
+  ];
+  return (
+    <div style={{ paddingTop: 16 }}>
+      <div style={{ padding: "0 20px 10px", display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 7 }}>
+        {umrahJourneyStats.map((s, i) => (
+          <div key={i} className="card" style={{ padding: "8px 4px", textAlign: "center" }}>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 600, color: "var(--u-gold)", lineHeight: 1 }}>{s.k}</div>
+            <div style={{ fontSize: 9, color: "var(--mist)", marginTop: 2 }}>{s.l}</div>
+          </div>
+        ))}
+      </div>
+      <TileGrid tiles={tiles} accent="var(--u-mid)" />
+      <div style={{ height: 16 }} />
     </div>
   );
 }
@@ -290,72 +349,50 @@ function CostsTab() {
 }
 
 function CommsTab() {
-  return (
-    <div>
-      <SectionHead num="01" title="SIM & data in Saudi Arabia" icon="sim" />
-      <div style={{ padding: "0 20px" }}>
-        <p style={{ fontSize: 13, color: "var(--slate)", lineHeight: 1.6, marginBottom: 14 }}>
-          Three licensed operators serve visitors: STC, Mobily, and Zain. All offer passport-only visitor SIMs — no Iqama needed.
+  const tiles = [
+    { key: "sim", icon: "📶", label: "SIM & data", sub: "STC · Mobily · Zain", accent: "var(--u-mid)", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        <p style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.6, marginBottom: 10 }}>
+          All three offer passport-only visitor SIMs — no Iqama needed.
         </p>
         {umrahSimOperators.map((op, i) => (
-          <div key={i} className="card" style={{ marginBottom: 12, overflow: "hidden", border: op.star ? "1.5px solid var(--u-mid)" : "1px solid var(--line)" }}>
-            <div className="pad">
-              <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
-                {op.star && <svg viewBox="0 0 24 24" width="13" height="13" fill="var(--u-mid)"><path d="m12 3 2.6 5.6 6 .7-4.4 4.1 1.2 6L12 16.8 6.6 19.4l1.2-6L3.4 9.3l6-.7L12 3Z" /></svg>}
-                <span style={{ fontWeight: 700, fontSize: 15 }}>{op.name}</span>
-              </div>
-              <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.55, marginBottom: 10 }}>{op.coverage}</div>
-              {op.plans.map((p, j) => (
-                <div key={j} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "7px 0", borderTop: j === 0 ? "1px solid var(--line)" : "none" }}>
-                  <div>
-                    <div style={{ fontWeight: 600, fontSize: 12.5 }}>{p.label}</div>
-                    <div style={{ fontSize: 11, color: "var(--mist)" }}>{p.data} · {p.validity}</div>
-                  </div>
-                  <div style={{ textAlign: "right" }}>
-                    <div style={{ fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 600, color: "var(--u-mid)" }}>{p.price}</div>
-                    <div style={{ fontSize: 10.5, color: "var(--mist)" }}>{p.bdt}</div>
-                  </div>
+          <div key={i} style={{ padding: "11px 0", borderTop: "1px solid var(--line)" }}>
+            <div style={{ fontWeight: 700, fontSize: 13.5, marginBottom: 4 }}>{op.star ? "★ " : ""}{op.name}</div>
+            <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.55, marginBottom: 8 }}>{op.coverage}</div>
+            {op.plans.map((p, j) => (
+              <div key={j} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "5px 0" }}>
+                <div>
+                  <div style={{ fontWeight: 600, fontSize: 12 }}>{p.label}</div>
+                  <div style={{ fontSize: 10.5, color: "var(--mist)" }}>{p.data} · {p.validity}</div>
                 </div>
-              ))}
-              <div style={{ fontSize: 11.5, color: "var(--slate)", fontStyle: "italic", marginTop: 8, paddingTop: 8, borderTop: "1px solid var(--line)" }}>{op.note}</div>
-            </div>
+                <div style={{ textAlign: "right" }}>
+                  <div style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, fontWeight: 600, color: "var(--u-mid)" }}>{p.price}</div>
+                  <div style={{ fontSize: 10, color: "var(--mist)" }}>{p.bdt}</div>
+                </div>
+              </div>
+            ))}
+            <div style={{ fontSize: 11.5, color: "var(--slate)", fontStyle: "italic", marginTop: 6 }}>{op.note}</div>
           </div>
         ))}
-        <div className="tip umrah" style={{ marginBottom: 16 }}>
-          <strong>Recommendation:</strong> {umrahSimRecommendation}
-        </div>
-
-        <SectionHead num="02" title="Practical tips" icon="tips" />
-        <div className="card" style={{ overflow: "hidden", marginBottom: 16 }}>
-          {umrahSimTips.map((t, i) => (
-            <div key={i} style={{ display: "flex", gap: 10, padding: "11px 14px", borderBottom: i < umrahSimTips.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start" }}>
-              <span style={{ width: 6, height: 6, borderRadius: 99, background: "var(--u-gold)", flexShrink: 0, marginTop: 7 }} />
-              <span style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.55 }}>{t}</span>
-            </div>
-          ))}
-        </div>
+        <div className="tip umrah" style={{ marginTop: 10 }}>{umrahSimRecommendation}</div>
       </div>
-    </div>
-  );
-}
-
-function LogisticsTab() {
+    )},
+    { key: "tips", icon: "💡", label: "Practical tips", sub: `${umrahSimTips.length} pointers`, accent: "var(--u-mid)", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        {umrahSimTips.map((t, i) => (
+          <div key={i} style={{ display: "flex", gap: 9, padding: "8px 0", borderBottom: i < umrahSimTips.length - 1 ? "1px solid var(--line)" : "none", alignItems: "flex-start" }}>
+            <span style={{ width: 5, height: 5, borderRadius: 99, background: "var(--u-gold)", flexShrink: 0, marginTop: 6 }} />
+            <span style={{ fontSize: 12, color: "var(--ink)", lineHeight: 1.55 }}>{t}</span>
+          </div>
+        ))}
+      </div>
+    )},
+  ];
   return (
-    <div>
-      <SectionHead num="01" title="Logistics & agency" icon="route" />
-      <div style={{ padding: "0 20px 16px" }}>
-        <div className="card" style={{ overflow: "hidden" }}>
-          {umrahLogistics.map((l, i) => (
-            <div key={i} style={{ padding: "12px 16px", borderBottom: i < umrahLogistics.length - 1 ? "1px solid var(--line)" : "none" }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--u-gold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 2 }}>{l.label}</div>
-              <div style={{ fontSize: 13, color: "var(--ink)" }}>{l.value}</div>
-            </div>
-          ))}
-        </div>
-        <div className="tip warn" style={{ marginTop: 14 }}>
-          <strong>Pending:</strong> The KSA ground guide will be confirmed by Fly Hajj Aviation closer to travel. Food cost is a mid-range estimate — confirm on the ground.
-        </div>
-      </div>
+    <div style={{ paddingTop: 16 }}>
+      <TileGrid tiles={tiles} accent="var(--u-mid)" />
+      <div style={{ height: 16 }} />
     </div>
   );
 }
+
