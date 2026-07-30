@@ -38,8 +38,8 @@ export default function Home() {
         <div className="card" style={{ overflow: "hidden" }}>
           {[
             { d: "22–29 Aug", t: "Umrah pilgrimage", s: "Family of five", c: "var(--u-mid)" },
-            { d: "29 Aug – 1 Sep", t: "Break in Dhaka", s: "Rest, repack, e-visas", c: "var(--u-gold)" },
-            { d: "1 – 8 Sep", t: "Thailand holiday", s: "Rose, Farzana & Affaan", c: "var(--m-blue)" },
+            { d: "29–31 Aug", t: "Break in Dhaka", s: "Rest, repack, e-visas", c: "var(--u-gold)" },
+            { d: "31 Aug – 8 Sep", t: "Thailand holiday", s: "Rose, Farzana & Affaan", c: "var(--m-blue)" },
           ].map((r, i, arr) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "7px 13px", borderBottom: i < arr.length - 1 ? "1px solid var(--line)" : "none" }}>
               <span style={{ width: 7, height: 7, borderRadius: 99, background: r.c, flexShrink: 0 }} />
@@ -111,7 +111,7 @@ function Countdown() {
 
   const legs = [
     { label: "Umrah", date: new Date("2026-08-22T00:00:00"), c1: "#5A1420", c2: "#8B1E2D", tint: "#F5E9EB" },
-    { label: "Thailand", date: new Date("2026-09-01T00:00:00"), c1: "#1B3A8F", c2: "#0E8C8C", tint: "#E5F0F3" },
+    { label: "Thailand", date: new Date("2026-08-31T00:00:00"), c1: "#1B3A8F", c2: "#0E8C8C", tint: "#E5F0F3" },
   ];
   const day = 86400000;
 

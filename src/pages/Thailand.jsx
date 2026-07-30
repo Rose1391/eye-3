@@ -251,9 +251,16 @@ function BookingsTab() {
 }
 
 function DayDetail({ d }) {
+  const isMove = d.hotel && d.hotel.includes("🔄");
   return (
     <div style={{ padding: "0 14px" }}>
       <div style={{ fontSize: 12, color: "var(--mist)", fontStyle: "italic", marginBottom: 8 }}>{d.tagline}</div>
+      {d.hotel && (
+        <div style={{ display: "flex", alignItems: "center", gap: 7, padding: "8px 11px", borderRadius: "var(--r-sm)", marginBottom: 8, background: isMove ? "#FDF3DD" : "#E5F3F3", border: `1px solid ${isMove ? "rgba(200,150,40,0.35)" : "rgba(14,140,140,0.25)"}` }}>
+          <span style={{ fontSize: 14, flexShrink: 0 }}>{isMove ? "🔄" : "🛏️"}</span>
+          <span style={{ fontSize: 11.5, fontWeight: 600, color: isMove ? "#7A5510" : "#0E6B6B", lineHeight: 1.35 }}>{d.hotel.replace("🔄 ", "")}</span>
+        </div>
+      )}
       {d.activities.map((a, j) => (
         <div key={j} style={{ padding: "10px 0", borderTop: "1px solid var(--line)", display: "flex", gap: 10 }}>
           <div style={{ minWidth: 58, flexShrink: 0 }}>
@@ -279,7 +286,7 @@ function DaysTab() {
   const icon = (d) => d.dest === "transit" ? "✈️" : d.dest === "samui" ? "🏝️" : "🏙️";
   const tiles = thailandDays.map((d) => ({
     key: `d${d.day}`,
-    icon: icon(d),
+    icon: (d.hotel && d.hotel.includes("🔄")) ? "🔄" : icon(d),
     label: `Day ${d.day} · ${DEST_LABEL[d.dest]}`,
     sub: d.date,
     accent: DEST_COLOR[d.dest],
@@ -289,7 +296,7 @@ function DaysTab() {
     <div style={{ paddingTop: 14 }}>
       <div style={{ padding: "0 20px 10px" }}>
         <div className="tip warn" style={{ marginTop: 0, marginBottom: 10 }}>
-          <strong>Visa first:</strong> Thailand requires an e-visa for Bangladeshi passports. Apply for all three well before 1 September.
+          <strong>Visa first:</strong> Thailand requires an e-visa for Bangladeshi passports. Apply for all three well before 31 August.
         </div>
         <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 10.5, color: "var(--mist)", fontWeight: 500 }}><span className="dot ok" /> Toddler ready</span>
@@ -699,7 +706,35 @@ function SimCard({ op, accent }) {
 }
 
 function CommsTab() {
+  const [mapOpen, setMapOpen] = useState(false);
   const tiles = [
+    { key: "map", icon: "🗺️", label: "Koh Samui map", sub: "Beaches, resorts & sights", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        <p style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.6, marginBottom: 10 }}>
+          Your orientation map — all 19 beaches, the key attractions, both resorts (Mimosa on Maenam, Tolani on Laem Set), the airport, piers, and the ring road (4169). Tap to view full-screen and pinch to zoom.
+        </p>
+        <button onClick={() => setMapOpen(true)} style={{ display: "block", width: "100%", borderRadius: "var(--r-md)", overflow: "hidden", border: "1px solid var(--line)", background: "var(--white)", position: "relative" }}>
+          <img src="/samui-map.jpg" alt="Koh Samui guide map" style={{ width: "100%", display: "block" }} loading="lazy" />
+          <span style={{ position: "absolute", bottom: 8, right: 8, background: "rgba(0,20,50,0.82)", color: "#fff", fontSize: 10.5, fontWeight: 700, padding: "5px 10px", borderRadius: 99, display: "inline-flex", alignItems: "center", gap: 4 }}>
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.2"><path d="M15 3h6v6M14 10l7-7M9 21H3v-6M10 14l-7 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            Tap to zoom
+          </span>
+        </button>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 10 }}>
+          <div style={{ padding: "9px 11px", borderRadius: "var(--r-sm)", background: "#F3E9F5", border: "1px solid rgba(122,59,120,0.2)" }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: "#7A3B78", letterSpacing: "0.03em" }}>MIMOSA · Maenam Beach</div>
+            <div style={{ fontSize: 10.5, color: "var(--slate)", marginTop: 3, lineHeight: 1.4 }}>Airport 10 km · Fisherman's Village 6 km · Chaweng 14 km</div>
+          </div>
+          <div style={{ padding: "9px 11px", borderRadius: "var(--r-sm)", background: "#E7F1EC", border: "1px solid rgba(27,138,90,0.2)" }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: "#14663F", letterSpacing: "0.03em" }}>TOLANI · Laem Set Beach</div>
+            <div style={{ fontSize: 10.5, color: "var(--slate)", marginTop: 3, lineHeight: 1.4 }}>Airport 24 km · Lamai 6 km · Chaweng 17 km</div>
+          </div>
+        </div>
+        <div className="tip warn" style={{ marginTop: 10 }}>
+          <strong>Note:</strong> Tolani (Laem Set, south-east) is further from the airport but close to Lamai; Mimosa (Maenam, north) is nearer the airport and Fisherman's Village. Choeng Mon — the calmest toddler bay — is beach #6 in the north-east.
+        </div>
+      </div>
+    )},
     { key: "sim", icon: "📶", label: "SIM & eSIM", sub: "AIS vs True/DTAC", render: () => (
       <div style={{ padding: "0 14px" }}>
         <div className="tip warn" style={{ marginTop: 0, marginBottom: 10 }}>
@@ -738,6 +773,18 @@ function CommsTab() {
     <div style={{ paddingTop: 16 }}>
       <TileGrid tiles={tiles} />
       <div style={{ height: 16 }} />
+      {mapOpen && (
+        <div onClick={() => setMapOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 1000, background: "rgba(0,10,25,0.94)", display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 18px", flexShrink: 0 }}>
+            <span style={{ color: "#fff", fontWeight: 700, fontSize: 14 }}>🗺️ Koh Samui — guide map</span>
+            <button onClick={() => setMapOpen(false)} style={{ color: "#fff", fontSize: 13, fontWeight: 700, background: "rgba(255,255,255,0.15)", padding: "6px 14px", borderRadius: 99 }}>Close ✕</button>
+          </div>
+          <div onClick={(e) => e.stopPropagation()} style={{ flex: 1, overflow: "auto", WebkitOverflowScrolling: "touch", display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "0 8px 20px" }}>
+            <img src="/samui-map.jpg" alt="Koh Samui guide map full" style={{ width: "180%", maxWidth: "none", height: "auto", borderRadius: 10 }} />
+          </div>
+          <div style={{ textAlign: "center", color: "rgba(255,255,255,0.7)", fontSize: 11, padding: "0 0 14px", flexShrink: 0 }}>Scroll to pan · pinch to zoom</div>
+        </div>
+      )}
     </div>
   );
 }
@@ -887,42 +934,46 @@ function FlightsTab() {
 }
 
 function CostsTab() {
-  const iconFor = (s) => /flight|airways/i.test(s) ? "✈️" : /villa|hotel/i.test(s) ? "🛏️" : /visa/i.test(s) ? "📄" : /sim/i.test(s) ? "📶" : /car/i.test(s) ? "🚗" : /food/i.test(s) ? "🍽️" : /activit/i.test(s) ? "🎫" : /ride/i.test(s) ? "🚕" : "🛍️";
-  const tiles = thailandCosts.map((c2, i) => ({
-    key: `tc${i}`,
-    icon: iconFor(c2.item),
-    label: c2.item.replace(/\s*—.*/, "").replace(/\s*\(.*\)/, ""),
-    sub: c2.low,
-    render: () => (
-      <div style={{ padding: "0 14px" }}>
-        <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 6 }}>{c2.item}</div>
-        <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 6 }}>
-          <span style={{ fontFamily: "var(--font-mono)", fontSize: 16, fontWeight: 600, color: "#0E6B6B" }}>{c2.low}</span>
-          <span style={{ fontSize: 12, color: "var(--mist)" }}>– {c2.high}</span>
+  const iconFor = (s) => /flight|airways/i.test(s) ? "✈️" : /villa|hotel|mimosa|tolani|lebua/i.test(s) ? "🛏️" : /visa/i.test(s) ? "📄" : /sim/i.test(s) ? "📶" : /car/i.test(s) ? "🚗" : /food/i.test(s) ? "🍽️" : /activit/i.test(s) ? "🎫" : /misc|contingency/i.test(s) ? "🧮" : "🛍️";
+  const single = thailandCostRange.single;
+  const tiles = thailandCosts.map((c2, i) => {
+    const same = c2.low === c2.high;
+    return {
+      key: `tc${i}`,
+      icon: iconFor(c2.item),
+      label: c2.item.replace(/\s*—.*/, "").replace(/\s*\(.*\)/, ""),
+      sub: c2.low,
+      render: () => (
+        <div style={{ padding: "0 14px" }}>
+          <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 6 }}>{c2.item}</div>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 6 }}>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: 16, fontWeight: 600, color: "#0E6B6B" }}>{c2.low}</span>
+            {!same && <span style={{ fontSize: 12, color: "var(--mist)" }}>– {c2.high}</span>}
+          </div>
+          <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.55 }}>{c2.note}</div>
         </div>
-        <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.55 }}>{c2.note}</div>
-      </div>
-    ),
-  }));
+      ),
+    };
+  });
   return (
     <div style={{ paddingTop: 16 }}>
       <div style={{ padding: "0 20px 12px" }}>
         <div style={{ borderRadius: "var(--r-md)", padding: "15px 17px", background: "linear-gradient(135deg, var(--m-blue), #0E8C8C)", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div>
-            <div className="eyebrow" style={{ color: "#EBD98C", fontSize: 9.5 }}>ESTIMATED TOTAL</div>
-            <div style={{ fontSize: 10.5, color: "rgba(255,255,255,0.68)", marginTop: 2 }}>3 travellers · 8 days</div>
+            <div className="eyebrow" style={{ color: "#EBD98C", fontSize: 9.5 }}>{single ? "PLANNED TOTAL" : "ESTIMATED TOTAL"}</div>
+            <div style={{ fontSize: 10.5, color: "rgba(255,255,255,0.68)", marginTop: 2 }}>3 travellers · 9 days · confirmed itinerary</div>
           </div>
           <div style={{ textAlign: "right" }}>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 500, color: "#EBD98C", lineHeight: 1.15 }}>{thailandCostRange.low}</div>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: 17, fontWeight: 500, color: "#EBD98C", lineHeight: 1.15 }}>– {thailandCostRange.high}</div>
-            <div style={{ fontSize: 10, color: "rgba(255,255,255,0.72)", marginTop: 2 }}>{thailandCostRange.lowUsd} – {thailandCostRange.highUsd}</div>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 600, color: "#EBD98C", lineHeight: 1.1 }}>{thailandCostRange.low}</div>
+            {!single && <div style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 600, color: "#EBD98C", lineHeight: 1.1 }}>– {thailandCostRange.high}</div>}
+            <div style={{ fontSize: 10, color: "rgba(255,255,255,0.72)", marginTop: 2 }}>{thailandCostRange.lowUsd}</div>
           </div>
         </div>
       </div>
       <TileGrid tiles={tiles} />
       <div style={{ padding: "14px 20px 16px" }}>
         <div className="tip" style={{ background: "var(--amber-bg)", border: "1px solid var(--amber-line)", color: "var(--amber-text)", marginTop: 0 }}>
-          <strong>Planning estimate, not a quote.</strong> Hotel lines are anchored to your real bookings; confirm live rates with your agent.
+          <strong>Your planned figures.</strong> Flights, hotels, and visa are confirmed; food, activities, car, and shopping are your set budgets. FX at ~1 USD = ৳123.30 — the actual card debit may vary slightly.
         </div>
       </div>
     </div>
