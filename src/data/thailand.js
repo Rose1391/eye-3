@@ -7,11 +7,37 @@ export const thailandMeta = {
 };
 
 export const thailandFlights = [
-  { leg: "Dhaka → Bangkok", op: "Thai Airways TG340 · Economy (V)", route: "DAC 02:30 → BKK 06:00 (Suvarnabhumi)", time: "Mon 31 Aug · nonstop", note: "Red-eye departure, lands BKK 06:00 with ~4 hrs to the 09:55 Samui connection. Airside transfer to Bangkok Airways. 152 kg CO₂e." },
-  { leg: "Bangkok → Koh Samui", op: "Bangkok Airways · nonstop", route: "BKK 09:55 → USM 11:05", time: "Mon 31 Aug · ~1.25 hrs", note: "Same day as arrival. Bangkok Airways holds a near-monopoly on Samui — its lounges are free to all passengers." },
-  { leg: "Koh Samui → Bangkok", op: "Bangkok Airways · nonstop", route: "USM 14:35 → BKK 15:50", time: "Sat 5 Sep · ~1.25 hrs", note: "Perfectly timed after a late checkout and lunch. Round-trip BKK⇄USM total THB 24,560." },
-  { leg: "Bangkok → Dhaka", op: "Thai Airways TG339 · Economy (W) Saver", route: "BKK 23:50 → DAC 01:25 (+1)", time: "Tue 8 Sep · nonstop", note: "Late-night departure, lands Dhaka 01:25 next day. Suvarnabhumi is stroller-friendly; allow 2.5 hrs. 167 kg CO₂e." },
+  { leg: "Dhaka → Bangkok", op: "Thai Airways TG340 · Economy (S)", route: "DAC 02:30 → BKK 06:00 (Suvarnabhumi)", time: "Mon 31 Aug · 2h30m nonstop", note: "Ticketed & confirmed · Ref F4XLVE · Terminal 2 · Seats 39A (Farzana) / 39B (Rose + Affaan infant) · 1 piece 23 kg each. Red-eye landing 06:00 with ~4 hrs to the Samui connection." },
+  { leg: "Bangkok → Koh Samui", op: "Bangkok Airways PG129 · Economy (K)", route: "BKK 09:55 → USM 11:05", time: "Mon 31 Aug · 1h10m nonstop", note: "Ticketed & confirmed · Ref FPSCKQ · Seats 09A (Farzana + infant) / 09B (Rose) · 20 kg checked each, 10 kg infant. Bangkok Airways lounges are free to all passengers during the layover." },
+  { leg: "Koh Samui → Bangkok", op: "Bangkok Airways PG136 · Economy (Y)", route: "USM 14:35 → BKK 15:50", time: "Sat 5 Sep · 1h15m nonstop", note: "Ticketed & confirmed · Ref FPSCKQ · Seats 15A (Farzana + infant) / 15B (Rose). Timed nicely after a late checkout and lunch at Tolani." },
+  { leg: "Bangkok → Dhaka", op: "Thai Airways TG339 · Economy (W)", route: "BKK 23:50 → DAC 01:25 (+1)", time: "Tue 8 Sep · 2h35m nonstop", note: "Ticketed & confirmed · Ref F4XLVE · Terminal 2 · Seats 45A (Farzana) / 45B (Rose + Affaan infant). Lands Dhaka 01:25 on 9 Sep — a genuinely late finish, so keep Day 9 restful." },
 ];
+
+// Ticket references — issued 3 Aug 2026
+export const flightTickets = {
+  thai: {
+    airline: "Thai Airways International", ref: "F4XLVE",
+    issuedBy: "E C Aviation Ltd, East Coast Centre, Gulshan-1, Dhaka · 09613555888",
+    passengers: [
+      { name: "Rose Mohammad Rezwanul Haque (ADT)", ticket: "217 9412579660", fare: "USD 317.00", total: "৳54,815" },
+      { name: "Rahman Farzana Binta (ADT)", ticket: "217 9412579661", fare: "USD 317.00", total: "৳54,815" },
+      { name: "Rehbar Affaan (INF)", ticket: "217 9412579662", fare: "USD 63.00", total: "৳12,287" },
+    ],
+    grand: "৳1,21,917",
+    note: "Non-endorsable; flight/date change, reroute and cancellation restricted — check the fare rule before any change. Economy baggage 23 kg per piece.",
+  },
+  bangkokAir: {
+    airline: "Bangkok Airways", ref: "FPSCKQ",
+    issuedBy: "PG Website Thailand, Chatuchak, Bangkok · +66 2 270 6699",
+    passengers: [
+      { name: "Rose Mohammad Rezwanul Haque (ADT)", ticket: "829 4853490826", fare: "THB 10,740", total: "THB 11,170" },
+      { name: "Rahman Farzana Binta (ADT)", ticket: "829 4853490825", fare: "THB 10,740", total: "THB 11,170" },
+      { name: "Rehbar Affaan (INF)", ticket: "829 4853490827", fare: "THB 2,940", total: "THB 2,940" },
+    ],
+    grand: "THB 25,280 ≈ ৳92,778",
+    note: "Non-endorsable, refund and change restricted. Domestic check-in desk closes 40 min before departure. Paid in cash.",
+  },
+};
 
 export const thailandDays = [
   {
@@ -465,8 +491,8 @@ export const thailandRestaurants = [
 // Based on your CONFIRMED choices: Mimosa (31 Aug–2 Sep) + Tolani (2–5 Sep) on Samui,
 // lebua Tower Club in Bangkok, and the uploaded flight fares. FX ~1 USD = ৳123.30, 1 CNY = ৳18.22.
 export const thailandCosts = [
-  { item: "Thai Airways DAC⇄BKK (TG340/TG339)", low: "৳98,000", high: "৳98,000", note: "Confirmed fare from your ticket — 2 adults + infant, Economy V/W" },
-  { item: "Bangkok Airways BKK⇄USM (both legs)", low: "৳90,000", high: "৳90,000", note: "Confirmed THB 24,560 round-trip on the ticket (converted)" },
+  { item: "Thai Airways DAC⇄BKK (TG340/TG339)", low: "৳1,21,917", high: "৳1,21,917", note: "ACTUAL ticketed fare — 2 adults @ ৳54,815 + Affaan (infant) ৳12,287. Ref F4XLVE, issued 3 Aug." },
+  { item: "Bangkok Airways BKK⇄USM (both legs)", low: "৳92,778", high: "৳92,778", note: "ACTUAL ticketed fare — THB 25,280 total (2 adults @ THB 11,170 + infant THB 2,940). Ref FPSCKQ." },
   { item: "Koh Samui — Mimosa (2nt) + Tolani (3nt)", low: "৳97,900", high: "৳97,900", note: "Your chosen combo: Mimosa 31 Aug–2 Sep (৳31,365) + Tolani 2–5 Sep (৳66,533)" },
   { item: "Bangkok — lebua Tower Club (3nt)", low: "৳69,713", high: "৳69,713", note: "Tower Club Suite w/ lounge, minibar, afternoon tea — from your booking" },
   { item: "Thai e-visas (Bangladeshi passports)", low: "৳13,000", high: "৳13,000", note: "Confirmed — required, for all three" },
@@ -477,7 +503,7 @@ export const thailandCosts = [
   { item: "Miscellaneous / contingency", low: "৳10,000", high: "৳10,000", note: "SIM, tips, ride-hailing, buffer" },
 ];
 
-export const thailandCostRange = { low: "৳5,73,600", high: "৳5,73,600", lowUsd: "~$4,652", highUsd: "~$4,652", single: true };
+export const thailandCostRange = { low: "৳6,00,310", high: "৳6,00,310", lowUsd: "~$4,869", highUsd: "~$4,869", single: true };
 
 // ─── CHECKLIST ────────────────────────────────────────────────────────────────
 export const thailandChecklist = [

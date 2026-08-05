@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  thailandMeta, thailandDays, thailandFlights, samuiActivities, bangkokActivities,
+  thailandMeta, thailandDays, thailandFlights, flightTickets, samuiActivities, bangkokActivities,
   phanganVerdict, samuiBeaches, beachRecommendation, samuiResorts, bangkokHotels,
   hotelRecommendation, toddlerSchedule, affaanNotes, thailandRestaurants,
   thailandCosts, thailandCostRange, thailandChecklist,
@@ -903,30 +903,59 @@ function FoodTab() {
   );
 }
 
-function FlightsTab() {
-  const tiles = thailandFlights.map((fl, i) => ({
-    key: `fl${i}`,
-    icon: i === 0 ? "🛫" : i === 3 ? "🛬" : "✈️",
-    label: fl.leg,
-    sub: fl.time,
-    accent: "var(--m-blue)",
-    render: () => (
-      <div style={{ padding: "0 14px" }}>
-        <div style={{ fontSize: 12.5, color: "#0E6B6B", fontWeight: 700, marginBottom: 4 }}>{fl.op}</div>
-        <div style={{ fontFamily: "var(--font-mono)", fontSize: 12.5, color: "var(--ink)", marginBottom: 6 }}>{fl.route}</div>
-        <div style={{ fontSize: 12, color: "var(--slate)", fontStyle: "italic", lineHeight: 1.55 }}>{fl.note}</div>
+function TicketBlock({ t, accent }) {
+  return (
+    <div style={{ padding: "0 14px" }}>
+      <div style={{ fontWeight: 700, fontSize: 13.5, color: accent, marginBottom: 2 }}>{t.airline}</div>
+      <div style={{ display: "inline-block", fontFamily: "var(--font-mono)", fontSize: 12, fontWeight: 700, color: "#fff", background: accent, padding: "3px 10px", borderRadius: 7, marginBottom: 9 }}>Ref {t.ref}</div>
+      {t.passengers.map((p, i) => (
+        <div key={i} style={{ padding: "8px 0", borderTop: "1px solid var(--line)" }}>
+          <div style={{ fontWeight: 600, fontSize: 12.5, lineHeight: 1.3 }}>{p.name}</div>
+          <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginTop: 3 }}>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--mist)" }}>{p.ticket}</span>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: 11.5, fontWeight: 600, color: "#0E6B6B" }}>{p.total}</span>
+          </div>
+        </div>
+      ))}
+      <div style={{ display: "flex", justifyContent: "space-between", padding: "8px 0 0", marginTop: 4, borderTop: "1px solid var(--line)", fontWeight: 700, fontSize: 13 }}>
+        <span>Total</span><span style={{ fontFamily: "var(--font-mono)", color: accent }}>{t.grand}</span>
       </div>
-    ),
-  }));
+      <div style={{ fontSize: 11, color: "var(--slate)", lineHeight: 1.5, marginTop: 9 }}>{t.issuedBy}</div>
+      <div className="tip warn" style={{ marginTop: 8 }}>{t.note}</div>
+    </div>
+  );
+}
+
+function FlightsTab() {
+  const tiles = [
+    ...thailandFlights.map((fl, i) => ({
+      key: `fl${i}`,
+      icon: i === 0 ? "🛫" : i === 3 ? "🛬" : "✈️",
+      label: fl.leg,
+      sub: fl.time,
+      accent: "var(--m-blue)",
+      render: () => (
+        <div style={{ padding: "0 14px" }}>
+          <div style={{ fontSize: 12.5, color: "#0E6B6B", fontWeight: 700, marginBottom: 4 }}>{fl.op}</div>
+          <div style={{ fontFamily: "var(--font-mono)", fontSize: 12.5, color: "var(--ink)", marginBottom: 6 }}>{fl.route}</div>
+          <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.6 }}>{fl.note}</div>
+        </div>
+      ),
+    })),
+    { key: "tkt-tg", icon: "🎫", label: "Thai Airways tickets", sub: flightTickets.thai.grand, accent: "#5D2E8C", render: () => <TicketBlock t={flightTickets.thai} accent="#5D2E8C" /> },
+    { key: "tkt-pg", icon: "🎫", label: "Bangkok Airways tickets", sub: "THB 25,280", accent: "#1B3A8F", render: () => <TicketBlock t={flightTickets.bangkokAir} accent="#1B3A8F" /> },
+  ];
   return (
     <div style={{ paddingTop: 16 }}>
       <div style={{ padding: "0 20px 10px" }}>
-        <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6 }}>Four legs: Dhaka → Bangkok → Samui, and back.</p>
+        <p style={{ fontSize: 12.5, color: "var(--slate)", lineHeight: 1.6 }}>
+          All four legs ticketed and confirmed (issued 3 Aug). Tap a leg for seats and details, or a ticket tile for numbers and fares.
+        </p>
       </div>
       <TileGrid tiles={tiles} accent="var(--m-blue)" />
       <div style={{ padding: "14px 20px 16px" }}>
-        <div className="tip malaysia" style={{ marginTop: 0 }}>
-          <strong>Bangkok Airways monopoly:</strong> USM fares only rise as September approaches — lock both legs as soon as the plan is confirmed.
+        <div className="tip warn" style={{ marginTop: 0 }}>
+          <strong>Both tickets are change/cancellation restricted.</strong> Thai is non-endorsable with restricted date changes; Bangkok Airways is non-refundable. Check the fare rule before altering anything.
         </div>
       </div>
     </div>
