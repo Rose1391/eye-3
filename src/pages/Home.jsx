@@ -37,8 +37,8 @@ export default function Home() {
       <div style={{ padding: "10px 16px 0", flexShrink: 0 }}>
         <div className="card" style={{ overflow: "hidden" }}>
           {[
-            { d: "22–29 Aug", t: "Umrah pilgrimage", s: "Family of five", c: "var(--u-mid)" },
-            { d: "29–31 Aug", t: "Break in Dhaka", s: "Rest, repack, e-visas", c: "var(--u-gold)" },
+            { d: "22–30 Aug", t: "Umrah pilgrimage", s: "Family of five", c: "var(--u-mid)" },
+            { d: "30–31 Aug", t: "⚠️ 17 hrs in Dhaka", s: "Land 09:10, fly out 02:30", c: "#A82838" },
             { d: "31 Aug – 8 Sep", t: "Thailand holiday", s: "Rose, Farzana & Affaan", c: "var(--m-blue)" },
           ].map((r, i, arr) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "7px 13px", borderBottom: i < arr.length - 1 ? "1px solid var(--line)" : "none" }}>

@@ -642,11 +642,37 @@ function CarsTab() {
         <div className="tip warn" style={{ marginTop: 10 }}>{yarisPriceBreakdown.note}</div>
       </div>
     )},
-    { key: "wa", icon: "💬", label: "WhatsApp booking", sub: "Fastest local route", accent: "#25A366", render: () => (
+    { key: "wa", icon: "✅", label: "Your car — booked", sub: "Samui Cars", accent: "#25A366", render: () => (
       <div style={{ padding: "0 14px" }}>
-        <p style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.6, marginBottom: 8 }}>{carRentalWhatsapp.intro}</p>
+        <div style={{ background: "#E7F5F0", border: "1px solid rgba(37,163,102,0.35)", borderRadius: "var(--r-sm)", padding: "11px 13px", marginBottom: 11 }}>
+          <div style={{ fontWeight: 700, fontSize: 14, color: "#14663F", marginBottom: 3 }}>{carRentalWhatsapp.operator}</div>
+          <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.55 }}>{carRentalWhatsapp.intro}</div>
+        </div>
+        <div style={{ display: "grid", gap: 8, marginBottom: 11 }}>
+          <a href={`tel:${carRentalWhatsapp.phone.replace(/\s/g, "")}`} style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 13px", borderRadius: "var(--r-sm)", border: "1px solid var(--line)", background: "var(--white)" }}>
+            <span style={{ fontSize: 17 }}>📞</span>
+            <div>
+              <div style={{ fontSize: 10, color: "var(--mist)", fontWeight: 700 }}>CALL</div>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 13, fontWeight: 600, color: "var(--ink)" }}>{carRentalWhatsapp.phone}</div>
+            </div>
+          </a>
+          <a href={carRentalWhatsapp.whatsapp} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 13px", borderRadius: "var(--r-sm)", border: "1px solid rgba(37,211,102,0.4)", background: "#F0FBF4" }}>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="#25D366"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.05-1.34A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2Zm4.4 14.1c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.55.12-.16.24-.63.78-.77.94-.14.16-.28.18-.52.06-.24-.12-1.01-.37-1.92-1.18-.71-.63-1.19-1.42-1.33-1.66-.14-.24-.01-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.42-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.13 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.56.2-1.04.14-1.15-.06-.1-.22-.16-.46-.28Z" /></svg>
+            <div>
+              <div style={{ fontSize: 10, color: "#14663F", fontWeight: 700 }}>WHATSAPP</div>
+              <div style={{ fontSize: 12.5, fontWeight: 600, color: "var(--ink)" }}>Message Samui Cars</div>
+            </div>
+          </a>
+          <a href={carRentalWhatsapp.website} target="_blank" rel="noopener noreferrer" style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 13px", borderRadius: "var(--r-sm)", border: "1px solid var(--line)", background: "var(--white)" }}>
+            <span style={{ fontSize: 17 }}>🔗</span>
+            <div>
+              <div style={{ fontSize: 10, color: "var(--mist)", fontWeight: 700 }}>WEBSITE</div>
+              <div style={{ fontSize: 12.5, fontWeight: 600, color: "var(--m-blue)" }}>samuicars.rent</div>
+            </div>
+          </a>
+        </div>
         <div className="tip warn" style={{ marginBottom: 10 }}>{carRentalWhatsapp.note}</div>
-        <div style={{ fontSize: 11, fontWeight: 700, color: "#0E6B6B", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 6 }}>What to send</div>
+        <div style={{ fontSize: 11, fontWeight: 700, color: "#0E6B6B", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 6 }}>Confirm these details</div>
         {carRentalWhatsapp.whatToSend.map((w, i) => (
           <div key={i} style={{ display: "flex", gap: 8, marginBottom: 5, alignItems: "flex-start" }}>
             <span style={{ width: 5, height: 5, borderRadius: 99, background: "#0E8C8C", flexShrink: 0, marginTop: 6 }} />

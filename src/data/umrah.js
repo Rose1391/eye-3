@@ -1,10 +1,10 @@
 export const umrahMeta = {
   title: "Umrah Pilgrimage",
-  dates: "22 – 29 August 2026",
+  dates: "22 – 30 August 2026",
   nights: 7,
   travelers: 5,
   agency: "Fly Hajj Aviation, Gulshan",
-  route: "Dhaka → Meccah → Madina → Dhaka",
+  route: "Dhaka → Jeddah → Makkah → Madinah → Dhaka",
 };
 
 export const umrahTravelers = [
@@ -18,34 +18,66 @@ export const umrahTravelers = [
 export const umrahFlights = [
   {
     leg: "Outbound",
-    date: "22 Aug 2026",
-    airline: "Qatar Airways",
-    flights: "QR639 / QR1190",
-    route: "Dhaka (DAC) → Jeddah (JED)",
-    note: "One stop via Doha. All 5 travelers.",
+    date: "Sat 22 Aug 2026",
+    airline: "Qatar Airways · PNR 7FGNRA",
+    flights: "QR639 → QR1190",
+    route: "DAC 04:10 → DOH 06:20 · DOH 07:40 → JED 10:10",
+    note: "Boeing 777-300ER both legs. Dhaka Terminal 1 · Jeddah Terminal 1. Connection in Doha 1h 20m. Economy (N) — 25 kg adult / 10 kg infant. All 5 travellers.",
   },
   {
     leg: "Return",
-    date: "29 Aug 2026",
-    airline: "Emirates",
-    flights: "EK810 / EK582",
-    route: "Jeddah/Madina → Dhaka (DAC)",
-    note: "Departs 17:35. All 5 travelers return together.",
+    date: "Sat 29 Aug 2026",
+    airline: "Biman Bangladesh · Ref AS261269188",
+    flights: "BG338",
+    route: "MED 23:30 → DAC 09:10 (+1, Sun 30 Aug)",
+    note: "Boeing 787-8 Dreamliner, nonstop 6h 40m from MADINAH (not Jeddah). Arrives Dhaka Terminal 2 at 09:10 on Sunday 30 August. Airline ref AXOKQA · CRS ref HNQWHJ. All 5 travellers. CONFIRMED.",
   },
 ];
 
+// Umrah ticket references
+export const umrahTickets = {
+  qatar: {
+    airline: "Qatar Airways", ref: "PNR 7FGNRA",
+    issuedBy: "Booked via travelcraft2020@gmail.com",
+    passengers: [
+      { name: "Mohammad Rezwanul Haque Rose", ticket: "157-2139272172" },
+      { name: "Farzana Binta Rahman", ticket: "157-2139272169" },
+      { name: "Md Habibur Rahman", ticket: "157-2139272171" },
+      { name: "Jakia Rahman", ticket: "157-2139272170" },
+      { name: "Affaan Rehbar", ticket: "157-2139272168" },
+    ],
+    note: "Economy (N). Checked baggage 25 kg per adult, 10 kg infant. Manage via 'Manage Booking' on qatarairways.com.",
+  },
+  biman: {
+    airline: "Biman Bangladesh Airlines", ref: "AS261269188 · Airline AXOKQA · CRS HNQWHJ",
+    issuedBy: "Booked 6 Aug 2026 · Status CONFIRMED",
+    passengers: [
+      { name: "Mohammad Rezwanul Haque Rose", ticket: "9975287216466" },
+      { name: "Farzana Binta Rahman", ticket: "9975287216467" },
+      { name: "Jakia Rahman", ticket: "9975287216468" },
+      { name: "Md Habibur Rahman", ticket: "9975287216469" },
+      { name: "Affaan Rehbar", ticket: "9975287216470" },
+    ],
+    note: "⚠️ Refund / date-change penalties up to 100% may apply. Departs from MADINAH — plan the Madinah→airport transfer for a 23:30 departure (be at MED by ~20:30).",
+  },
+};
+
 export const umrahHotels = [
   {
-    city: "Meccah",
-    name: "Mövenpick Makkah",
-    room: "Superior Quad Room · Partial Haram View",
+    city: "Makkah",
+    name: "Mövenpick Hotel Hajar Tower",
+    room: "1 Quad Room · Bed & Breakfast",
     nights: "4 nights (22–26 Aug)",
+    ref: "Ref 6197 · via Raed Al Asfar (Director of Operations)",
+    detail: "Directly at the Abraj Al Bait complex beside Masjid al-Haram — walking distance to the Haram, which matters enormously with a toddler and elders in the group. Booked 14 Jul 2026.",
   },
   {
-    city: "Madina",
+    city: "Madinah",
     name: "Elaf Taiba Hotel",
-    room: "Junior Suite · Standard Quadruple Room",
+    room: "1 Junior Suite · Bed & Breakfast",
     nights: "3 nights (26–29 Aug)",
+    ref: "Voucher 2869 · Diamond Hotel Booking · CONFIRMED",
+    detail: "Booked 27 Jul 2026 for 4 pax. Check-in from 16:00, checkout 12:00. Floor not confirmed — depends on availability. ⚠️ Reservations may be auto-cancelled after 18:00 if the hotel isn't told about a late arrival, so call ahead on arrival day.",
   },
 ];
 

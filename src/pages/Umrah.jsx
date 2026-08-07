@@ -5,7 +5,7 @@ import {
   umrahCosts, umrahGrandTotal, umrahLogistics, umrahChecklist,
   umrahGuide, madinaNote,
   umrahSimOperators, umrahSimRecommendation, umrahSimTips,
-  arabicPhrases, arabicPhraseNote, umrahRiteSteps, umrahJourneyStats,
+  arabicPhrases, arabicPhraseNote, umrahRiteSteps, umrahJourneyStats, umrahTickets,
 } from "../data/umrah";
 import { SectionHead, RiteArt } from "../components/ui";
 import Accordion from "../components/Accordion";
@@ -289,6 +289,26 @@ function TravelersTab() {
             <div style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 500, marginBottom: 4 }}>{h.name}</div>
             <div style={{ fontSize: 12.5, color: "var(--slate)", marginBottom: 5 }}>{h.room}</div>
             <span className="pill" style={{ background: "var(--u-light)", color: "var(--u-mid)", fontSize: 10 }}>{h.nights}</span>
+            {h.ref && <div style={{ fontFamily: "var(--font-mono)", fontSize: 10.5, color: "var(--mist)", marginTop: 5 }}>{h.ref}</div>}
+            {h.detail && <div style={{ fontSize: 11.5, color: "var(--slate)", lineHeight: 1.55, marginTop: 5 }}>{h.detail}</div>}
+          </div>
+        ))}
+      </div>
+    )},
+    { key: "tkt", icon: "🎫", label: "Tickets", sub: "Qatar & Biman refs", accent: "var(--u-gold)", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        {[umrahTickets.qatar, umrahTickets.biman].map((t, i) => (
+          <div key={i} style={{ paddingBottom: 12, marginBottom: 12, borderBottom: i === 0 ? "1px solid var(--line)" : "none" }}>
+            <div style={{ fontWeight: 700, fontSize: 13.5, color: "var(--u-mid)" }}>{t.airline}</div>
+            <div style={{ display: "inline-block", fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, color: "#fff", background: "var(--u-mid)", padding: "3px 9px", borderRadius: 6, margin: "5px 0 8px" }}>{t.ref}</div>
+            {t.passengers.map((p, j) => (
+              <div key={j} style={{ display: "flex", justifyContent: "space-between", gap: 8, padding: "4px 0", borderTop: "1px solid var(--line)" }}>
+                <span style={{ fontSize: 11.5, color: "var(--ink)" }}>{p.name}</span>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: 10.5, color: "var(--mist)", flexShrink: 0 }}>{p.ticket}</span>
+              </div>
+            ))}
+            <div style={{ fontSize: 11, color: "var(--slate)", lineHeight: 1.5, marginTop: 7 }}>{t.issuedBy}</div>
+            <div className="tip warn" style={{ marginTop: 6 }}>{t.note}</div>
           </div>
         ))}
       </div>

@@ -677,14 +677,14 @@ export const thailandBookings = [
   {
     id: "6896299202", manageUrl: "https://secure.booking.com/mybooking.html", source: "Booking.com", leg: "samui", currency: "THB",
     property: "Sea Valley Resort", area: "Lipa Noi, Koh Samui",
-    status: "overlap", checkIn: "2026-09-01", checkOut: "2026-09-05", nights: 4,
-    room: "Superior Villa with Private Pool", occupancy: "2 adults, 1 child", board: "Breakfast included",
+    status: "overlap", checkIn: "2026-09-02", checkOut: "2026-09-05", nights: 3,
+    room: "Superior Villa with Private Pool", occupancy: "2 adults, 1 child (1 yr)", board: "Breakfast · parking · high-speed WiFi",
     guest: "Rose Mohammad Rezwanul Haque",
-    priceLabel: "THB 18,512", priceBdt: "৳67,939",
-    breakdown: [["Superior Villa (Private Pool)", "THB 15,595.62"], ["VAT", "THB 1,091.69"], ["City tax", "THB 155.96"], ["Service charge", "THB 1,668.73"]],
-    freeCancelUntil: "2026-08-17T23:59:00",
-    cancelTiers: [["Until 17 Aug 11:59 PM", "THB 0 (free)"], ["From 18 Aug", "THB 9,256 (50%)"], ["No-show", "THB 18,512 (100%)"]],
-    payment: "Guaranteed by Visa ••1980. No prepayment; pay at property. 3% discount if paid cash. PIN 2477.", phone: "+66 77 485 745",
+    priceLabel: "THB 17,225.01", priceBdt: "৳63,216",
+    breakdown: [["Superior Villa, 3 nights", "THB 17,225.01"], ["7% VAT", "included"], ["10% service charge", "included"], ["1% city tax", "included"]],
+    freeCancelUntil: "2026-08-18T23:59:00",
+    cancelTiers: [["Until 18 Aug 11:59 PM", "THB 0 (free)"], ["From 19 Aug", "THB 8,612.50 (50%)"], ["From 3 Sep / no-show", "THB 17,225.01 (100%)"]],
+    payment: "✏️ MODIFIED 7 Aug — dates moved to 2–5 Sep, guests 2→3, price THB 18,512→17,225.01. Guaranteed by Visa ••1980, pay at property. PIN 2477. Villa is 2nd row with garden view, 10m from the main pool. Special request logged: clean, mosquito-free room and a ready private pool for Affaan; arrival 12:00–13:00.", phone: "+66 77 485 745",
   },
   // ---- BANGKOK (Sep 5–8) — keep ONE ----
   {
@@ -853,14 +853,19 @@ export const yarisPriceBreakdown = {
 };
 
 export const carRentalWhatsapp = {
-  intro: "Several independent Samui operators take bookings directly over WhatsApp — genuinely the fastest way to lock in a Yaris with hotel delivery before you land.",
-  note: "Exact WhatsApp numbers change operator-to-operator and year-to-year, so confirm the current number on the operator's own website booking page before messaging (search \"[operator name] Koh Samui WhatsApp\" or check their site's contact page directly) rather than trust a number from a search result — a few older listings online are outdated.",
+  booked: true,
+  operator: "Samui Cars",
+  phone: "+66 63 973 0070",
+  website: "https://samuicars.rent",
+  whatsapp: "https://wa.me/66639730070",
+  intro: "✅ BOOKED — your Samui car is hired through Samui Cars. Save the number in your phone before you fly; they take WhatsApp messages and deliver to the airport or your hotel.",
+  note: "Confirm before pickup: the exact delivery point (Samui Airport arrivals vs Mimosa at Maenam), the deposit amount and whether it's cash or card hold, the insurance excess in writing, the fuel policy, and that a child seat for Affaan is fitted.",
   whatToSend: [
-    "Your dates: pickup 1 Sep, return 5 Sep",
-    "Vehicle: Toyota Yaris or Yaris Ativ, automatic",
-    "Pickup point: Samui Airport (USM) or your resort in Choeng Mon",
-    "Whether you need a baby/child seat for Affaan",
-    "Your flight number (Bangkok Airways from BKK) so they can track any delay",
+    "Pickup: Mon 31 Aug, ~11:30 AM at Samui Airport (USM) — flight PG129, lands 11:05",
+    "Return: Sat 5 Sep, before the 14:35 PG136 departure",
+    "Vehicle: Toyota Yaris / Yaris Ativ, automatic",
+    "Child seat needed for Affaan (21 months) — please confirm it's fitted",
+    "Note the hotel change: Mimosa (Maenam) 31 Aug–2 Sep, then Tolani (Laem Set) 2–5 Sep",
   ],
 };
 
