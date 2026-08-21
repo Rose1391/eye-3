@@ -8,7 +8,7 @@ import {
   samuiTopPicks, samuiTopPickNote, choengMonVillas, choengMonVillaNote,
   carRentalIntro, carRentalOptions, carRentalTips,
   bangkokRiverside, bangkokRiversideVerdict,
-  thailandBookings, bookingsMeta,
+  thailandBookings, bookingsMeta, cancelledBookings, activityBookings, thailandTransfers,
   thailandSimOperators, thailandSimRecommendation, thailandSimTips,
   thailandRideApps, thailandRideRecommendation,
   carRentalOperatorsCompared, yarisPriceBreakdown, carRentalWhatsapp,
@@ -240,6 +240,65 @@ function BookingsTab() {
         <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--m-blue)", textTransform: "uppercase", letterSpacing: "0.07em" }}>Bangkok · 5–8 Sep</div>
       </div>
       <TileGrid tiles={bangkok.map(mkTile)} accent="var(--m-blue)" />
+
+      {/* Activities */}
+      <div style={{ padding: "18px 20px 8px" }}>
+        <div style={{ fontSize: 10.5, fontWeight: 700, color: "#7A3B78", textTransform: "uppercase", letterSpacing: "0.07em" }}>Activities · booked & paid</div>
+      </div>
+      <TileGrid accent="#7A3B78" tiles={activityBookings.map((a, i) => ({
+        key: `act${i}`, icon: a.icon, label: a.name.replace(/ —.*/, ""), sub: a.date, accent: "#7A3B78",
+        render: () => (
+          <div style={{ padding: "0 14px" }}>
+            <div style={{ fontWeight: 700, fontSize: 13.5, marginBottom: 3 }}>{a.name}</div>
+            <div style={{ display: "inline-block", fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, color: "#fff", background: "#7A3B78", padding: "3px 9px", borderRadius: 6, marginBottom: 9 }}>{a.provider} · {a.ref}</div>
+            <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "4px 9px", fontSize: 12, marginBottom: 9 }}>
+              <span style={{ color: "var(--mist)", fontWeight: 700 }}>When</span><span style={{ color: "var(--ink)" }}>{a.date} · {a.time}</span>
+              <span style={{ color: "var(--mist)", fontWeight: 700 }}>Details</span><span style={{ color: "var(--slate)", lineHeight: 1.5 }}>{a.detail}</span>
+              <span style={{ color: "var(--mist)", fontWeight: 700 }}>Meet</span><span style={{ color: "var(--ink)", lineHeight: 1.5, fontWeight: 600 }}>{a.meeting}</span>
+            </div>
+            {a.tips.map((t, j) => (
+              <div key={j} style={{ display: "flex", gap: 8, marginBottom: 5, alignItems: "flex-start" }}>
+                <span style={{ width: 5, height: 5, borderRadius: 99, background: "#7A3B78", flexShrink: 0, marginTop: 6 }} />
+                <span style={{ fontSize: 11.5, color: "var(--ink)", lineHeight: 1.5 }}>{t}</span>
+              </div>
+            ))}
+            <div style={{ fontSize: 11, color: "var(--slate)", lineHeight: 1.5, marginTop: 9, paddingTop: 8, borderTop: "1px solid var(--line)" }}>{a.contact}</div>
+          </div>
+        ),
+      }))} />
+
+      {/* Transfers */}
+      <div style={{ padding: "18px 20px 8px" }}>
+        <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--m-blue)", textTransform: "uppercase", letterSpacing: "0.07em" }}>Airport pick & drop</div>
+      </div>
+      <div style={{ padding: "0 20px" }}>
+        {thailandTransfers.map((t, i) => (
+          <div key={i} className="card pad" style={{ marginBottom: 10 }}>
+            <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 2 }}>{t.icon} {t.leg}</div>
+            <div style={{ fontSize: 11.5, color: "var(--m-blue)", fontWeight: 600, marginBottom: 6 }}>{t.date}</div>
+            <div style={{ fontSize: 12, color: "var(--ink)", fontWeight: 600, marginBottom: 5 }}>{t.provider}</div>
+            <div style={{ fontSize: 12, color: "var(--slate)", lineHeight: 1.6 }}>{t.note}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Cancelled */}
+      <div style={{ padding: "18px 20px 8px" }}>
+        <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--mist)", textTransform: "uppercase", letterSpacing: "0.07em" }}>Cancelled · {cancelledBookings.length} (no charge)</div>
+      </div>
+      <div style={{ padding: "0 20px" }}>
+        <div className="card" style={{ overflow: "hidden", opacity: 0.85 }}>
+          {cancelledBookings.map((b, i) => (
+            <div key={i} style={{ padding: "9px 13px", borderBottom: i < cancelledBookings.length - 1 ? "1px solid var(--line)" : "none" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 8, alignItems: "baseline" }}>
+                <span style={{ fontSize: 12, color: "var(--slate)", textDecoration: "line-through" }}>{b.property}</span>
+                <span style={{ fontSize: 10, color: "var(--mist)", flexShrink: 0 }}>{b.when}</span>
+              </div>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--mist)", marginTop: 2 }}>{b.source} · {b.id}{b.note ? ` — ${b.note}` : ""}</div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div style={{ padding: "14px 20px 16px" }}>
         <div className="tip" style={{ background: "var(--amber-bg)", border: "1px solid var(--amber-line)", color: "var(--amber-text)", marginTop: 0 }}>

@@ -512,3 +512,64 @@ export const umrahJourneyStats = [
   { k: "2", l: "holy cities" },
   { k: "4", l: "rites" },
 ];
+
+// ─── SAUDI VISAS (KSA eVisa, issued 03/08/2026) ──────────────────────────────
+export const umrahVisaMeta = {
+  type: "Umrah – عمرة",
+  issued: "03 August 2026",
+  validUntil: "02 August 2027",
+  stay: "90 days",
+  place: "Saudi Digital Embassy – السفارة السعودية الرقمية",
+  operator: "شركة رياض الحرمين لخدمات المعتمرين (Riyadh Al-Haramain Umrah Services)",
+  agent: "الناصر افياشن سرفيسيس (Al Nasser Aviation Services)",
+  note: "All five visas issued together on 3 Aug 2026, valid a full year with a 90-day permitted stay.",
+  restrictions: [
+    "Not permitted for Hajj, nor to enter or stay in the Kingdom from 01 Dhu al-Qi'dah to 14 Dhu al-Hijjah.",
+    "After first entry, a prior Umrah permit and a confirmed Umrah package from the Ministry of Hajj and Umrah are required — get the permit through the Nusuk app.",
+  ],
+};
+
+export const umrahVisas = [
+  { name: "Mohammad Rezwanul Haque Rose", visa: "6170898062", passport: "E00179207", dob: "18/12/1992", app: "E822398652" },
+  { name: "Farzana Binta Rahman", visa: "6170898077", passport: "A13706191", dob: "09/09/1994", app: "E822398667" },
+  { name: "Md Habibur Rahman", visa: "6170898058", passport: "A04175631", dob: "15/01/1957", app: "E822398650" },
+  { name: "Jakia Rahman", visa: "6170898076", passport: "A08954940", dob: "09/03/1971", app: "E822398666" },
+  { name: "Affaan Rehbar", visa: "6170898061", passport: "A09045472", dob: "30/09/2024", app: "E822398649" },
+];
+
+// ─── PICK & DROP / MEET & GREET ──────────────────────────────────────────────
+export const umrahTransfers = [
+  {
+    leg: "Dhaka → Airport (departure)",
+    date: "Fri 21 Aug 2026 · report 23:45",
+    provider: "Trivia Aviation Ltd — MTB Cardholder Program",
+    vehicle: "Dh-Mt-Cha-52-0323",
+    driver: "Md. Maksud Alam Sumon",
+    driverPhone: "01721882860",
+    from: "Dhaka North Cantonment (1216), Bihongo, Moinul Road Area, Dhaka Cantonment",
+    to: "Hazrat Shahjalal Intl — QR639 Qatar Airways",
+    office: "Trivia Aviation · Md. Mahabub Hossain (Manager) · +88 02 883 7694-6 · +88 0192 991 8222",
+    note: "Report 23:45 on 21 Aug for the 04:10 QR639 on 22 Aug.",
+  },
+  {
+    leg: "Dhaka → Airport (backup / alternate confirmation)",
+    date: "Fri 21 Aug 2026 · report 23:45",
+    provider: "Convoy Service, Airport Booth — MTB Cardholder Program",
+    vehicle: "28-1655 (Toyota Premio)",
+    driver: "Mohiuddin / Zillur",
+    driverPhone: "01404472119",
+    from: "Dhaka North Cantonment (1216), Bihongo, Moinul Road Area, Dhaka Cantonment",
+    to: "Hazrat Shahjalal Intl — QR639 Qatar Airways",
+    office: "Convoy Airport Booth · 01312331376",
+    note: "⚠️ TWO providers have confirmed the same 21 Aug 23:45 pickup (Trivia and Convoy). Confirm with MTB which one is actually coming so you don't have two cars — or one none.",
+  },
+];
+
+export const umrahTransferNote = "Both services come free under your MTB Mutual Trust Bank cardholder Meet & Greet / Pick & Drop program. If the chauffeur changes, they SMS the new details. Separate MTB Meet & Greet requests were also placed for arrival — check the MTB Neo app for those order IDs.";
+
+// ─── GROUND CONTACTS IN SAUDI ────────────────────────────────────────────────
+export const umrahGroundContacts = [
+  { city: "Makkah", name: "Ismail", phone: "+966 56 872 5752", note: "Local ground contact in Makkah — Saudi number, reachable on WhatsApp." },
+  { city: "Madinah", name: "Basir", phone: "+880 1643-350167", note: "Ground contact for Madinah — Bangladeshi number, so use WhatsApp once you have data in KSA." },
+  { city: "Dhaka (agency)", name: "Mr. Fahim — Fly Hajj Aviation", phone: "+880 1737-600000", note: "Your booking agency in Gulshan; first call for any package or hotel issue." },
+];

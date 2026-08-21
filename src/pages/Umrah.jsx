@@ -6,6 +6,7 @@ import {
   umrahGuide, madinaNote,
   umrahSimOperators, umrahSimRecommendation, umrahSimTips,
   arabicPhrases, arabicPhraseNote, umrahRiteSteps, umrahJourneyStats, umrahTickets,
+  umrahVisaMeta, umrahVisas, umrahTransfers, umrahTransferNote, umrahGroundContacts,
 } from "../data/umrah";
 import { SectionHead, RiteArt } from "../components/ui";
 import Accordion from "../components/Accordion";
@@ -295,6 +296,56 @@ function TravelersTab() {
         ))}
       </div>
     )},
+    { key: "visa", icon: "📄", label: "Visa info", sub: "5 KSA eVisas", accent: "var(--u-gold)", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "4px 9px", fontSize: 12, marginBottom: 10 }}>
+          <span style={{ color: "var(--mist)", fontWeight: 700 }}>Type</span><span style={{ color: "var(--ink)" }}>{umrahVisaMeta.type}</span>
+          <span style={{ color: "var(--mist)", fontWeight: 700 }}>Issued</span><span style={{ color: "var(--ink)" }}>{umrahVisaMeta.issued}</span>
+          <span style={{ color: "var(--mist)", fontWeight: 700 }}>Valid to</span><span style={{ color: "var(--ink)" }}>{umrahVisaMeta.validUntil}</span>
+          <span style={{ color: "var(--mist)", fontWeight: 700 }}>Stay</span><span style={{ color: "var(--ink)" }}>{umrahVisaMeta.stay}</span>
+          <span style={{ color: "var(--mist)", fontWeight: 700 }}>Issued by</span><span style={{ color: "var(--slate)", lineHeight: 1.45 }}>{umrahVisaMeta.place}</span>
+        </div>
+        {umrahVisas.map((v, i) => (
+          <div key={i} style={{ padding: "9px 0", borderTop: "1px solid var(--line)" }}>
+            <div style={{ fontWeight: 700, fontSize: 12.5, marginBottom: 3 }}>{v.name}</div>
+            <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "2px 8px", fontSize: 11 }}>
+              <span style={{ color: "var(--mist)" }}>Visa</span><span style={{ fontFamily: "var(--font-mono)", color: "var(--u-mid)", fontWeight: 600 }}>{v.visa}</span>
+              <span style={{ color: "var(--mist)" }}>Passport</span><span style={{ fontFamily: "var(--font-mono)", color: "var(--ink)" }}>{v.passport}</span>
+              <span style={{ color: "var(--mist)" }}>DOB</span><span style={{ fontFamily: "var(--font-mono)", color: "var(--slate)" }}>{v.dob}</span>
+              <span style={{ color: "var(--mist)" }}>App no.</span><span style={{ fontFamily: "var(--font-mono)", color: "var(--slate)" }}>{v.app}</span>
+            </div>
+          </div>
+        ))}
+        <div style={{ fontSize: 11.5, color: "var(--slate)", fontStyle: "italic", marginTop: 10, paddingTop: 9, borderTop: "1px solid var(--line)" }}>
+          Operator: {umrahVisaMeta.operator}<br />Agent: {umrahVisaMeta.agent}
+        </div>
+        {umrahVisaMeta.restrictions.map((r, i) => (
+          <div key={i} className="tip warn" style={{ marginTop: 8 }}>{r}</div>
+        ))}
+      </div>
+    )},
+    { key: "pickup", icon: "🚘", label: "Pick & drop", sub: "Meet & greet", accent: "var(--u-gold)", render: () => (
+      <div style={{ padding: "0 14px" }}>
+        {umrahTransfers.map((t, i) => (
+          <div key={i} style={{ padding: "11px 0", borderTop: i > 0 ? "1px solid var(--line)" : "none" }}>
+            <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 2 }}>{t.leg}</div>
+            <div style={{ fontSize: 11.5, color: "var(--u-mid)", fontWeight: 600, marginBottom: 6 }}>{t.date}</div>
+            <div style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "4px 9px", fontSize: 11.5 }}>
+              <span style={{ color: "var(--mist)", fontWeight: 700 }}>Provider</span><span style={{ color: "var(--ink)", lineHeight: 1.45 }}>{t.provider}</span>
+              <span style={{ color: "var(--mist)", fontWeight: 700 }}>Vehicle</span><span style={{ fontFamily: "var(--font-mono)", color: "var(--ink)" }}>{t.vehicle}</span>
+              <span style={{ color: "var(--mist)", fontWeight: 700 }}>Driver</span><span style={{ color: "var(--ink)" }}>{t.driver}</span>
+              <span style={{ color: "var(--mist)", fontWeight: 700 }}>Call</span>
+              <a href={`tel:${t.driverPhone}`} style={{ fontFamily: "var(--font-mono)", color: "var(--m-blue)", fontWeight: 700 }}>{t.driverPhone}</a>
+              <span style={{ color: "var(--mist)", fontWeight: 700 }}>From</span><span style={{ color: "var(--slate)", lineHeight: 1.45 }}>{t.from}</span>
+              <span style={{ color: "var(--mist)", fontWeight: 700 }}>To</span><span style={{ color: "var(--slate)", lineHeight: 1.45 }}>{t.to}</span>
+              <span style={{ color: "var(--mist)", fontWeight: 700 }}>Office</span><span style={{ color: "var(--slate)", lineHeight: 1.45 }}>{t.office}</span>
+            </div>
+            <div className="tip warn" style={{ marginTop: 7 }}>{t.note}</div>
+          </div>
+        ))}
+        <div className="tip umrah" style={{ marginTop: 10 }}>{umrahTransferNote}</div>
+      </div>
+    )},
     { key: "tkt", icon: "🎫", label: "Tickets", sub: "Qatar & Biman refs", accent: "var(--u-gold)", render: () => (
       <div style={{ padding: "0 14px" }}>
         {[umrahTickets.qatar, umrahTickets.biman].map((t, i) => (
@@ -319,6 +370,17 @@ function TravelersTab() {
           <div key={i} style={{ padding: "9px 0", borderBottom: i < umrahLogistics.length - 1 ? "1px solid var(--line)" : "none" }}>
             <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--u-gold)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 2 }}>{l.label}</div>
             <div style={{ fontSize: 12.5, color: "var(--ink)", lineHeight: 1.5 }}>{l.value}</div>
+          </div>
+        ))}
+        <div style={{ fontSize: 10.5, fontWeight: 700, color: "var(--u-gold)", textTransform: "uppercase", letterSpacing: "0.06em", margin: "14px 0 6px", paddingTop: 10, borderTop: "1px solid var(--line)" }}>Ground contacts</div>
+        {umrahGroundContacts.map((g, i) => (
+          <div key={i} style={{ padding: "9px 11px", marginBottom: 7, borderRadius: "var(--r-sm)", background: "var(--u-light)", border: "1px solid rgba(139,30,45,0.15)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8 }}>
+              <span style={{ fontWeight: 700, fontSize: 12.5, color: "var(--u-deep)" }}>{g.name}</span>
+              <span style={{ fontSize: 10, fontWeight: 700, color: "var(--u-mid)", background: "#fff", padding: "2px 8px", borderRadius: 99 }}>{g.city}</span>
+            </div>
+            <a href={`tel:${g.phone.replace(/[^+\d]/g, "")}`} style={{ display: "inline-block", fontFamily: "var(--font-mono)", fontSize: 13, fontWeight: 700, color: "var(--m-blue)", margin: "4px 0 3px" }}>📞 {g.phone}</a>
+            <div style={{ fontSize: 11.5, color: "var(--slate)", lineHeight: 1.5 }}>{g.note}</div>
           </div>
         ))}
       </div>
