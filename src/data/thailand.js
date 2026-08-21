@@ -594,25 +594,12 @@ export const thailandChecklist = [
 // Free-cancellation deadlines drive the in-app alert. Dates are ISO in property local time.
 // Prices converted at planning rate ~1 THB = 3.35 BDT, 1 USD = 121 BDT — confirm live.
 export const bookingsMeta = {
-  note: "Live from your Agoda, Booking.com, Klook and Ticket2Attraction mail as of 21 Aug. Seven bookings were cancelled 16–19 Aug (listed at the bottom). Avani+ Samui is now CONFIRMED DIRECT with the resort. Bangkok still has duplicates: THREE lebua and TWO Centre Point bookings — all free to cancel until 2 Sep.",
+  note: "Live from your Agoda, Booking.com, Klook and Ticket2Attraction mail as of 21 Aug. Seven bookings were cancelled 16–19 Aug (listed at the bottom). ✅ Koh Samui is now SETTLED — Mimosa 31 Aug–2 Sep, then Tolani 2–5 Sep, exactly the combo in your cost plan. Bangkok still has duplicates: THREE lebua and TWO Centre Point bookings, all free to cancel until 2 Sep.",
   fxNote: "BDT shown at mid-market rates as of 21 Aug 2026 (1 USD = ৳123.50, 1 THB = ৳3.70, 1 CNY = ৳17.15). These are mid-market reference rates from Xe/exchange-rates.org — I can't access a Bloomberg terminal, and Agoda charges in the booking currency at their own rate on the payment date (already including a 5% adjustment), so your actual card debit will run slightly higher."
 };
 
 export const thailandBookings = [
   // ═══ KOH SAMUI ═══
-  {
-    id: "2523920499", manageUrl: "https://www.avanihotels.com/en/samui", source: "Direct · Avani+", leg: "samui", currency: "—",
-    property: "Avani+ Samui Resort", area: "Phang Ka, Koh Samui (south-west)",
-    status: "confirmed", checkIn: "2026-09-01", checkOut: "2026-09-05", nights: 4,
-    room: "Pool Villa", occupancy: "2 adults", board: "Per resort confirmation",
-    guest: "Mohammad Rezwanul Haque Rose",
-    priceLabel: "Rate via agent", priceBdt: "See agent",
-    breakdown: [["Pool Villa, 4 nights", "Confirmed direct with resort"]],
-    freeCancelUntil: "2026-08-25T23:59:00",
-    cancelTiers: [["Until 7 days before arrival (25 Aug)", "Free modify / cancel"], ["Within 7 days", "Charges apply"]],
-    payment: "✅ CONFIRMED DIRECT by the resort (Kittima Munee, Reservations) on 18 Aug. Hotel confirmation 100851622811 (2523920499). The Agoda booking 2036252454 for this resort was cancelled 19 Aug. Resort advises date changes must go through the booking agent. ☎ +66 77 485 299",
-    phone: "+66 77 485 299",
-  },
   {
     id: "1755039056", manageUrl: "https://www.agoda.com/account/bookings.html", source: "Agoda", leg: "samui", currency: "USD",
     property: "Mimosa Resort & Spa (early nights)", area: "Maenam, Koh Samui (north)",
@@ -713,7 +700,7 @@ export const thailandBookings = [
 // ─── CANCELLED (kept for reference — do not count in costs) ──────────────────
 export const cancelledBookings = [
   { id: "6896299202", property: "Sea Valley Resort", source: "Booking.com", when: "19 Aug", note: "Cancelled FREE of charge." },
-  { id: "2036252454", property: "Avani+ Vacation Club Samui", source: "Agoda", when: "19 Aug", note: "Replaced by the direct Avani+ Samui booking 2523920499." },
+  { id: "2036252454 / 2523920499", property: "Avani+ Samui Resort (Pool Villa, 1–5 Sep)", source: "Agoda", when: "19 Aug", note: "Cancelled. Hotel conf 100851622811 — the resort's 18 Aug confirmation referred to this same reservation." },
   { id: "2034352678", property: "Chatrium Hotel Riverside Bangkok", source: "Agoda", when: "18 Aug", note: "" },
   { id: "2034357546", property: "Avani+ Riverside Bangkok", source: "Agoda", when: "18 Aug", note: "" },
   { id: "2033972495", property: "Tolani Resort Koh Samui (CNY, 1–5 Sep)", source: "Agoda", when: "16 Aug", note: "" },
